@@ -1,0 +1,7 @@
+int count = 10;
+int other = 5;
+
+count = count + other * 2;
+
+print(count);
+sum(count, other);
