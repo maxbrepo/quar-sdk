@@ -1,0 +1,1 @@
+"""Quar Edit templates."""

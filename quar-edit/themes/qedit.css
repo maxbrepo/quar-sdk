@@ -1,0 +1,275 @@
+/*
+ * QEdit base theme.
+ *
+ * Interface structure belongs to Python.
+ * Visual presentation belongs to the theme.
+ */
+
+
+/* =========================================================
+ * Main editor
+ * ========================================================= */
+
+textview {
+    background-color: #f2f2f2;
+}
+
+textview text {
+    background-color: #f2f2f2;
+}
+
+
+/* =========================================================
+ * Menu bar
+ * ========================================================= */
+
+menubar {
+    background-color: #eeeeee;
+}
+
+menubar > item {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 4px 8px;
+}
+
+/* Remove the usual underline-like selection appearance. */
+
+menubar > item:hover,
+menubar > item:selected {
+    background-color: #dcecf7;
+    border: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+ * Notebook / tab bar
+ * ========================================================= */
+
+notebook > header {
+    background-color: #e4e4e4;
+    border-bottom: 1px solid #b8b8b8;
+}
+
+
+/* Normal inactive tab */
+
+notebook > header > tabs > tab {
+    background-color: #dddddd;
+
+    border-left: none;
+    border-right: 1px solid #b8b8b8;
+    border-top: none;
+    border-bottom: none;
+
+    padding: 1px 6px;
+
+    box-shadow: none;
+    transition: background-color 100ms ease;
+}
+
+
+/* Mouse over an inactive tab */
+
+notebook > header > tabs > tab:hover {
+    background-color: #c8c8c8;
+    box-shadow: none;
+}
+
+
+/* Currently active editor tab */
+
+notebook > header > tabs > tab:checked {
+    background-color: #aaaaaa;
+
+    border-right: 1px solid #999999;
+    border-bottom: none;
+
+    box-shadow: none;
+}
+
+
+/* Keep active tab dark while the mouse is over it. */
+
+notebook > header > tabs > tab:checked:hover {
+    background-color: #a5a5a5;
+}
+
+
+/* =========================================================
+ * QEdit tab contents
+ * ========================================================= */
+
+.qedit-tab-header {
+    margin: 0;
+    padding: 0;
+}
+
+.qedit-tab-label {
+    color: #202020;
+}
+
+
+/* =========================================================
+ * Tab close button
+ * ========================================================= */
+
+.qedit-tab-close {
+    min-width: 14px;
+    min-height: 14px;
+
+    padding: 0;
+    margin: 0;
+
+    color: #707070;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.qedit-tab-close:hover {
+    color: #202020;
+    background-color: #b8b8b8;
+
+    border: none;
+    box-shadow: none;
+}
+
+/* =========================================================
+ * Line number gutter
+ * ========================================================= */
+
+.qedit-line-number-gutter {
+    background-color: #dddddd;
+    border-right: 1px solid #b8b8b8;
+}
+
+.qedit-line-numbers,
+.qedit-line-numbers text {
+    background-color: #dddddd;
+    color: #666666;
+}
+
+.qedit-editor,
+.qedit-editor text {
+    background-color: #f2f2f2;
+}
+
+/* Source-only zoom sizes. */
+.qedit-source-size-7, .qedit-source-size-7 text { font-size: 7px; }
+.qedit-source-size-8, .qedit-source-size-8 text { font-size: 8px; }
+.qedit-source-size-9, .qedit-source-size-9 text { font-size: 9px; }
+.qedit-source-size-10, .qedit-source-size-10 text { font-size: 10px; }
+.qedit-source-size-11, .qedit-source-size-11 text { font-size: 11px; }
+.qedit-source-size-12, .qedit-source-size-12 text { font-size: 12px; }
+.qedit-source-size-13, .qedit-source-size-13 text { font-size: 13px; }
+.qedit-source-size-14, .qedit-source-size-14 text { font-size: 14px; }
+.qedit-source-size-15, .qedit-source-size-15 text { font-size: 15px; }
+.qedit-source-size-16, .qedit-source-size-16 text { font-size: 16px; }
+.qedit-source-size-17, .qedit-source-size-17 text { font-size: 17px; }
+.qedit-source-size-18, .qedit-source-size-18 text { font-size: 18px; }
+.qedit-source-size-19, .qedit-source-size-19 text { font-size: 19px; }
+.qedit-source-size-20, .qedit-source-size-20 text { font-size: 20px; }
+.qedit-source-size-21, .qedit-source-size-21 text { font-size: 21px; }
+.qedit-source-size-22, .qedit-source-size-22 text { font-size: 22px; }
+.qedit-source-size-23, .qedit-source-size-23 text { font-size: 23px; }
+.qedit-source-size-24, .qedit-source-size-24 text { font-size: 24px; }
+.qedit-source-size-25, .qedit-source-size-25 text { font-size: 25px; }
+.qedit-source-size-26, .qedit-source-size-26 text { font-size: 26px; }
+.qedit-source-size-27, .qedit-source-size-27 text { font-size: 27px; }
+.qedit-source-size-28, .qedit-source-size-28 text { font-size: 28px; }
+.qedit-source-size-29, .qedit-source-size-29 text { font-size: 29px; }
+.qedit-source-size-30, .qedit-source-size-30 text { font-size: 30px; }
+.qedit-source-size-31, .qedit-source-size-31 text { font-size: 31px; }
+.qedit-source-size-32, .qedit-source-size-32 text { font-size: 32px; }
+.qedit-source-size-33, .qedit-source-size-33 text { font-size: 33px; }
+.qedit-source-size-34, .qedit-source-size-34 text { font-size: 34px; }
+.qedit-source-size-35, .qedit-source-size-35 text { font-size: 35px; }
+.qedit-source-size-36, .qedit-source-size-36 text { font-size: 36px; }
+.qedit-source-size-37, .qedit-source-size-37 text { font-size: 37px; }
+.qedit-source-size-38, .qedit-source-size-38 text { font-size: 38px; }
+.qedit-source-size-39, .qedit-source-size-39 text { font-size: 39px; }
+.qedit-source-size-40, .qedit-source-size-40 text { font-size: 40px; }
+
+.qedit-theme-light .qedit-editor,
+.qedit-theme-light .qedit-editor text { background-color: #f2f2f2; color: #202020; }
+.qedit-theme-light .qedit-line-number-gutter { background-color: #dddddd; color: #666666; border-right: 1px solid #b8b8b8; }
+
+.qedit-theme-dark { background-color: #2b2b2b; color: #d8d8d8; }
+.qedit-theme-dark menubar { background-color: #f2f2f2; color: #202020; }
+.qedit-theme-dark menubar > item:hover,
+.qedit-theme-dark menubar > item:selected { background-color: #dedede; }
+.qedit-theme-dark notebook > header { background-color: #303030; border-bottom: 1px solid #505050; }
+.qedit-theme-dark notebook > header > tabs > tab { background-color: #383838; color: #d8d8d8; border-right: 1px solid #505050; }
+.qedit-theme-dark notebook > header > tabs > tab:hover { background-color: #444444; }
+.qedit-theme-dark notebook > header > tabs > tab:checked { background-color: #505050; }
+.qedit-theme-dark .qedit-tab-label { color: #dddddd; }
+.qedit-theme-dark .qedit-editor,
+.qedit-theme-dark .qedit-editor text { background-color: #262626; color: #dddddd; }
+.qedit-theme-dark .qedit-line-number-gutter { background-color: #303030; color: #a8a8a8; border-right: 1px solid #4a4a4a; }
+
+.qedit-theme-vim { background-color: #181b18; color: #8fd18f; }
+.qedit-theme-vim menubar { background-color: #f2f2f2; color: #202020; font-size: 16px; font-weight: bold; }
+.qedit-theme-vim menubar > item { padding: 6px 10px; }
+.qedit-theme-vim menubar > item:hover,
+.qedit-theme-vim menubar > item:selected { background-color: #dedede; }
+.qedit-theme-vim notebook > header { background-color: #202420; border-bottom: 1px solid #3f503f; }
+.qedit-theme-vim notebook > header > tabs > tab { background-color: #252b25; color: #8fd18f; border-right: 1px solid #3f503f; }
+.qedit-theme-vim notebook > header > tabs > tab:checked { background-color: #354035; }
+.qedit-theme-vim .qedit-tab-label { color: #8fd18f; }
+.qedit-theme-vim .qedit-editor,
+.qedit-theme-vim .qedit-editor text { background-color: #171a17; color: #83c983; }
+.qedit-theme-vim .qedit-line-number-gutter { background-color: #222722; color: #669966; border-right: 1px solid #3f503f; }
+
+
+/* Dark Blue: blue-grey, Sublime-inspired without pure black. */
+.qedit-theme-dark-blue {
+    background-color: #252b33;
+    color: #d2d6dc;
+}
+.qedit-theme-dark-blue menubar {
+    background-color: #f2f2f2;
+    color: #202020;
+}
+.qedit-theme-dark-blue menubar > item:hover,
+.qedit-theme-dark-blue menubar > item:selected {
+    background-color: #dedede;
+}
+.qedit-theme-dark-blue notebook > header {
+    background-color: #29313a;
+    border-bottom: 1px solid #46515e;
+}
+.qedit-theme-dark-blue notebook > header > tabs > tab {
+    background-color: #313a45;
+    color: #d2d6dc;
+    border-right: 1px solid #46515e;
+}
+.qedit-theme-dark-blue notebook > header > tabs > tab:hover {
+    background-color: #3b4653;
+}
+.qedit-theme-dark-blue notebook > header > tabs > tab:checked {
+    background-color: #46515e;
+}
+.qedit-theme-dark-blue .qedit-tab-label {
+    color: #d7dbe0;
+}
+.qedit-theme-dark-blue .qedit-editor,
+.qedit-theme-dark-blue .qedit-editor text {
+    background-color: #232a32;
+    color: #d3d7dc;
+}
+.qedit-theme-dark-blue .qedit-line-number-gutter {
+    background-color: #2c3540;
+    color: #aeb7c2;
+    border-right: 1px solid #46515e;
+}
+
+
+/* Build Settings prototype */
+.qedit-build-title { font-size: 20px; }
+.qedit-build-field-label { font-weight: bold; margin-top: 4px; }
+.qedit-build-platform { font-size: 16px; font-weight: bold; margin-top: 12px; }
+.qedit-build-help { opacity: 0.72; margin-top: 8px; }

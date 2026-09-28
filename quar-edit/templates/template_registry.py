@@ -1,0 +1,16 @@
+TEMPLATES = (
+("C (*.c)", ".c", "#include <stdio.h>\n\nint main(void) {\n    return 0;\n}\n"),
+("C++ (*.cpp)", ".cpp", "#include <iostream>\n\nint main() {\n    return 0;\n}\n"),
+("Assembly (*.asm)", ".asm", "global _start\nsection .text\n_start:\n    mov rax, 60\n    xor rdi, rdi\n    syscall\n"),
+("Rust (*.rs)", ".rs", 'fn main() {\n    println!("Hello from Rust");\n}\n'),
+("Pascal (*.pas)", ".pas", "program Main;\nbegin\nend.\n"),
+("FreeBASIC (*.bas)", ".bas", 'Print "Hello from FreeBASIC"\n'),
+("Go (*.go)", ".go", 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello from Go")\n}\n'),
+("Zig (*.zig)", ".zig", 'const std = @import("std");\n\npub fn main() !void {\n}\n'),
+("Java (*.java)", ".java", "public class Main {\n    public static void main(String[] args) {\n    }\n}\n"),
+("Python (*.py)", ".py", 'def main() -> None:\n    pass\n\nif __name__ == "__main__":\n    main()\n'),
+("JavaScript (*.js)", ".js", 'console.log("Hello from JavaScript");\n'),
+("TypeScript (*.ts)", ".ts", 'const message: string = "Hello from TypeScript";\nconsole.log(message);\n'),
+("Mojo (*.mojo)", ".mojo", 'fn main():\n    print("Hello from Mojo")\n'),
+("Visual Quar (*.vq)", ".vq", "// Visual Quar source\n"),
+)
