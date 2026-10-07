@@ -1,0 +1,4 @@
+const answer = 42;
+const enabled = true;
+print(answer);
+print(enabled);

@@ -1,5 +1,6 @@
 from frontend.quar.ast_nodes import (
     Integer,
+    Double,
     Variable,
     BinaryOperation,
     VariableDeclaration,
@@ -9,7 +10,11 @@ from frontend.quar.ast_nodes import (
 
 class CCodeGenerator:
 
-    def generate(self, program):
+    def __init__(self):
+        self.variable_types = {}
+
+    def generate(self, program, variable_types=None):
+        self.variable_types = variable_types or {}
         lines = [
             "#include <stdio.h>",
             "",
@@ -31,12 +36,25 @@ class CCodeGenerator:
         if isinstance(statement, VariableDeclaration):
             value = self.generate_expression(statement.value)
 
+            c_type = self.get_c_type(
+                statement.var_type
+            )
+
             return (
-                f"int {statement.name} = {value};"
+                f"{c_type} {statement.name} = {value};"
             )
 
         if isinstance(statement, Assignment):
             value = self.generate_expression(statement.value)
+
+            if statement.name in self.variable_types:
+                c_type = self.get_c_type(
+                    self.variable_types[statement.name]
+                )
+
+                return (
+                    f"{c_type} {statement.name} = {value};"
+                )
 
             return (
                 f"{statement.name} = {value};"
@@ -58,6 +76,10 @@ class CCodeGenerator:
         if isinstance(expression, Integer):
             return str(expression.value)
             # Convert integer node to C text
+
+        if isinstance(expression, Double):
+            return repr(expression.value)
+            # Convert double node to C text
 
         if isinstance(expression, Variable):
             return expression.name
@@ -88,6 +110,52 @@ class CCodeGenerator:
             f"{type(expression).__name__}"
         )
 
+    def get_c_type(self, quar_type):
+        if quar_type == "int":
+            return "int"
+        if quar_type == "double":
+            return "double"
+
+        raise ValueError(
+            f"Unsupported Quar type: '{quar_type}'"
+        )
+
+    def infer_expression_type(self, expression):
+        if isinstance(expression, Integer):
+            return "int"
+
+        if isinstance(expression, Double):
+            return "double"
+
+        if isinstance(expression, Variable):
+            return self.variable_types.get(
+                expression.name,
+                "int"
+            )
+
+        if isinstance(expression, BinaryOperation):
+            left_type = self.infer_expression_type(
+                expression.left
+            )
+            right_type = self.infer_expression_type(
+                expression.right
+            )
+
+            if "double" in (
+                left_type,
+                right_type,
+            ):
+                return "double"
+
+            return "int"
+
+        if isinstance(expression, FunctionCall):
+            if expression.name == "sum":
+                return "int"
+
+        return "int"
+        # Return expression numeric type
+
     def generate_function_call(
         self,
         call,
@@ -106,9 +174,18 @@ class CCodeGenerator:
                     "print requires one argument"
                 )
 
-            result = (
-                f'printf("%d\\n", {arguments[0]})'
+            argument_type = self.infer_expression_type(
+                call.arguments[0]
             )
+
+            if argument_type == "double":
+                result = (
+                    f'printf("%g\\n", {arguments[0]})'
+                )
+            else:
+                result = (
+                    f'printf("%d\\n", {arguments[0]})'
+                )
 
         elif call.name == "sum":
 

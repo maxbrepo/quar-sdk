@@ -71,6 +71,8 @@ class EditorView(Gtk.Box):
         self._modified_callback: ModifiedCallback | None = None
         self._ignore_changes = False
         self._font_size = self.DEFAULT_FONT_SIZE
+        self._syntax_highlighter = None
+        self._highlight_refreshing = False
 
         self._scroll_controller = Gtk.EventControllerScroll.new(
             Gtk.EventControllerScrollFlags.VERTICAL
@@ -122,16 +124,24 @@ class EditorView(Gtk.Box):
             self.buffer.set_text(text)
             self._update_gutter_width()
             self.line_number_gutter.queue_draw()
+            self._refresh_syntax_highlighting()
         finally:
             self._ignore_changes = False
-        self._font_size = self.DEFAULT_FONT_SIZE
 
-        self._scroll_controller = Gtk.EventControllerScroll.new(
-            Gtk.EventControllerScrollFlags.VERTICAL
-        )
-        self._scroll_controller.connect("scroll", self._on_editor_scroll)
-        self.editor.add_controller(self._scroll_controller)
-        self._apply_source_font_size()
+    def set_syntax_highlighter(self, callback) -> None:
+        """Install or clear the callback that styles the current text buffer."""
+        self._syntax_highlighter = callback
+        self._refresh_syntax_highlighting()
+
+    def _refresh_syntax_highlighting(self) -> None:
+        """Refresh syntax tags once, preventing TextBuffer signal re-entry."""
+        if self._syntax_highlighter is None or self._highlight_refreshing:
+            return
+        self._highlight_refreshing = True
+        try:
+            self._syntax_highlighter(self.buffer)
+        finally:
+            self._highlight_refreshing = False
 
     def clear(self) -> None:
         """Clear the editor without marking the document modified."""
@@ -249,8 +259,12 @@ class EditorView(Gtk.Box):
         buffer: Gtk.TextBuffer,
     ) -> None:
         """Refresh the gutter and notify QEdit after a text change."""
+        if self._highlight_refreshing:
+            return
+
         self._update_gutter_width()
         self.line_number_gutter.queue_draw()
+        self._refresh_syntax_highlighting()
 
         if self._ignore_changes:
             return

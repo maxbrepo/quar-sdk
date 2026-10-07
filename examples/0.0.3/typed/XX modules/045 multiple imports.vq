@@ -1,0 +1,5 @@
+import modules45.left;
+import modules45.right;
+
+int result = modules45.left.value() + modules45.right.value();
+print(result);

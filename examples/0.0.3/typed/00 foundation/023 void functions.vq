@@ -1,0 +1,6 @@
+void show(int value) {
+    print(value);
+    return;
+}
+
+show(23);

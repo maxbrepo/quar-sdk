@@ -1,0 +1,2 @@
+enum Result { SUCCESS(i32), ERROR(string) }
+Result r = Result.SUCCESS("bad");

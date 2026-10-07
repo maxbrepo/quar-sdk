@@ -1,0 +1,15 @@
+struct Point {
+    int x;
+    int y;
+}
+
+struct Line {
+    Point start;
+    Point end;
+}
+
+Point first = {1, 2};
+Point second = {3, 4};
+Line line = {first, second};
+
+print(line.start);

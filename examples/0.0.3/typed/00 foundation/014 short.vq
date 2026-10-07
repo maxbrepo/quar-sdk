@@ -1,0 +1,4 @@
+short a = 10;
+ushort b = 20;
+print(a);
+print(b);

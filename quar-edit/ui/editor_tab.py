@@ -9,6 +9,10 @@ from gi.repository import GLib, Gtk
 
 from session.working_document import WorkingDocument
 from ui.editor_view import EditorView
+from highlighting.visual_quar_highlighter import (
+    apply_visual_quar_highlighting,
+    clear_visual_quar_highlighting,
+)
 
 
 ModifiedCallback = Callable[["EditorTab"], None]
@@ -32,6 +36,7 @@ class EditorTab(Gtk.Box):
 
         self.working_document = working_document
         self._modified_callback: ModifiedCallback | None = None
+        self._projection_active = False
 
         self.set_hexpand(True)
         self.set_vexpand(True)
@@ -81,9 +86,33 @@ class EditorTab(Gtk.Box):
             self._modified_callback(self)
 
     def get_text(self) -> str:
-        """Return the current editor text."""
-
+        """Return the authoritative source text, never a display projection."""
+        if self._projection_active:
+            return self.working_document.text
         return self.editor_view.get_text()
+
+    def set_visual_quar_highlight_profile(self, profile, palette: str = "classic") -> None:
+        """Highlight the displayed VQ representation using its source profile."""
+        self.editor_view.set_syntax_highlighter(
+            lambda buffer: apply_visual_quar_highlighting(buffer, profile, palette)
+        )
+
+    def clear_syntax_highlighting(self) -> None:
+        """Disable VQ highlighting and remove tags already present."""
+        self.editor_view.set_syntax_highlighter(None)
+        clear_visual_quar_highlighting(self.editor_view.buffer)
+
+    def show_projection(self, text: str) -> None:
+        """Show read-only projected text without changing the source document."""
+        self._projection_active = True
+        self.editor_view.set_text(text)
+        self.editor_view.get_text_view().set_editable(False)
+
+    def show_source(self) -> None:
+        """Restore the authoritative source text and enable editing."""
+        self._projection_active = False
+        self.editor_view.set_text(self.working_document.text)
+        self.editor_view.get_text_view().set_editable(True)
 
     def set_text(
         self,
@@ -92,7 +121,9 @@ class EditorTab(Gtk.Box):
     ) -> None:
         """Replace the editor text and synchronize its working state."""
 
+        self._projection_active = False
         self.editor_view.set_text(text)
+        self.editor_view.get_text_view().set_editable(True)
 
         self.working_document.text = text
         self.working_document.modified = modified

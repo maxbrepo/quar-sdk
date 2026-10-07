@@ -1,0 +1,12 @@
+string command = "hi";
+case (command) {
+    "start" {
+        print("start");
+    }
+    "hi" {
+        print("hello");
+    }
+    default {
+        print("other");
+    }
+}

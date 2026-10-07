@@ -1,0 +1,7 @@
+int identity(int value) {
+    int local = value;
+    return local;
+}
+
+int result = identity(26);
+print(result);

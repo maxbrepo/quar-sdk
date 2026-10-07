@@ -1,138 +1,161 @@
 # Quar SDK Releases
 
-This document records the released Quar SDK versions and the main
-capabilities introduced by each release.
+This document records released Quar SDK versions and the current development line.
+
+============================================================
+
+# Version 0.0.3
+
+**Release date:** October 7, 2026**
+**Status:** Pre-release / Active Development
+
+Quar SDK 0.0.3 is the current development line. Its component targets are Visual Quar 0.0.3 and Quar Edit 0.0.2. The components use independent version numbers: SDK releases do not force the editor and language to share the same version.
+
+The version is not yet frozen. Items listed here describe functionality present in the current development tree and should not be interpreted as a final stable-release guarantee.
+
+------------------------------------------------------------------------
+
+## Visual Quar Language
+
+The typed 0.0.3 baseline has been developed and regression-tested through the structured-types chapter.
+
+Major areas added or consolidated during this development line include:
+
+- fixed-width signed and unsigned integer families and numeric aliases;
+- constants, default initialization, safe numeric compatibility, overflow/underflow diagnostics, and precision-loss diagnostics;
+- unified text literal work and Unicode-oriented string semantics;
+- arithmetic, comparison, logical, bitwise, shift, precedence, parentheses, modulo, and compound assignment;
+- `if`, `else if`, truthiness, structured `case`, and legacy switch compatibility;
+- `while`, `do while`, explicit `loop`, ascending/descending `for`, `break`, `continue`, and conservative infinite-loop diagnostics;
+- typed functions, recursion, default parameters, named arguments, and related validation;
+- static arrays, multidimensional bounds checking, indexed iteration, and experimental dynamic arrays;
+- Unicode strings with length, indexing, substring, find, replace, trim, conversion, iteration, escapes, and ordered comparison;
+- mutable `struct`, immutable `record`, `enum`, aliases, tuples, destructuring, enum associated values/payloads, and `match` with exhaustiveness and duplicate-variant validation.
+
+Recent language development is QRVM-first. Native C backend support is not assumed for every newer construct until separately implemented and tested.
+
+------------------------------------------------------------------------
+
+## Regression Runner and Feature Status
+
+The 0.0.3 development tools distinguish successful execution from controlled expected errors and internal crashes.
+
+Regression results use the categories:
+
+`PASS`, `EXPECTED ERROR`, `FAIL`, and `CRASH`.
+
+Feature status infrastructure also separates maturity from architectural dependencies so experimental features can exist without being mislabeled as stable.
+
+------------------------------------------------------------------------
+
+## Source Projection and Easy Vocabulary
+
+0.0.3 introduces `tooling/source_projection` as an editor-independent Visual Quar service.
+
+The service keeps canonical Visual Quar source separate from its visible representation and supports explicit source profiles, canonical/extended vocabulary, UTF-8 language data, NFC Unicode normalization, and non-destructive projection.
+
+The development tree includes experimental Easy Vocabulary support for identifier and comment representation. Known, composed, partial, and unknown vocabulary can be distinguished, allowing incomplete translation to fall back rather than fabricate source meaning.
+
+The vocabulary architecture is designed to grow toward thousands of canonical concepts without requiring a new projection API.
+
+The current tree registers 26 Unicode language packs. These packs establish infrastructure and vocabulary data; they are not all claimed to have completed native-speaker validation.
+
+------------------------------------------------------------------------
+
+## Quar Edit 0.0.2 Integration
+
+Quar Edit advances from 0.0.1 to 0.0.2 in this SDK development line and now acts as the first client of the Visual Quar Source Projection service.
+
+For `.vq` documents the editor can maintain authoritative source text separately from a display-only projection. Source View is connected to SDK source profiles rather than implementing a private translation engine inside QEdit.
+
+The development tree also includes Visual Quar syntax highlighting tied to the same vocabulary/profile infrastructure, with Off, Classic, and High Contrast presentation choices.
+
+This architecture is intentionally editor-independent: QEdit is the reference integration, while other editors can consume the same SDK service in the future.
+
+------------------------------------------------------------------------
+
+## Unicode and Localization
+
+QEdit UI localization and Visual Quar source projection remain separate concerns.
+
+UI resources translate the editor itself. Source Projection represents Visual Quar code. Both are designed around Unicode so future languages are not constrained to Latin-script assumptions.
+
+------------------------------------------------------------------------
+
+## Experimental / Deferred Areas
+
+0.0.3 deliberately allows isolated experimental functionality while deeper architecture remains open. Examples include dynamic arrays and advanced source projection/vocabulary behavior.
+
+The memory/ownership model, complete native support for newer language constructs, inferred/mixed-language completion, and other advanced system-language work remain future development areas.
+
+Known legacy or deferred regressions are tracked separately and do not redefine the validated typed baseline.
 
 ============================================================
 
 # Version 0.0.2
 
-**Release date:** September 28, 2026\
+**Release date:** September 28, 2026  
 **Status:** Early Development Release
 
-Quar SDK 0.0.2 expands the initial Visual Quar toolchain into a broader
-development environment centered around Quar Edit, language profiles,
-external toolchain integration, and multilingual interface support.
+Quar SDK 0.0.2 expanded the initial Visual Quar toolchain into a broader development environment centered around Quar Edit, language profiles, external toolchain integration, and multilingual interface support.
 
 ------------------------------------------------------------------------
 
 ## Quar Edit
 
-Version 0.0.2 establishes the first functional Quar Edit baseline.
+During the Quar SDK 0.0.2 line, Quar Edit remained at component version 0.0.1. SDK and editor versions are independent.
 
-The editor includes file and folder operations, tab-based editing,
-saving and Save As, preferences infrastructure, keyboard shortcuts,
-themes, source templates, language profiles, source-extension
-recognition, and language-dependent build and execution operations.
+The editor baseline included file and folder operations, tab-based editing, saving and Save As, preferences infrastructure, keyboard shortcuts, themes, source templates, language profiles, source-extension recognition, and language-dependent build and execution operations.
 
-Quar Edit connects supported language profiles to external compilers,
-interpreters, runtimes, and build tools. Operations can be enabled or
-disabled according to the selected language and the availability of its
-required toolchain.
+Quar Edit connected supported language profiles to external compilers, interpreters, runtimes, and build tools. Operations could be enabled or disabled according to the selected language and availability of its required toolchain.
 
-Build and execution timing are handled separately.
+Build and execution timing were handled separately.
 
 ------------------------------------------------------------------------
 
-## Visual Quar
+## Visual Quar / QRVM / Native Path
 
-Visual Quar remains the primary language of the Quar ecosystem.
+Visual Quar remained the primary language of the ecosystem. Its development architecture used a frontend validation pipeline followed by either the QRVM development path or the C/native compilation path.
 
-Its development architecture continues to use a frontend validation
-pipeline followed by either the QRVM development path or the C/native
-compilation path.
+QRVM remained independent from the C backend, while the native path generated C source and delegated final compilation to an external native C toolchain.
 
 ------------------------------------------------------------------------
 
-## QRVM
+## Programming Languages and UI Localization
 
-QRVM remains the development-oriented virtual-machine path for Visual
-Quar.
+The Quar Edit 0.0.1 baseline included profiles for C, C++, Assembly, Rust, Pascal, Go, Zig, Python, Java, JavaScript, TypeScript, Mojo, Visual Quar, and FreeBASIC.
 
-It is kept separate from the C backend so that rapid execution and
-native compilation can evolve independently.
-
-------------------------------------------------------------------------
-
-## C Transpilation and Native Compilation
-
-The native Visual Quar path continues to generate C source and delegate
-final compilation to an external native C toolchain.
-
-The two Visual Quar execution directions therefore remain:
-
-`Visual Quar -> QRVM`
-
-`Visual Quar -> C -> native compiler -> executable`
-
-------------------------------------------------------------------------
-
-## Programming Languages
-
-Quar Edit 0.0.2 includes profiles for **C, C++, Assembly, Rust, Pascal,
-Go, Zig, Python, Java, JavaScript, TypeScript, Mojo, Visual Quar, and
-FreeBASIC**.
-
-## User Interface Languages
-
-Quar Edit 0.0.2 includes localization resources for **English, Italiano,
-Español (España), Português (Brasil), 日本語, 简体中文, 繁體中文,
-한국어, हिन्दी, Français, العربية, Русский, Deutsch, Türkçe, Bahasa
-Indonesia, Tiếng Việt, Polski, বাংলা, ไทย, فارسی, اردو, Українська,
-Nederlands, Ελληνικά, Čeština, and Română**.
-
-The localization baseline covers the 59 interface keys defined for this
-release. Native-speaker review and continued graphical validation,
-particularly for right-to-left interfaces, remain separate validation
-work.
+The release also included multilingual UI resources across a broad set of languages. Native-speaker review and graphical validation, particularly for right-to-left interfaces, remained ongoing work.
 
 ============================================================
 
 # Version 0.0.1
 
-**Release date:** September 17, 2026\
+**Release date:** September 17, 2026  
 **Status:** Initial Development Release
 
-Quar SDK 0.0.1 established the first working foundation of the Visual
-Quar toolchain.
+Quar SDK 0.0.1 established the first working foundation of the Visual Quar toolchain.
 
 ------------------------------------------------------------------------
 
 ## Visual Quar
 
-The first Visual Quar processing pipeline was established around lexical
-analysis, parsing, AST construction, and semantic analysis.
+The first Visual Quar processing pipeline was established around lexical analysis, parsing, AST construction, and semantic analysis.
 
-The initial language subset supported typed declarations, assignments,
-variables, integer values, arithmetic expressions, and operator
-precedence.
-
-External `.vq` source files could be processed by the toolchain.
+The initial language subset supported typed declarations, assignments, variables, integer values, arithmetic expressions, and operator precedence. External `.vq` source files could be processed by the toolchain.
 
 ------------------------------------------------------------------------
 
 ## QRVM
 
-The first QRVM execution path was introduced.
-
-The QRVM reference implementation was written in Python and provided a
-stack-oriented execution model independent from the C compilation
-backend.
-
-The initial instruction set included operations for loading and storing
-values, arithmetic, output, stack cleanup, and program termination.
+The first QRVM execution path introduced a Python reference implementation with a stack-oriented execution model independent from the C compilation backend.
 
 ------------------------------------------------------------------------
 
 ## C Transpilation and Native Compilation
 
-Visual Quar programs could be transpiled to C and subsequently compiled
-into native executable code.
+Visual Quar programs could be transpiled to C and subsequently compiled into native executable code. Linux/GCC and Windows/MinGW paths were documented and tested during the initial foundation work.
 
-The documented native targets were Linux through GCC and Windows through
-MinGW, with the Windows target developed and tested from Linux using
-Wine.
-
-Both the QRVM path and the C/native path were successfully tested.
+Both the QRVM path and the C/native path were successfully tested for the initial language subset.
 
 ============================================================

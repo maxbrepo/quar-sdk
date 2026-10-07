@@ -1,0 +1,10 @@
+int inspect(int value) {
+    if (value > 0) {
+        int inner = 27;
+        print(inner);
+    }
+    return value;
+}
+
+int result = inspect(1);
+print(result);

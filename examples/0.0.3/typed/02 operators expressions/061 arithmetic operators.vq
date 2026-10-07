@@ -1,0 +1,12 @@
+i32 a = 20;
+i32 b = 6;
+i32 add = a + b;
+i32 sub = a - b;
+i32 mul = a * b;
+f64 fa = 20.0;
+f64 fb = 6.0;
+f64 div = fa / fb;
+print(add);
+print(sub);
+print(mul);
+print(div);

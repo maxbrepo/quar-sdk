@@ -1,0 +1,17 @@
+bool enabled = true;
+bool ready = true;
+bool blocked = false;
+
+bool access = enabled and ready;
+bool denied = not enabled;
+bool alternative = enabled or blocked;
+bool safe = enabled and not blocked;
+bool comparison = (10 >= 5) and (20 != 10);
+bool grouped = (enabled or blocked) and ready;
+
+print(access);
+print(denied);
+print(alternative);
+print(safe);
+print(comparison);
+print(grouped);

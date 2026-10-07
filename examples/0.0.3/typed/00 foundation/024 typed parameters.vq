@@ -1,0 +1,6 @@
+double echo_double(double value) {
+    return value;
+}
+
+double result = echo_double(2.5);
+print(result);

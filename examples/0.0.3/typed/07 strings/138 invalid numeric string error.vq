@@ -1,0 +1,3 @@
+string text = "forty-two";
+i32 value = to_int(text);
+print(value);

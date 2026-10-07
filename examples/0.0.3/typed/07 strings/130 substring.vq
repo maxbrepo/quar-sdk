@@ -1,0 +1,3 @@
+string text = "Visual Quar";
+string part = substring(text, 7, 4);
+print(part);

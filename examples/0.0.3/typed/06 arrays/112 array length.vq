@@ -1,0 +1,2 @@
+i32 values[4] = {1, 2, 3, 4};
+print(values.length);

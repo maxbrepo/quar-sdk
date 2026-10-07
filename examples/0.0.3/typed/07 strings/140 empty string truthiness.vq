@@ -1,0 +1,6 @@
+string text = "";
+if (text) {
+    print("wrong");
+} else {
+    print("empty");
+}

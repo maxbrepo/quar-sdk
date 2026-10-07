@@ -1,0 +1,4 @@
+i32 value = (2 + 3) * 4;
+bool check = (10 > 5) and (3 < 7);
+print(value);
+print(check);

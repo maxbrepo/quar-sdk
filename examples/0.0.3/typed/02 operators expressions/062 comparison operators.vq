@@ -1,0 +1,14 @@
+i32 a = 10;
+i32 b = 20;
+bool eq = a == b;
+bool ne = a != b;
+bool lt = a < b;
+bool gt = a > b;
+bool le = a <= b;
+bool ge = a >= b;
+print(eq);
+print(ne);
+print(lt);
+print(gt);
+print(le);
+print(ge);

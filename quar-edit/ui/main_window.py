@@ -14,6 +14,14 @@ from ui.menu_bar import EditorMenuBar
 from ui.tab_manager import TabManager
 from build.build_manager import BuildManager, BuildResult
 from build.build_profiles import PROFILES, get_operation, profile_for_path
+from tooling.source_projection import (
+    CANONICAL_PROFILE,
+    SourceLanguage,
+    SourceProfile,
+    VocabularyStyle,
+    project_source,
+)
+from ui.source_view_languages import SOURCE_VIEW_BY_CODE
 
 
 class QuarEditWindow(Gtk.ApplicationWindow):
@@ -113,6 +121,10 @@ class QuarEditWindow(Gtk.ApplicationWindow):
         """Save a modified tab before closing it."""
 
         document = editor_tab.working_document
+
+        if self.source_view_language != "canonical":
+            self.source_view_language = "canonical"
+            self._apply_source_view(editor_tab)
 
         if document.file_path is None:
             self._save_as_before_close(
@@ -220,6 +232,8 @@ class QuarEditWindow(Gtk.ApplicationWindow):
         super().__init__(application=app)
 
         self.project_folder: Path | None = None
+        self.source_view_language = "canonical"
+        self.highlighting_style = getattr(app, "current_highlighting", "classic")
         self.build_manager = BuildManager()
 
         # QEdit persistent state.
@@ -262,7 +276,29 @@ class QuarEditWindow(Gtk.ApplicationWindow):
         self.tab_manager.set_vexpand(True)
         self.tab_manager.set_hexpand(True)
 
-        self.main_layout.append(self.menu_bar)
+        # Keep the Source View indicator on the same grey menu row, with
+        # flexible space separating it from Help.
+        self.menu_row = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL,
+            spacing=0,
+        )
+        self.menu_row.add_css_class("qedit-menu-row")
+        self.menu_row.append(self.menu_bar)
+
+        menu_spacer = Gtk.Box()
+        menu_spacer.set_hexpand(True)
+        self.menu_row.append(menu_spacer)
+
+        self.source_view_indicator = Gtk.Label()
+        self.source_view_indicator.set_xalign(1.0)
+        self.source_view_indicator.set_margin_start(24)
+        self.source_view_indicator.set_margin_end(12)
+        self.source_view_indicator.set_margin_top(3)
+        self.source_view_indicator.set_margin_bottom(3)
+        self._update_source_view_indicator()
+        self.menu_row.append(self.source_view_indicator)
+
+        self.main_layout.append(self.menu_row)
         self.main_layout.append(self.tab_manager)
 
         self.build_output_revealer = Gtk.Revealer()
@@ -325,6 +361,125 @@ class QuarEditWindow(Gtk.ApplicationWindow):
     def _on_active_tab_changed(self, notebook, page, page_number) -> None:
         """Refresh language-dependent build actions after changing tabs."""
         self._refresh_build_action_states(page)
+        self._apply_source_view(page)
+
+    def _update_source_view_indicator(self) -> None:
+        """Show the authoritative source and the current display projection."""
+        if self.source_view_language == "canonical":
+            view_label = "*CAN"
+        else:
+            view_label = SOURCE_VIEW_BY_CODE.get(
+                self.source_view_language,
+                ("", self.source_view_language.upper()),
+            )[1]
+        self.source_view_indicator.set_text(
+            f"SRC: ENG → VIEW: {view_label}"
+        )
+
+    def set_source_view(self, language: str) -> None:
+        """Change only the visible representation of the active VQ source."""
+        if language != "canonical" and language not in SOURCE_VIEW_BY_CODE:
+            return
+
+        editor_tab = self.tab_manager.get_active_tab()
+        if editor_tab is None:
+            return
+
+        # While the canonical view is editable, keep its latest text as the
+        # authoritative working source before switching to a projection.
+        if self.source_view_language == "canonical":
+            editor_tab.working_document.text = editor_tab.get_text()
+
+        self.source_view_language = language
+        self._update_source_view_indicator()
+        self._apply_source_view(editor_tab)
+
+    def set_highlighting_style(self, style: str) -> None:
+        """Set VQ highlighting without changing editor layout or source text."""
+        if style not in {"off", "classic", "high-contrast"}:
+            return
+        self.highlighting_style = style
+        self._apply_source_view(self.tab_manager.get_active_tab())
+
+    def _apply_source_view(self, editor_tab: EditorTab | None) -> None:
+        """Render a non-destructive source projection for Visual Quar files."""
+        if editor_tab is None:
+            return
+
+        document = editor_tab.working_document
+        # The first experiment is intentionally limited to .vq sources.
+        is_visual_quar = (
+            document.file_path is not None
+            and document.file_path.suffix.lower() == ".vq"
+        )
+
+        if not is_visual_quar:
+            editor_tab.clear_syntax_highlighting()
+            editor_tab.show_source()
+            return
+
+        if self.source_view_language == "canonical":
+            if self.highlighting_style == "off":
+                editor_tab.clear_syntax_highlighting()
+            else:
+                editor_tab.set_visual_quar_highlight_profile(
+                    CANONICAL_PROFILE, self.highlighting_style
+                )
+            editor_tab.show_source()
+            return
+
+        source_language_by_code = {
+            "eng": SourceLanguage.ENGLISH,
+            "ita": SourceLanguage.ITALIAN,
+            "spa": SourceLanguage.SPANISH,
+            "por": SourceLanguage.PORTUGUESE,
+            "jpn": SourceLanguage.JAPANESE,
+            "zho_hans": SourceLanguage.CHINESE_SIMPLIFIED,
+            "zho_hant": SourceLanguage.CHINESE_TRADITIONAL,
+            "kor": SourceLanguage.KOREAN,
+            "hin": SourceLanguage.HINDI,
+            "fra": SourceLanguage.FRENCH,
+            "ara": SourceLanguage.ARABIC,
+            "rus": SourceLanguage.RUSSIAN,
+            "deu": SourceLanguage.GERMAN,
+            "tur": SourceLanguage.TURKISH,
+            "ind": SourceLanguage.INDONESIAN,
+            "vie": SourceLanguage.VIETNAMESE,
+            "pol": SourceLanguage.POLISH,
+            "ben": SourceLanguage.BENGALI,
+            "tha": SourceLanguage.THAI,
+            "fas": SourceLanguage.PERSIAN,
+            "urd": SourceLanguage.URDU,
+            "ukr": SourceLanguage.UKRAINIAN,
+            "nld": SourceLanguage.DUTCH,
+            "ell": SourceLanguage.GREEK,
+            "ces": SourceLanguage.CZECH,
+            "ron": SourceLanguage.ROMANIAN,
+        }
+        target_profile = SourceProfile(
+            language=source_language_by_code[self.source_view_language],
+            vocabulary=VocabularyStyle.EXTENDED,
+            naming_easy=True,
+        )
+
+        try:
+            projected = project_source(
+                document.text,
+                CANONICAL_PROFILE,
+                target_profile,
+            )
+            # A projected view is display-only. Highlight the words that
+            # are actually visible, using the same target profile.
+            if self.highlighting_style == "off":
+                editor_tab.clear_syntax_highlighting()
+            else:
+                editor_tab.set_visual_quar_highlight_profile(
+                    target_profile, self.highlighting_style
+                )
+            editor_tab.show_projection(projected.text)
+        except Exception as error:
+            print(f"Source view projection error: {error}")
+            editor_tab.show_source()
 
     def _refresh_build_action_states(self, editor_tab=None) -> None:
         """Enable Run / Interpret only for languages with an interpreter or VM."""

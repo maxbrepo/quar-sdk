@@ -1,0 +1,3 @@
+enum Direction { NORTH, SOUTH }
+Direction d = Direction.NORTH;
+print(d);

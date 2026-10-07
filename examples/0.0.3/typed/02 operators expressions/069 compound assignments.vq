@@ -1,0 +1,7 @@
+i32 value = 10;
+value += 5;
+value -= 3;
+value *= 2;
+value /= 4;
+value %= 3;
+print(value);

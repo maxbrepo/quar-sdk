@@ -1,0 +1,9 @@
+i32 value = 1;
+case (value) {
+    1 {
+        print("one");
+    }
+    1 {
+        print("duplicate");
+    }
+}

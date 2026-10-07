@@ -1,0 +1,8 @@
+i32 i = 0;
+loop {
+    print(i);
+    i += 1;
+    if (i >= 3) {
+        break;
+    }
+}

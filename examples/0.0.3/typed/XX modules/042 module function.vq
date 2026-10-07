@@ -1,0 +1,4 @@
+import modules42.math;
+
+int result = modules42.math.add(20, 22);
+print(result);

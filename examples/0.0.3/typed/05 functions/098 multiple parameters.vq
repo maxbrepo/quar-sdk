@@ -1,0 +1,5 @@
+i32 add(i32 left, i32 right) {
+    return left + right;
+}
+
+print(add(10, 20));

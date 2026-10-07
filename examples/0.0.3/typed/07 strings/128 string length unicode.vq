@@ -1,0 +1,2 @@
+string text = "caffè";
+print(text.length);

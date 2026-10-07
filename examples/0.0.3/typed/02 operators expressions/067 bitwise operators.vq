@@ -1,0 +1,8 @@
+u8 a = 12;
+u8 b = 10;
+u8 both = a & b;
+u8 either = a | b;
+u8 different = a ^ b;
+print(both);
+print(either);
+print(different);

@@ -1,0 +1,3 @@
+string name = "Quar";
+char first = name[0];
+print(first);

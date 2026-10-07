@@ -1,0 +1,5 @@
+u8 value = 3;
+u8 left = value << 2;
+u8 right = left >> 1;
+print(left);
+print(right);

@@ -1,0 +1,9 @@
+struct Point {
+    int x;
+    int y;
+}
+
+Point point = {10, 20};
+print(point.x);
+point.x = 30;
+print(point.x);

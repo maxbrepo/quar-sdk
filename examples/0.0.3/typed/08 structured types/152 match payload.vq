@@ -1,0 +1,6 @@
+enum Result { SUCCESS(i32), ERROR(string) }
+Result r = Result.ERROR("failed");
+match (r) {
+ SUCCESS(value) { print(value); }
+ ERROR(message) { print(message); }
+}

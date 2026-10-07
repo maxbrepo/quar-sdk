@@ -1,0 +1,12 @@
+struct Point {
+    int x;
+    int y;
+}
+
+int point_x(Point point) {
+    return point.x;
+}
+
+Point point = {39, 2};
+int result = point_x(point);
+print(result);

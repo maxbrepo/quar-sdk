@@ -1,0 +1,4 @@
+import modules43.geometry.point;
+
+int result = modules43.geometry.point.value();
+print(result);

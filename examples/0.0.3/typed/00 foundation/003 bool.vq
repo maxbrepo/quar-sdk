@@ -1,0 +1,18 @@
+bool enabled = true;
+bool disabled = false;
+
+bool equal = 10 == 10;
+bool different = 10 != 20;
+bool smaller = 10 < 20;
+bool greater = 20 > 10;
+bool smaller_or_equal = 10 <= 10;
+bool greater_or_equal = 20 >= 20;
+
+print(enabled);
+print(disabled);
+print(equal);
+print(different);
+print(smaller);
+print(greater);
+print(smaller_or_equal);
+print(greater_or_equal);

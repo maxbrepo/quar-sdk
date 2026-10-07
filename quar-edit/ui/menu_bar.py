@@ -5,6 +5,7 @@ from gi.repository import Gio, Gtk
 
 from lang.language_manager import get_string
 from templates.template_registry import TEMPLATES
+from ui.source_view_languages import SOURCE_VIEW_LANGUAGES
 
 
 class EditorMenuBar(Gtk.PopoverMenuBar):
@@ -245,6 +246,18 @@ class EditorMenuBar(Gtk.PopoverMenuBar):
             get_string("view.language"),
             language_menu,
         )
+
+        source_view_menu = Gio.Menu()
+        source_view_menu.append("Canonical / English", "app.source_view::canonical")
+        for code, native_name, _label in SOURCE_VIEW_LANGUAGES:
+            source_view_menu.append(native_name, f"app.source_view::{code}")
+        menu.append_submenu("Source View", source_view_menu)
+
+        highlighting_menu = Gio.Menu()
+        highlighting_menu.append("Off", "app.highlighting::off")
+        highlighting_menu.append("Classic", "app.highlighting::classic")
+        highlighting_menu.append("High Contrast", "app.highlighting::high-contrast")
+        menu.append_submenu("Highlighting", highlighting_menu)
 
         theme_menu = Gio.Menu()
         theme_menu.append("Light", "app.theme_light")

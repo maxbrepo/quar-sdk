@@ -1,0 +1,3 @@
+string a = "alpha";
+string b = "beta";
+print(a < b);

@@ -1,0 +1,5 @@
+i32 subtract(i32 left, i32 right) {
+    return left - right;
+}
+
+print(subtract(right = 3, left = 10));

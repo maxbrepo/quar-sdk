@@ -1,0 +1,3 @@
+enum Result { SUCCESS(i32), ERROR(string) }
+Result r = Result.SUCCESS(42);
+print(r);

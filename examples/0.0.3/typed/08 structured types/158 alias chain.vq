@@ -1,0 +1,4 @@
+alias Count = i32;
+alias Total = Count;
+Total x = 7;
+print(x);

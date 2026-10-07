@@ -1,0 +1,8 @@
+record User {
+    int id;
+    string name;
+}
+
+User user = {1, "Quar"};
+print(user.id);
+print(user.name);

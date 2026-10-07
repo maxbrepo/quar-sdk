@@ -1,0 +1,7 @@
+i32 level = 2;
+bool ready = true;
+if (level > 0) {
+    if (ready) {
+        print("ready");
+    }
+}

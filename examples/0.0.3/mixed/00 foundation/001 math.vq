@@ -1,0 +1,5 @@
+int quantity = 10;
+price = 2.5;
+total = quantity * price;
+
+print(total);

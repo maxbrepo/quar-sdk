@@ -1,0 +1,7 @@
+enum Result { SUCCESS(i32), ERROR(string) }
+Result r = Result.SUCCESS(1);
+match (r) {
+ SUCCESS(value) { print(value); }
+ SUCCESS(other) { print(other); }
+ default { print("x"); }
+}

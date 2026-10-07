@@ -1,0 +1,4 @@
+alias UserId = uint;
+
+UserId id = 10;
+print(id);

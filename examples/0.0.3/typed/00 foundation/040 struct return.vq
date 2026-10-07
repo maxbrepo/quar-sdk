@@ -1,0 +1,12 @@
+struct Point {
+    int x;
+    int y;
+}
+
+Point make_point(int x, int y) {
+    Point point = {x, y};
+    return point;
+}
+
+Point result = make_point(40, 2);
+print(result.x);

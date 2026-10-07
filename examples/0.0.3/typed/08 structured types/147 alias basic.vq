@@ -1,0 +1,3 @@
+alias UserId = i32;
+UserId id = 42;
+print(id);

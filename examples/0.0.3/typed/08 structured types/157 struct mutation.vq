@@ -1,0 +1,4 @@
+struct Pair { i32 left; i32 right; }
+Pair p = {1, 2};
+p.left = 5;
+print(p.left);

@@ -1,11 +1,17 @@
 import gi
 import json
+import sys
 from pathlib import Path
+
+# Make the Visual Quar SDK root importable when QEdit is started directly.
+SDK_ROOT = Path(__file__).resolve().parent.parent
+if str(SDK_ROOT) not in sys.path:
+    sys.path.insert(0, str(SDK_ROOT))
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 
-from gi.repository import Gdk, Gio, Gtk
+from gi.repository import Gdk, Gio, GLib, Gtk
 from lang.language_manager import language_manager
 from settings.shortcuts import shortcut_manager
 from ui.main_window import QuarEditWindow
@@ -27,6 +33,7 @@ class QuarEditApplication(Gtk.Application):
         self.build_settings_window: BuildSettingsWindow | None = None
         self.settings_path = Path.home() / ".config" / "quar-edit" / "settings.json"
         self.current_theme = self._load_saved_theme()
+        self.current_highlighting = self._load_saved_highlighting()
         self.css_provider: Gtk.CssProvider | None = None
 
         self._load_theme()
@@ -104,6 +111,17 @@ class QuarEditApplication(Gtk.Application):
         self._add_action("language_greek", self._on_language_greek)
         self._add_action("language_czech", self._on_language_czech)
         self._add_action("language_romanian", self._on_language_romanian)
+        source_view_action = Gio.SimpleAction.new(
+            "source_view",
+            GLib.VariantType.new("s"),
+        )
+        source_view_action.connect("activate", self._on_source_view)
+        self.add_action(source_view_action)
+        highlighting_action = Gio.SimpleAction.new(
+            "highlighting", GLib.VariantType.new("s")
+        )
+        highlighting_action.connect("activate", self._on_highlighting)
+        self.add_action(highlighting_action)
         self._add_action("theme_light", self._on_theme_light)
         self._add_action("theme_dark", self._on_theme_dark)
         self._add_action("theme_dark_blue", self._on_theme_dark_blue)
@@ -183,6 +201,24 @@ class QuarEditApplication(Gtk.Application):
         self.preferences_window = None
         return False
 
+    def _on_source_view(self, action, parameter) -> None:
+        """Select a non-destructive Visual Quar source projection."""
+        if self.window is None or parameter is None:
+            return
+        self.window.set_source_view(parameter.get_string())
+
+    def _on_highlighting(self, action, parameter) -> None:
+        """Switch Visual Quar highlighting palette or disable it."""
+        if parameter is None:
+            return
+        style = parameter.get_string()
+        if style not in {"off", "classic", "high-contrast"}:
+            return
+        self.current_highlighting = style
+        self._save_settings()
+        if self.window is not None:
+            self.window.set_highlighting_style(style)
+
     def _on_language_english(self, action, parameter) -> None:
         """Change the interface language to English."""
         language_manager.set_language("eng")
@@ -204,16 +240,36 @@ class QuarEditApplication(Gtk.Application):
             print(f"Theme settings load error: {error}")
         return "dark-blue"
 
-    def _save_theme(self) -> None:
-        """Persist the active theme."""
+    def _load_saved_highlighting(self) -> str:
+        """Load the saved VQ highlighting mode."""
+        if not self.settings_path.exists():
+            return "classic"
+        try:
+            data = json.loads(self.settings_path.read_text(encoding="utf-8"))
+            style = str(data.get("highlighting", "classic"))
+            if style in {"off", "classic", "high-contrast"}:
+                return style
+        except Exception as error:
+            print(f"Highlight settings load error: {error}")
+        return "classic"
+
+    def _save_settings(self) -> None:
+        """Persist theme and highlighting together."""
         try:
             self.settings_path.parent.mkdir(parents=True, exist_ok=True)
             self.settings_path.write_text(
-                json.dumps({"theme": self.current_theme}, indent=2),
+                json.dumps({
+                    "theme": self.current_theme,
+                    "highlighting": self.current_highlighting,
+                }, indent=2),
                 encoding="utf-8",
             )
         except Exception as error:
-            print(f"Theme settings save error: {error}")
+            print(f"QEdit settings save error: {error}")
+
+    def _save_theme(self) -> None:
+        """Persist the active theme and other editor settings."""
+        self._save_settings()
 
     def _set_theme(self, theme_name: str, save: bool = True) -> None:
         """Apply a QEdit theme and optionally persist it."""

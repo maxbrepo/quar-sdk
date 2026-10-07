@@ -1,0 +1,3 @@
+i32 value = 42;
+string text = to_string(value);
+print(text);

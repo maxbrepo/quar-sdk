@@ -1,0 +1,10 @@
+string choose(bool enabled, string first, string second) {
+    if (enabled) {
+        return first;
+    } else {
+        return second;
+    }
+}
+
+string result = choose(true, "Quar", "Other");
+print(result);

@@ -1,0 +1,13 @@
+int value = 2;
+
+switch (value) {
+    case 1 {
+        print(10);
+    }
+    case 2 {
+        print(20);
+    }
+    default {
+        print(0);
+    }
+}

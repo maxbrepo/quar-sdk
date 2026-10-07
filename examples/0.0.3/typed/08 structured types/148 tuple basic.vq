@@ -1,0 +1,2 @@
+tuple pair = (10, "hello");
+print(pair);

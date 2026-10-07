@@ -1,0 +1,2 @@
+string text = "Quar";
+print(substring(text, 2, 8));

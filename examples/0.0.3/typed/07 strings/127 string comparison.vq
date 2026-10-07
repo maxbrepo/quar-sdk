@@ -1,0 +1,4 @@
+string a = "Quar";
+string b = "Quar";
+print(a == b);
+print(a != "C");

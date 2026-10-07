@@ -1,0 +1,4 @@
+string text = "èA";
+for (i = 0; i < text.length) {
+    print(text[i]);
+}

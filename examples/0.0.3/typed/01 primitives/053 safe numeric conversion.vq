@@ -1,0 +1,6 @@
+i8 small = 100;
+i16 medium = small;
+i32 normal = medium;
+i64 large = normal;
+i128 huge = large;
+print(huge);

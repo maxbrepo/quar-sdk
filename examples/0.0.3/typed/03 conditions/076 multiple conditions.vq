@@ -1,0 +1,6 @@
+i32 age = 20;
+bool enabled = true;
+bool blocked = false;
+if (age >= 18 and enabled and not blocked) {
+    print("allowed");
+}

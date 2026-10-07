@@ -1,0 +1,8 @@
+bool a = true;
+bool b = false;
+bool both = a and b;
+bool either = a or b;
+bool inverse = not b;
+print(both);
+print(either);
+print(inverse);

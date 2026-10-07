@@ -1,0 +1,16 @@
+string empty = "";
+string name = "Quar";
+char symbol;
+if (empty) {
+    print("wrong");
+} else {
+    print("empty");
+}
+if (name) {
+    print("name");
+}
+if (symbol) {
+    print("wrong");
+} else {
+    print("empty char");
+}

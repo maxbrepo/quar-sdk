@@ -1,0 +1,6 @@
+i32 scale(i32 value, i32 factor = 2) {
+    return value * factor;
+}
+
+print(scale(10));
+print(scale(10, 3));

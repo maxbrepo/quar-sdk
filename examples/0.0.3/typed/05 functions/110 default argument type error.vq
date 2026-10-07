@@ -1,0 +1,5 @@
+i32 calculate(i32 value, i32 multiplier = "two") {
+    return value * multiplier;
+}
+
+print(calculate(10));

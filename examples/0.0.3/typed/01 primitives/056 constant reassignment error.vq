@@ -1,0 +1,2 @@
+const int answer = 42;
+answer = 43;

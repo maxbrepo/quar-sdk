@@ -1,0 +1,10 @@
+i32 enabled = 1;
+i32 disabled = 0;
+if (enabled) {
+    print("enabled");
+}
+if (disabled) {
+    print("wrong");
+} else {
+    print("disabled");
+}

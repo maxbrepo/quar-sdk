@@ -1,0 +1,8 @@
+int a = 10;
+i32 b = 20;
+float c = 1.5;
+f32 d = 2.5;
+double e = 3.5;
+f64 f = 4.5;
+print(a + b);
+print(e + f);

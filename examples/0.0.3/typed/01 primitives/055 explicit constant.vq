@@ -1,0 +1,2 @@
+const u8 max_players = 4;
+print(max_players);

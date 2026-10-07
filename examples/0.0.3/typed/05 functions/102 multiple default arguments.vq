@@ -1,0 +1,7 @@
+i32 calculate(i32 value, i32 multiplier = 2, i32 offset = 1) {
+    return value * multiplier + offset;
+}
+
+print(calculate(10));
+print(calculate(10, 3));
+print(calculate(10, 3, 5));

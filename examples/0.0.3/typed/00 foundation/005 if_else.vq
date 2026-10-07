@@ -1,0 +1,19 @@
+int age = 20;
+bool enabled = true;
+bool blocked = false;
+
+if (age >= 18 and enabled) {
+    print(age);
+} else {
+    print(0);
+}
+
+if (blocked) {
+    print(0);
+} else {
+    print(1);
+}
+
+if (enabled and not blocked) {
+    print(100);
+}

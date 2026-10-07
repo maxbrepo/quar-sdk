@@ -1,0 +1,12 @@
+i32 value = 99;
+case (value) {
+    1 {
+        print("one");
+    }
+    2 {
+        print("two");
+    }
+    default {
+        print("other");
+    }
+}

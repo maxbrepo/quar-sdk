@@ -1,0 +1,5 @@
+enum State { READY, BUSY }
+State s = State.READY;
+match (s) {
+ READY { print("ready"); }
+}

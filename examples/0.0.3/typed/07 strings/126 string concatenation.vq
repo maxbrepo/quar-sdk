@@ -1,0 +1,4 @@
+string a = "Visual ";
+string b = "Quar";
+string c = a + b;
+print(c);

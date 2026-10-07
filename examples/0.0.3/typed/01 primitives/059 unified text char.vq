@@ -1,0 +1,4 @@
+char symbol = "A";
+string text = "AAA";
+print(symbol);
+print(text);

@@ -1,0 +1,5 @@
+import modules48.a;
+
+void show() {
+    print(48);
+}

@@ -1,0 +1,4 @@
+tuple pair = (10, "hello");
+(i32 number, string text) = pair;
+print(number);
+print(text);

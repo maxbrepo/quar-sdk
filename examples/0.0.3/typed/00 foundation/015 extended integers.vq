@@ -1,0 +1,10 @@
+uint a = 10;
+long b = 20;
+ulong c = 30;
+llong d = 40;
+ullong e = 50;
+print(a);
+print(b);
+print(c);
+print(d);
+print(e);

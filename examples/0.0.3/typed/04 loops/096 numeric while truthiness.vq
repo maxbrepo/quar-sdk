@@ -1,0 +1,5 @@
+i32 remaining = 3;
+while (remaining) {
+    print(remaining);
+    remaining -= 1;
+}

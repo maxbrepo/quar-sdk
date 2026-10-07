@@ -1,0 +1,10 @@
+i32 count;
+f32 ratio;
+bool enabled;
+string text;
+char symbol;
+print(count);
+print(ratio);
+print(enabled);
+print(text);
+print(symbol);

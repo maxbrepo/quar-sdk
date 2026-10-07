@@ -1,0 +1,2 @@
+string text = "Visual Quar";
+print(find(text, "Quar"));

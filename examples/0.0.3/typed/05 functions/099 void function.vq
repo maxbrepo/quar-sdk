@@ -1,0 +1,6 @@
+void show(i32 value) {
+    print(value);
+    return;
+}
+
+show(99);
