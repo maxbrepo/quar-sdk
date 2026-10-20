@@ -1,0 +1,7 @@
+value = 1;
+if (true) {
+    value = 2;
+    local = 3;
+    print(local);
+}
+print(value);

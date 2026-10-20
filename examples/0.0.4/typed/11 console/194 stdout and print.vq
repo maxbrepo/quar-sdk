@@ -1,0 +1,2 @@
+stdout("A");
+print("B");

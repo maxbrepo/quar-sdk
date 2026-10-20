@@ -1,0 +1,1 @@
+File.write_bytes("data.bin", Bytes.from_hex("00")); File.append_bytes("data.bin", Bytes.from_hex("ff10")); print(Bytes.length(File.read_bytes("data.bin")));

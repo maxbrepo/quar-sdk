@@ -1,0 +1,8 @@
+int counter = 1;
+if (true) {
+    int local = counter;
+    counter = local + 1;
+} else {
+    counter = 3;
+}
+int result = counter;

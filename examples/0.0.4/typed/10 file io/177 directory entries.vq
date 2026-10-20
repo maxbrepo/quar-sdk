@@ -1,0 +1,1 @@
+Directory.create_all("items"); File.write_text("items/a.txt", "a"); print(Directory.count("items")); print(Directory.entry("items", 0)); print(Directory.entry_is_file("items", 0));

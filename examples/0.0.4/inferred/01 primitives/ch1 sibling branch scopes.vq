@@ -1,0 +1,9 @@
+value = 10;
+if (value == 10) {
+    branch_local = 1;
+    print(branch_local);
+} else {
+    branch_local = 2;
+    print(branch_local);
+}
+print(value);

@@ -1,0 +1,3 @@
+print(Console.env("VQ_CH11C_PRESENT"));
+print(Console.env_exists("VQ_CH11C_PRESENT"));
+print(Console.env_exists("VQ_CH11C_MISSING"));

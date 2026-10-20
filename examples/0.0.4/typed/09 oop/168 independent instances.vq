@@ -1,0 +1,11 @@
+class Player {
+    i32 health;
+    init(i32 health) { this.health = health; }
+    void damage(i32 amount) { this.health -= amount; }
+    i32 get_health() { return this.health; }
+}
+Player first = Player(100);
+Player second = Player(100);
+first.damage(25);
+print(first.get_health());
+print(second.get_health());

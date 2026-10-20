@@ -1,0 +1,6 @@
+int value = 10;
+if (true) {
+    int value = 20;
+    print(value);
+}
+print(value);

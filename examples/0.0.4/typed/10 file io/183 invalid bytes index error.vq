@@ -1,0 +1,1 @@
+bytes data = Bytes.from_hex("00"); print(data[2]);

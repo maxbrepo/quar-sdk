@@ -1,0 +1,2 @@
+int number = to_int(Console.arg(0));
+print(number);

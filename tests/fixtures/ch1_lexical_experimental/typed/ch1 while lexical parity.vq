@@ -1,0 +1,14 @@
+int outer = 0;
+int value = 9;
+while (outer < 2) {
+    int value = 5;
+    int inner = 0;
+    while (inner < 2) {
+        int value = 7;
+        print(value);
+        inner = inner + 1;
+    }
+    print(value);
+    outer = outer + 1;
+}
+print(value);

@@ -1,0 +1,2 @@
+string value = input("A", "B");
+print(value);

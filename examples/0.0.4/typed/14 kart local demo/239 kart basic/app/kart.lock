@@ -1,0 +1,24 @@
+{
+  "lock_version": 1,
+  "root": "demo_app",
+  "packages": [
+    {
+      "name": "demo_app",
+      "version": "0.0.1",
+      "source": "local",
+      "path": ".",
+      "manifest_sha256": "0e82d39c5e7f03b222f422c8947e7e23c71f409a3a3bd8cfb697d8e2969fb679",
+      "dependencies": [
+        "mathlib"
+      ]
+    },
+    {
+      "name": "mathlib",
+      "version": "0.0.1",
+      "source": "local",
+      "path": "../mathlib",
+      "manifest_sha256": "9b7330310eb1d3c11599dfdec948ba2579acf579d8d27f8cfa7f168dd4082826",
+      "dependencies": []
+    }
+  ]
+}

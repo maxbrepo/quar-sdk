@@ -5,6 +5,7 @@ import re
 import shutil
 import subprocess
 import sys
+from unittest.mock import patch
 from pathlib import Path
 
 from frontend.quar.lexer import Lexer
@@ -21,7 +22,7 @@ from frontend.quar.errors import (
 from backend.c.codegen import CCodeGenerator
 
 from qrvm.compiler import QRVMCompiler
-from qrvm.vm import QRVM
+from qrvm.vm import QRVM, QuarExit, QuarPanic
 from feature_status import FEATURES, VIEWS
 from tooling.source_projection import (
     CANONICAL_PROFILE,
@@ -31,6 +32,48 @@ from tooling.source_projection import (
     normalize_source,
 )
 
+
+
+def parse_c_layout_option(arguments):
+    """Extract the experimental C layout option without changing other CLI flags."""
+    from tooling.ir_build import CLayout
+
+    remaining = []
+    selected = CLayout.SINGLE
+    iterator = iter(arguments)
+    for argument in iterator:
+        if argument == "--c-layout":
+            try:
+                selected = CLayout(next(iterator))
+            except StopIteration as exc:
+                raise ValueError("Missing value for --c-layout") from exc
+        else:
+            remaining.append(argument)
+    return remaining, selected
+
+
+def select_c_layout():
+    """Select single-file or split C output for experimental IR builds."""
+    from tooling.ir_build import CLayout
+
+    choice = input("C layout [1] single [2] split: ").strip()
+    if choice == "1":
+        return CLayout.SINGLE
+    if choice == "2":
+        return CLayout.SPLIT
+    raise ValueError("Invalid C layout selection")
+
+
+def emit_ir_c_sources(source_file, layout, output_directory):
+    """Lower a module project to IR and emit C artifacts via the shared builder."""
+    from frontend.quar.ir import lower_program_project
+    from tooling.ir_build import emit_c
+
+    source_file = Path(source_file).resolve()
+    loader = ModuleLoader(source_file.parent)
+    loader.load(source_file)
+    project = lower_program_project(loader, source_file)
+    return emit_c(project, Path(output_directory), layout)
 
 def clear_screen():
     command = (
@@ -261,12 +304,12 @@ def browse_source_file():
         print()
         print(current_directory)
         print()
-        print("[1] Exit")
-        print("[2] /")
+        print("[0] \\ Back")
+        print("[1] cd ../")
 
         for index, entry in enumerate(
             entries,
-            start=3,
+            start=2,
         ):
             if entry.is_dir():
                 print(
@@ -286,10 +329,10 @@ def browse_source_file():
             print("Invalid selection.")
             continue
 
-        if selected == 1:
+        if selected == 0:
             return None
 
-        if selected == 2:
+        if selected == 1:
             parent_directory = (
                 current_directory.parent
             )
@@ -301,7 +344,7 @@ def browse_source_file():
 
             continue
 
-        entry_index = selected - 3
+        entry_index = selected - 2
 
         if (
             entry_index < 0
@@ -397,7 +440,7 @@ def run_feature_status():
         print("Visual Quar - Feature Status\n")
         for index, (name, _) in enumerate(VIEWS, start=1):
             print(f"[{index}] {name}")
-        print("[0] Back")
+        print("[0] \\ Back")
         choice = input("\n> ").strip()
         if choice == "0":
             return
@@ -422,6 +465,7 @@ def select_source_file():
         print("[1] Examples")
         print("[2] Load")
         print("[3] Features")
+        print("[4] External Tests")
         print()
 
         choice = input("> ").strip()
@@ -435,6 +479,10 @@ def select_source_file():
 
         if choice == "3":
             run_feature_status()
+            continue
+
+        if choice == "4":
+            run_external_tests()
             continue
 
         if choice == "2":
@@ -489,11 +537,16 @@ def parse_source_argument(args):
     )
 
 
-def build_frontend(source, source_profile=CANONICAL_PROFILE):
+def build_frontend(source, source_profile=CANONICAL_PROFILE, *, borrow_check=False, lexical=False):
     canonical_source, _ = normalize_source(
         source,
         source_profile,
     )
+
+    # Optional strict borrow gate; default execution remains unchanged.
+    if borrow_check:
+        from qrvm.borrow_gate import require_borrow_source
+        require_borrow_source(canonical_source)
 
     lexer = Lexer(canonical_source)
     tokens = lexer.tokenize()
@@ -501,7 +554,7 @@ def build_frontend(source, source_profile=CANONICAL_PROFILE):
     parser = Parser(tokens)
     program = parser.parse()
 
-    semantic = SemanticAnalyzer()
+    semantic = SemanticAnalyzer(allow_lexical_shadowing=lexical)
 
     validated_program = semantic.analyze(
         program
@@ -511,11 +564,11 @@ def build_frontend(source, source_profile=CANONICAL_PROFILE):
     # Return validated AST and types
 
 
-def run_qrvm(validated_program):
+def run_qrvm(validated_program, *, lexical=False, allow_inference=False):
     compiler = QRVMCompiler()
 
     instructions = compiler.compile(
-        validated_program
+        validated_program, lexical=lexical, allow_inference=allow_inference
     )
 
     vm = QRVM()
@@ -523,7 +576,11 @@ def run_qrvm(validated_program):
     print()
     print("=== QRVM OUTPUT ===")
 
-    vm.run(instructions)
+    try:
+        vm.run(instructions)
+    except QuarExit as error:
+        print(f"Program exited with code {error.code}")
+        return error.code
 
     print()
     print(
@@ -711,13 +768,14 @@ def run_compiled(
     validated_program,
     variable_types,
     target,
-    host
+    host,
+    *, lexical=False, allow_inference=False
 ):
     generator = CCodeGenerator()
 
     c_source = generator.generate(
         validated_program,
-        variable_types
+        variable_types, lexical=lexical, allow_inference=allow_inference
     )
 
     c_file = write_c_source(
@@ -792,7 +850,18 @@ def extract_test_name(source_file):
 
 def is_excluded_batch_source(source_file):
     parts = {part.lower() for part in source_file.parts}
-    return "input" in parts or "fixtures" in parts
+    if "input" in parts or "fixtures" in parts:
+        return True
+    # Module project dependencies are imported by main.vq, not standalone batch programs.
+    if "13 modules" in parts:
+        components = source_file.parts
+        chapter_index = next((index for index, part in enumerate(components)
+                              if part.lower() == "13 modules"), None)
+        if (chapter_index is not None and chapter_index + 2 < len(components)
+                and re.match(r"^\d+ ", components[chapter_index + 1])
+                and source_file.name != "main.vq"):
+            return True
+    return False
     # Detect non-batch source path
 
 
@@ -863,10 +932,59 @@ def list_categories(version_directory):
     # Return available categories
 
 
-def select_single_test_file(root):
+def discover_test_features(root):
+    """Return chapter/feature directory names found under version categories."""
+    names = set()
+    for version in list_versions(root):
+        for category in list_categories(version):
+            for child in category.iterdir():
+                if child.is_dir() and child.name.lower() not in ("input", "fixtures"):
+                    names.add(child.name)
+    return sorted(names, key=lambda name: (int(re.match(r"^\d+", name).group()) if re.match(r"^\d+", name) else 999999, name.lower()))
+
+
+def source_matches_feature(source_file, feature):
+    """Match a feature directory exactly, never by partial filename."""
+    return feature is None or feature in source_file.parts
+
+
+def filter_test_sources(sources, feature):
+    """Keep only sources belonging to the selected feature."""
+    return [source for source in sources if source_matches_feature(source, feature)]
+
+
+def select_test_feature(root, current):
+    """Select a persistent feature filter; None means all features."""
+    features = discover_test_features(root)
+    clear_screen()
+    print("Filter by feature\n")
+    print(f"Current: {current or 'All features'}\n")
+    print("[0] \\ Back")
+    print("[1] All features (clear filter)")
+    for index, feature in enumerate(features, start=2):
+        print(f"[{index}] {feature}")
+    choice = input("\n> ").strip()
+    if not choice.isdigit() or choice == "0":
+        return current
+    selected = int(choice)
+    if selected == 1:
+        return None
+    return features[selected - 2] if 2 <= selected < len(features) + 2 else current
+
+
+def select_single_test_file(root, feature=None):
     current = root
     while True:
         entries = list_source_entries(current)
+        if feature is not None:
+            entries = [entry for entry in entries if (
+                source_matches_feature(entry, feature)
+                if entry.is_file() else
+                entry.name == feature or any(
+                    source_matches_feature(path, feature)
+                    for path in entry.rglob("*.vq")
+                )
+            )]
         clear_screen()
         print("Test single file\n")
         print(current)
@@ -928,6 +1046,33 @@ EXPECTED_TEST_ERRORS = {
     155: "Invalid payload for variant 'SUCCESS'",
     156: "Duplicate match variant 'SUCCESS'",
     160: "Variant 'SUCCESS' expects 1 bindings",
+    169: "Unknown field 'unknown'",
+    170: "Constructor for 'Player' expects 1 arguments",
+    181: "I/O error in File.read_text [not_found]:",
+    182: "I/O error in Bytes.from_hex [invalid_data]:",
+    183: "Bytes index out of bounds:",
+    184: "I/O error in Directory.entry [invalid_data]:",
+    189: "input prompt must be a string",
+    190: "input expects zero or one string argument",
+    195: "stdout argument must be a string",
+    196: "exit code must be an integer",
+    197: "Exit code must be between 0 and 255.",
+    202: "Console.arg index out of range",
+    203: "Environment variable not found: VQ_CH11C_MISSING",
+    204: "Console.arg index must be an integer",
+    205: "Console.env argument must be a string",
+    212: "unhandled chapter 12",
+    213: "throw requires a string message",
+    219: "throw cause must be a caught error",
+    220: "Variable 'unknown' is not declared",
+    225: "Assertion failed",
+    226: "assert argument must be a boolean",
+    227: "assert expects one boolean argument",
+    228: "fatal failure",
+    229: "cannot recover",
+    232: "panic message must be a string",
+    233: "panic expects one string argument",
+
 }
 
 
@@ -937,6 +1082,52 @@ def regression_project_root(source_file):
         return fixtures
     return source_file.parent
     # Return module lookup root
+
+
+CONSOLE_OUTPUT_EXPECTATIONS = {
+    214: ("wrapper\nroot\n", ""),
+    216: ("high\nlow\n", ""),
+    217: ("third\nsecond <- first\n", ""),
+    218: ("standalone\n\n", ""),
+    191: ("Hello World!\n", ""),
+    192: ("Done\n", "Warning\n"),
+    193: ("Before\n", ""),
+    194: ("AB\n", ""),
+    198: ("2\nfirst\nsecond\n", ""),
+    199: ("ok\nTrue\nFalse\n", ""),
+    200: ("0\n", ""),
+    201: ("42\n", ""),
+}
+
+
+CONSOLE_CONTEXT_FIXTURES = {
+    198: (["first", "second"], {}),
+    199: ([], {"VQ_CH11C_PRESENT": "ok"}),
+    200: ([], {}),
+    201: (["42"], {}),
+    202: ([], {}),
+    203: ([], {}),
+}
+
+
+CONSOLE_INPUT_FIXTURES = {
+    186: ["Ada"],
+    187: ["42"],
+    188: ["Hello"],
+}
+
+
+def fixture_input(values):
+    iterator = iter(values)
+
+    def read_input(prompt=""):
+        print(prompt, end="")
+        try:
+            return next(iterator)
+        except StopIteration as error:
+            raise EOFError("Console fixture exhausted") from error
+
+    return read_input
 
 
 def execute_regression_source(source_file):
@@ -950,8 +1141,27 @@ def execute_regression_source(source_file):
         validated_program = SemanticAnalyzer().analyze(program)
         instructions = QRVMCompiler().compile(validated_program)
         output = io.StringIO()
-        with contextlib.redirect_stdout(output):
-            QRVM().run(instructions)
+        error_output = io.StringIO()
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(error_output):
+            if test_number in CONSOLE_INPUT_FIXTURES:
+                with patch("builtins.input", fixture_input(CONSOLE_INPUT_FIXTURES[test_number])):
+                    QRVM().run(instructions)
+            else:
+                args, env = CONSOLE_CONTEXT_FIXTURES.get(test_number, ([], {}))
+                QRVM(args=args, environ=env).run(instructions)
+    except QuarPanic as error:
+        message = str(error)
+        panic_detail = message.removeprefix("Panic: ")
+        if expected_error is not None and panic_detail.startswith(expected_error):
+            return "EXPECTED ERROR", message
+        return "FAIL", f"Unexpected fatal panic: {message}"
+    except QuarExit as error:
+        if error.code == 0 and expected_error is None:
+            expected_streams = CONSOLE_OUTPUT_EXPECTATIONS.get(test_number)
+            if expected_streams is not None and (output.getvalue(), error_output.getvalue()) != expected_streams:
+                return "FAIL", "Console stream output mismatch"
+            return "PASS", output.getvalue().rstrip()
+        return "FAIL", f"Unexpected program exit code: {error.code}"
     except (
         ModuleLoadError,
         LexerError,
@@ -978,6 +1188,9 @@ def execute_regression_source(source_file):
     if expected_error is not None:
         return "FAIL", f"Expected error was not raised: {expected_error}"
 
+    expected_streams = CONSOLE_OUTPUT_EXPECTATIONS.get(test_number)
+    if expected_streams is not None and (output.getvalue(), error_output.getvalue()) != expected_streams:
+        return "FAIL", "Console stream output mismatch"
     return "PASS", output.getvalue().rstrip()
     # Return classified test result
 
@@ -1004,55 +1217,79 @@ def print_test_result(source_file, root, result, output):
         print(output)
     # Print one classified result
 
-def run_regression_batch(source_files, root):
+def print_regression_results(records, root):
+    """Render stored test results without executing sources again."""
     clear_screen()
     print(
         "Version | No  | Program                  | "
         "Inferred | Mixed | Typed | Result"
     )
     print("-" * 86)
-    counts = {
-        "PASS": 0,
-        "EXPECTED ERROR": 0,
-        "FAIL": 0,
-        "CRASH": 0,
-    }
     previous_version = None
-    for source_file in source_files:
+    for source_file, result, output in records:
         version, _, _, _ = source_metadata(source_file, root)
         if previous_version is not None:
             print("=" * 86 if version != previous_version else "-" * 86)
-        result, output = execute_regression_source(source_file)
         print_test_result(source_file, root, result, output)
-        counts[result] += 1
         previous_version = version
     print("=" * 86)
-    print(
-        f"Tests: {len(source_files)} | "
-        f"PASS: {counts['PASS']} | "
-        f"EXPECTED ERROR: {counts['EXPECTED ERROR']} | "
-        f"FAIL: {counts['FAIL']} | "
-        f"CRASH: {counts['CRASH']}"
-    )
-    input("\nPress Enter to continue...")
-    # Run classified regression batch
+    # Render a previously executed batch or a filtered subset.
 
-def test_single_file(root):
-    source_file = select_single_test_file(root)
+
+def browse_regression_results(records, root):
+    """Filter the most recent results without rerunning any test."""
+    counts = {status: sum(result == status for _, result, _ in records)
+              for status in ("PASS", "EXPECTED ERROR", "FAIL", "CRASH")}
+    current = records
+    while True:
+        print_regression_results(current, root)
+        print(
+            f"Displayed: {len(current)}/{len(records)} | "
+            f"PASS: {counts['PASS']} | EXPECTED ERROR: {counts['EXPECTED ERROR']} | "
+            f"FAIL: {counts['FAIL']} | CRASH: {counts['CRASH']}"
+        )
+        print("\nSelect: [0] \\ Back, [1] All, [2] Failures, [3] Crash, [4] Pass, [5] Expected error")
+        choice = input("> ").strip()
+        if choice == "0":
+            return
+        if choice == "1":
+            current = records
+        elif choice == "2":
+            current = [entry for entry in records if entry[1] in ("FAIL", "CRASH")]
+        elif choice == "3":
+            current = [entry for entry in records if entry[1] == "CRASH"]
+        elif choice == "4":
+            current = [entry for entry in records if entry[1] == "PASS"]
+        elif choice == "5":
+            current = [entry for entry in records if entry[1] == "EXPECTED ERROR"]
+    # Keep test outputs available until the user exits this results screen.
+
+
+def run_regression_batch(source_files, root):
+    """Execute tests once, then offer post-run result filtering."""
+    records = []
+    for source_file in source_files:
+        result, output = execute_regression_source(source_file)
+        records.append((source_file, result, output))
+    browse_regression_results(records, root)
+    # Run classified regression batch and inspect failures without rerunning.
+
+def test_single_file(root, feature=None):
+    source_file = select_single_test_file(root, feature)
     if source_file is None:
         return
     run_regression_batch([source_file], root)
     # Test one selected source
 
 
-def test_range(root):
+def test_range(root, feature=None):
     version = select_numbered_item("Select version:", list_versions(root))
     if version is None:
         return
     category = select_numbered_item(f"Version {version.name}", list_categories(version))
     if category is None:
         return
-    sources = collect_batch_sources(category)
+    sources = filter_test_sources(collect_batch_sources(category), feature)
     clear_screen()
     print(f"Available tests: {version.name}/{category.name}\n")
     for source_file in sources:
@@ -1072,69 +1309,192 @@ def test_range(root):
     # Test numbered source range
 
 
-def test_category(root):
+def test_category(root, feature=None):
     version = select_numbered_item("Select version:", list_versions(root))
     if version is None:
         return
     category = select_numbered_item(f"Version {version.name}", list_categories(version))
     if category is None:
         return
-    run_regression_batch(collect_batch_sources(category), root)
+    run_regression_batch(filter_test_sources(collect_batch_sources(category), feature), root)
     # Test one source category
 
 
-def test_version(root):
+def test_version(root, feature=None):
     version = select_numbered_item("Select version:", list_versions(root))
     if version is None:
         return
-    run_regression_batch(collect_batch_sources(version), root)
+    run_regression_batch(filter_test_sources(collect_batch_sources(version), feature), root)
     # Test complete version
 
 
-def test_all_versions(root):
+def test_all_versions(root, feature=None):
     sources = []
     for version in list_versions(root):
         sources.extend(collect_batch_sources(version))
-    run_regression_batch(sources, root)
+    run_regression_batch(filter_test_sources(sources, feature), root)
     # Test every available version
 
 
 def run_source_tester():
     root = find_examples_root()
+    feature = None
     while True:
         clear_screen()
         print("Visual Quar Source Tester\n")
-        print(f"Root: {root}\n")
+        print(f"Root: {root}")
+        print(f"Feature filter: {feature or 'All features'}\n")
         print("[0] \\ Back")
         print("[1] Test single file")
         print("[2] Test range")
-        print("[3] Test category")
+        print("[3] Test version category")
         print("[4] Test version")
         print("[5] Test all versions")
+        print("[6] Filter by feature")
         choice = input("\n> ").strip()
         if choice == "0":
             return
         if choice == "1":
-            test_single_file(root)
+            test_single_file(root, feature)
         elif choice == "2":
-            test_range(root)
+            test_range(root, feature)
         elif choice == "3":
-            test_category(root)
+            test_category(root, feature)
         elif choice == "4":
-            test_version(root)
+            test_version(root, feature)
         elif choice == "5":
-            test_all_versions(root)
+            test_all_versions(root, feature)
+        elif choice == "6":
+            feature = select_test_feature(root, feature)
     # Run terminal source tester
+
+
+def discover_external_test_files():
+    tests_root = Path(__file__).resolve().parent / "tests"
+    if not tests_root.is_dir():
+        return tests_root, []
+    files = sorted(tests_root.glob("test_*.py"))
+    return tests_root, [path for path in files if path.is_file()]
+    # Return the test directory and available unittest files
+
+
+def run_external_test_selection(files):
+    if not files:
+        print("No matching external tests found.")
+        input("\nPress Enter to continue...")
+        return False
+
+    project_root = Path(__file__).resolve().parent
+    tests_root = project_root / "tests"
+    command = [
+        sys.executable, "-m", "unittest", "discover",
+        "-s", str(tests_root), "-p", "test_*.py",
+    ]
+    # For a selection, use explicit module paths with a stable working directory.
+    if len(files) != len(discover_external_test_files()[1]):
+        command = [
+            sys.executable, "-m", "unittest",
+            *[f"tests.{path.stem}" for path in files],
+        ]
+    print(f"\nRunning {len(files)} external test files...\n")
+    result = subprocess.run(command, cwd=project_root, check=False)
+    print(f"\nExternal tests: {'PASS' if result.returncode == 0 else 'FAIL'}")
+    print(f"Exit code: {result.returncode}")
+    input("\nPress Enter to continue...")
+    return result.returncode == 0
+    # Run unittest in a child process and return its success status
+
+
+def run_external_tests():
+    while True:
+        clear_screen()
+        tests_root, files = discover_external_test_files()
+        print("Visual Quar External Tests\n")
+        print(f"Root: {tests_root}")
+        print(f"Available files: {len(files)}\n")
+        print("[0] Back")
+        print("[1] Run all tests")
+        print("[2] Run tests by chapter")
+        print("[3] Run tests by block")
+        print("[4] Run single test file")
+        choice = input("\n> ").strip()
+        if choice == "0":
+            return
+        if choice == "1":
+            run_external_test_selection(files)
+            continue
+        if choice not in ("2", "3", "4"):
+            continue
+        if choice == "4":
+            options = files
+            label = "Select test file"
+        else:
+            import re as regex
+            pattern = r"^test_ch(\d+)_" if choice == "2" else r"^test_ch(\d+_\d+)_"
+            keys = sorted({match.group(1) for path in files if (match := regex.match(pattern, path.name))},
+                          key=lambda key: tuple(int(part) for part in key.split("_")))
+            options = keys
+            label = "Select chapter" if choice == "2" else "Select block"
+        print(f"\n{label}:")
+        print("[0] Back")
+        for index, option in enumerate(options, 1):
+            print(f"[{index}] {option.name if isinstance(option, Path) else option}")
+        selected = input("\n> ").strip()
+        if not selected.isdigit() or not 1 <= int(selected) <= len(options):
+            continue
+        item = options[int(selected) - 1]
+        if choice == "4":
+            selected_files = [item]
+        else:
+            prefix = f"test_ch{item}_"
+            selected_files = [path for path in files if path.name.startswith(prefix)]
+        run_external_test_selection(selected_files)
+    # Display the external unittest menu and run selected tests
+
+
+def extract_inspector_flag(arguments):
+    """Return (remaining arguments, enabled); reject repeated flags."""
+    enabled = arguments.count("--inspect")
+    if enabled > 1:
+        raise ValueError("--inspect may be specified only once")
+    return [argument for argument in arguments if argument != "--inspect"], bool(enabled)
+
+
+def parse_lexical_options(arguments):
+    """Extract explicit experimental compiler options from CLI arguments.
+
+    Returns the remaining source arguments and two boolean feature flags.
+    The inference flag is valid only when lexical lowering is enabled.
+    """
+    if arguments.count("--lexical") > 1:
+        raise ValueError("--lexical may be specified only once")
+    if arguments.count("--lexical-inference") > 1:
+        raise ValueError("--lexical-inference may be specified only once")
+    lexical = "--lexical" in arguments
+    inference = "--lexical-inference" in arguments
+    if inference and not lexical:
+        raise ValueError("--lexical-inference requires --lexical")
+    remaining = [
+        argument for argument in arguments
+        if argument not in ("--lexical", "--lexical-inference")
+    ]
+    return remaining, lexical, inference
 
 
 def main():
     try:
+        source_arguments, lexical, allow_inference = parse_lexical_options(sys.argv[1:])
+        arguments, inspect_enabled = extract_inspector_flag(source_arguments)
+        kart_enabled = "--kart" in arguments
+        if arguments.count("--kart") > 1:
+            raise ValueError("--kart may be specified only once")
+        if kart_enabled and lexical:
+            raise ValueError("--lexical is not yet supported with --kart")
+        arguments = [argument for argument in arguments if argument != "--kart"]
         (
             source_file,
             source_profile,
-        ) = parse_source_argument(
-            sys.argv[1:]
-        )
+        ) = parse_source_argument(arguments)
 
         if source_file is None:
             print("Source loader closed.")
@@ -1151,17 +1511,35 @@ def main():
 
         mode = select_execution_mode()
 
-        (
-            validated_program,
-            variable_types,
-        ) = build_frontend(
-            source,
-            source_profile,
-        )
+        if kart_enabled:
+            project_root = source_file.parent
+            program = ModuleLoader(project_root, kart_project=project_root).load(source_file)
+            validated_program = SemanticAnalyzer().analyze(program)
+            variable_types = {}
+        else:
+            (
+                validated_program,
+                variable_types,
+            ) = build_frontend(
+                source,
+                source_profile,
+                lexical=lexical,
+            )
+
+        if inspect_enabled:
+            from qrvm.inspector_pipeline import (
+                inspect_validated_program,
+                format_pipeline_inspection,
+            )
+            inspection = inspect_validated_program(validated_program, path=str(source_file))
+            print(format_pipeline_inspection(inspection))
+            # Inspector is advisory; semantic validation remains authoritative.
 
         if mode == "1":
             run_qrvm(
-                validated_program
+                validated_program,
+                lexical=lexical,
+                allow_inference=allow_inference,
             )
             return
 
@@ -1180,7 +1558,9 @@ def main():
             validated_program,
             variable_types,
             target,
-            host
+            host,
+            lexical=lexical,
+            allow_inference=allow_inference,
         )
 
     except LexerError as error:

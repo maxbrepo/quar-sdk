@@ -1,0 +1,1 @@
+File.write_text("safe.txt", "old"); File.write_text_atomic("safe.txt", "new"); print(File.read_text("safe.txt"));

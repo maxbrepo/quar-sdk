@@ -1,0 +1,2 @@
+import utilities.math;
+print(utilities.math.square(7));

@@ -1,0 +1,1 @@
+void inner() { throw "failure"; } void outer() { inner(); } try { outer(); } catch (error) { print(error.trace); }

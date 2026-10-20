@@ -181,6 +181,34 @@ class EnumDefinition:
 
 
 @dataclass
+class ClassDefinition:
+    name: str
+    fields: list
+    constructor: object | None
+    methods: list
+
+
+@dataclass
+class ClassField:
+    field_type: str
+    name: str
+    visibility: str
+
+
+@dataclass
+class ClassConstructor:
+    parameters: list
+    body: list
+    visibility: str
+
+
+@dataclass
+class ClassMethod:
+    function: FunctionDefinition
+    visibility: str
+
+
+@dataclass
 class ObjectDeclaration:
     type_name: str
     name: str
@@ -263,3 +291,24 @@ class MatchStatement:
     expression: object
     arms: list
     default_body: list
+
+
+@dataclass
+class WithFileStatement:
+    path: object
+    mode: object
+    name: str
+    body: list
+
+
+@dataclass
+class TryCatchStatement:
+    try_body: list
+    error_name: str
+    catch_body: list
+
+
+@dataclass
+class ThrowStatement:
+    message: object
+    cause: object = None

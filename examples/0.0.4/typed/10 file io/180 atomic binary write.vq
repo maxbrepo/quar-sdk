@@ -1,0 +1,1 @@
+File.write_bytes("safe.bin", Bytes.from_hex("00")); File.write_bytes_atomic("safe.bin", Bytes.from_hex("ff10")); print(Bytes.to_hex(File.read_bytes("safe.bin")));

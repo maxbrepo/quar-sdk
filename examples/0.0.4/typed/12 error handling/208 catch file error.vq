@@ -1,0 +1,1 @@
+try { File.read_text("missing-ch12-file.txt"); } catch (error) { print("file handled"); }

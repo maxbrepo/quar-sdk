@@ -1,0 +1,1 @@
+try { try { try { throw "first"; } catch (a) { throw "second" from a; } } catch (b) { throw "third" from b; } } catch (c) { print(c.message); print(c.cause); }

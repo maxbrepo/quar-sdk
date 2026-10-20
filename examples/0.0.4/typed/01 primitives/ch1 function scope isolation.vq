@@ -1,0 +1,14 @@
+int first(int value) {
+    value = value + 1;
+    return value;
+}
+
+int second(int value) {
+    value = value + 2;
+    return value;
+}
+
+int first_result = first(10);
+int second_result = second(20);
+print(first_result);
+print(second_result);

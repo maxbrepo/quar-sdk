@@ -1,0 +1,6 @@
+int value = 10;
+if (value == 10) {
+    local = value + 5;
+    print(local);
+}
+print(value);

@@ -1,0 +1,4 @@
+if (true) {
+    int temporary = 1;
+}
+int invalid = temporary;

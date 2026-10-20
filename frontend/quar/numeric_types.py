@@ -14,6 +14,7 @@ INTEGER_BITS = {
 FLOAT_BITS = {
     "f32": 32,
     "f64": 64,
+    "long_double": 80,
 }
 
 TYPE_ALIASES = {

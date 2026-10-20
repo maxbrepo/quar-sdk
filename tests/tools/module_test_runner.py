@@ -35,10 +35,11 @@ def run_test(source_file, project_root):
 
 
 def main():
-    project_root = Path.cwd()
+    source_dir = Path(__file__).resolve().parents[2] / "examples/0.0.3/typed/XX modules"
+    project_root = source_dir / "fixtures"
 
     for test_number in range(41, 49):
-        matches = sorted(project_root.glob(f"{test_number} *.vq"))
+        matches = sorted(source_dir.glob(f"{test_number:03d} *.vq"))
         if len(matches) != 1:
             print(f"{test_number}: FAIL - test source not found")
             continue

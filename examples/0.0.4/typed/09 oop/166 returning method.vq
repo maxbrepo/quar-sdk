@@ -1,0 +1,7 @@
+class Player {
+    i32 health;
+    init() { this.health = 100; }
+    i32 get_health() { return this.health; }
+}
+Player player = Player();
+print(player.get_health());

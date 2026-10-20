@@ -1,0 +1,2 @@
+try { print("ok"); } catch (error) { print("unexpected"); }
+print("continued");

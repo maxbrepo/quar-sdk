@@ -1,0 +1,686 @@
+{
+  "version": 1,
+  "root": "/home/max/Desktop/_New/VQ/2026-10-15/quar-sdk/examples/0.0.4/typed",
+  "cases": {
+    "09 oop/161 class declaration.vq": {
+      "sha256": "5005ddda22134d60ad19a10ea717de991fe98c43455aa545c414dcc5fd46e609",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/162 default constructor.vq": {
+      "sha256": "a8ce76f2ce20ed08f02d37a560a624a7c767666b02a47eea64fe12201d6d07f2",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/163 initialized fields.vq": {
+      "sha256": "317b2e608084bc876b758e6f343645f7fd490bfe32190408b423ccacaebf10ec",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/164 parameterized constructor.vq": {
+      "sha256": "3ff6438971bfffcba7304aefc433bd96f7911585ea7cd7b7e7d47623d8e4467d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/165 void method.vq": {
+      "sha256": "3fd107e3ac42d9d3c643907a76a2d2f9fece52d0af9e44367f6f2670e90d9f10",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/166 returning method.vq": {
+      "sha256": "d4d7054950f1a38c6f9b4edc878c0eded58c49bd711e2b3c6446a4e055ab8276",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/167 this access.vq": {
+      "sha256": "b1439130c93ac5a2d10a13131e1dde133a73483c5a22175d96a8815168a8ab33",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/168 independent instances.vq": {
+      "sha256": "4a12edc816e5cba3699176308ef3e49a1f11a84e09a83d4028de0110a83b1230",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/169 unknown field error.vq": {
+      "sha256": "c62487dff3614f1909cc7ad0bb7e761a482300babce96a9d47766f9f19e0f89f",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "09 oop/170 constructor arguments error.vq": {
+      "sha256": "621c0be684c5e3fe32396c402a6ab40be6da1217bd4c9b81627266b9bdd003f1",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/171 text round trip.vq": {
+      "sha256": "42a950fad777c54b3493368edb731978a940e63d1e0926ed84492e5d7babad57",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/172 append text.vq": {
+      "sha256": "f129588801dc4b822aa2b8401d925de3d4ea28f52759bc0ecbcd7b1090168fd9",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/173 automatic text handle.vq": {
+      "sha256": "78422096c9eb5c8bcc0d94f818374e7db4458a61cd726e14613d8ac017d96d37",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/174 binary round trip.vq": {
+      "sha256": "0c18dedc4c99d978e7466c2723c62b8c73b57ef66a9e857a36af5906dd56901c",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/175 binary append and length.vq": {
+      "sha256": "9bf12016fb71a5bb43d9ecb3e24c0145978a4bef30f4fbc68baff3124be8d331",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/176 binary indexing comparison.vq": {
+      "sha256": "3e2c4541000ccc2ac5d17fdc262c7846681d492fd851170b795f66861a9f07e1",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/177 directory entries.vq": {
+      "sha256": "a73150a1fba74667a6dad9c75d718cd2d23d310cafaf92d01183cf02bb50168b",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/178 path operations.vq": {
+      "sha256": "dce66429a148cdb7be198648136cb11da2487da156fb3ec065b732c6f01a0271",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/179 atomic text write.vq": {
+      "sha256": "cc87e5e9303841ec5e40cbc3f96fc799a2579f3e620aab8b1f2e3455a931a682",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/180 atomic binary write.vq": {
+      "sha256": "85371d73964d6443e07ae524fcd13964f23ab37aaab152f92bd61e151aeaa1ce",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/181 missing file error.vq": {
+      "sha256": "6cbe934ebd0a421245320327ab6d41e56b3e1be40bc35db1c08c399028066e8b",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/182 invalid hex error.vq": {
+      "sha256": "b1d1e4d75e1ed6dd9c312ca06be19d42df02ee8cb5067b9361506364ee2f0386",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/183 invalid bytes index error.vq": {
+      "sha256": "6728594ff42f5e9f42ad252b7937612010c3aee4ed27c47063b1b08878ffca8a",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "10 file io/184 invalid directory index error.vq": {
+      "sha256": "7c0755e5a24b25571b0fe5d29dd1d9789c9c4f438b30305f8ad24e2cdcf43f4c",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/185 print and newline.vq": {
+      "sha256": "7222d46130b5801dbc2d6c061c18afadbc4db26c7ad704570880e8a2a3e277b8",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/186 input text.vq": {
+      "sha256": "956215b6dcb07e2e56cb3126fa32f8a439ee31944e97c4582016dbc8ea74ab72",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/187 input numeric conversion.vq": {
+      "sha256": "8b2769228ff116d3453087aae9f79d674450eaf7a8b1c4294aa0b88330d69deb",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/188 input no prompt.vq": {
+      "sha256": "942e68fb76784536429b445951f4d64215150f1309ce57051e78ed3d1496f6af",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/189 input invalid prompt error.vq": {
+      "sha256": "bf18ece499d0b519015dd7916b069abb66ea46d897619adff3a8e4fcb549503e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/190 input too many arguments error.vq": {
+      "sha256": "5a2b12ad9bc5f4fc0ec179752d37d09f3f17ac22c3969d6417d65e3834d836dd",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/191 stdout no newline.vq": {
+      "sha256": "dc9cda107bb3697748ca3ffd58dd0d8654cd3e8ea65b523ee5c9c890b6f6b554",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/192 stderr output.vq": {
+      "sha256": "186065cc1625e5836b8ffe8ccb0529f3d69b5db56927341ff205670771a26b68",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/193 exit success.vq": {
+      "sha256": "de69b4664d0e1b6f1a69fe5c38d26d22f296da05236cb95f9b3f6f3b94257ffb",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/194 stdout and print.vq": {
+      "sha256": "78ad4f2f25cbed72ca28529b703a3f4fef44301a0051dc74456d62a5eed66c28",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/195 stdout wrong type error.vq": {
+      "sha256": "ecb62d1348a171b1dbdc23627279748e6a7edc7e036bb15761a906e0f3511610",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/196 exit wrong type error.vq": {
+      "sha256": "7585cecbd63c09c4ec994e9271e5cb125a6c1c13dbf2d4473b255c80721ebbd8",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/197 exit invalid range error.vq": {
+      "sha256": "423d9c6db7caa78e3ecf7a377f3e9c4b1a2b9199c2d22986c0df45d47e80677e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/198 cli arguments.vq": {
+      "sha256": "4994807aa866d30f241cdda740a70355bb583398ea0c391301ff2ca7bf9cc3c5",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/199 environment variables.vq": {
+      "sha256": "7529e5e3cf691fdf350f98ef8af31ba1c8a26219fffd3c3ef2d8c10351ad8f4e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/200 empty cli arguments.vq": {
+      "sha256": "cd2df143bdf535d11300a4f70ddfce801b317eaab8181dbef3d2b46d72648159",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/201 numeric cli argument.vq": {
+      "sha256": "8c307584b5f3db69b74f11e6ea7e471b4eab2baebdf9fffbddccb9ee992680d1",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/202 missing cli argument error.vq": {
+      "sha256": "82cb547be936ea2cb9dde2c7a112ac0ac94ab48ac087a5a7e9dc81ead367cdee",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/203 missing environment variable error.vq": {
+      "sha256": "5442e8e7f3646aec3bd4e523798db4493e514251a5e5d163b4206cda561e89f3",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/204 cli argument wrong index type error.vq": {
+      "sha256": "cd3415ddd322a0675c5c5e06b4336b73ff12afd841d77e519bee8ee3b3a90f4a",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "11 console/205 environment wrong name type error.vq": {
+      "sha256": "76d960919e24a4801822ac38b829e7df98e88e414b7ab9fb53bc81cd45f570bc",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/206 try success.vq": {
+      "sha256": "b76aaef32ae8ec32c783282b3dae736877c3dd4b9d2420ad715ffba32574c683",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/207 catch thrown error.vq": {
+      "sha256": "5c3b83fde91db43efb235b6c03f23746f6d538e454067249d8a64df02107218d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/208 catch file error.vq": {
+      "sha256": "1a22e7e81a73ea7c35a88b2d249857009ae6e4ea14e986eed7eb48b91c9a9b6b",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/209 nested error propagation.vq": {
+      "sha256": "4600b2ea7df87805dabd5ffa409d00f02f9854e04ee3c05784fe44551a2241b7",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/210 catch arithmetic error.vq": {
+      "sha256": "fd07d5406c884382f4a7ecae9c3b2ea6d8bb3748be20bac3a5f2d53b14f2ed2f",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/211 throw from function.vq": {
+      "sha256": "11f30f26dd33d7e779d1447334d52c3bb5bfc2f6b056e453ed2c3094f44b5521",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/212 uncaught throw error.vq": {
+      "sha256": "73588ce0fc2b44f9e4f4dbbb22efdd5f225ae795b6620b125738909f3175c426",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/213 throw wrong type error.vq": {
+      "sha256": "639163ead98a7ecb0397248f84cde3e51fae88bb0163c0ad499a731b9970fc8a",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/214 chain caught error.vq": {
+      "sha256": "c5a5bd80fcce6178e1206ca9060f9abfa45b6b0ec077814dd593c0fbd5cf2904",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/215 chain file error.vq": {
+      "sha256": "fc4865f221cd1293f4d9e06e98d9f5198dd3814c1ec3bbb1c8cab1ed009d5105",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/216 chain across function.vq": {
+      "sha256": "17c0dd92012be0f66a1f7f2adb11ede8ff4dbfb19712fe44cd1e14762dc48adb",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/217 chain multiple levels.vq": {
+      "sha256": "a019cecff204dfa3580ae2525914423478a4ad9afe2892efdf9746bb010b58bc",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/218 plain throw empty cause.vq": {
+      "sha256": "0e46ab86ea4083e50b10de28ddd25ccff395d382a3c1f162285ea19980eec98e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/219 throw cause wrong type error.vq": {
+      "sha256": "a8123341b22215c12ea311c2473a5d4918d67fb9084a37e99d82839f2e3c6936",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/220 throw missing cause error.vq": {
+      "sha256": "82d7f03714e8e0ac735b09274eec76f78760c8bc74065ee944ced06d37d514f6",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/221 assertion success.vq": {
+      "sha256": "24a6da550e7714a51b36f2c99e0d4d0bbc7acee7a44a18b6e1a75faece0df55a",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/222 assertion caught.vq": {
+      "sha256": "a042c3635ca97e4e1ee820439f87b206b6935c53c3d47c9ca599fdcc2ce71511",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/223 function stack trace.vq": {
+      "sha256": "cacb99cf841276dfaf227e1399dd6373dac418a558ff0af3bb66bd88af4459af",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/224 main stack trace.vq": {
+      "sha256": "ac9db3cec335f19ad91f68d877c8cd477772107355dbbaedbd023398f5a2f33c",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/225 assertion failure error.vq": {
+      "sha256": "42cad7df439a588f53e1e8c5bdd41c91958c5805416b258aaa0d04c4a6eea24f",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/226 assertion wrong type error.vq": {
+      "sha256": "706ec1f6c2f453ea775466a169b94c405a6c957941b08d2c06e540ff1ea83ec8",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/227 assertion wrong arity error.vq": {
+      "sha256": "3de408e7c6530f1525083d8f885a83e398a466048adbca9a0fcbc894c2bffc39",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/228 panic fatal error.vq": {
+      "sha256": "6062469b47f5e03ae4e54b0c459cdf0ed00767b027891c06ff7b9c178598eac4",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/229 panic bypasses catch error.vq": {
+      "sha256": "7a2e0b92f0fe9806523d4d76e9ac9f8baecdca34cf6c0ea49a984b012320f12d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/230 catch ordinary error.vq": {
+      "sha256": "2c7101a76f418d36c5c0345f59d2f253e774a4c244b6b005eacc9942ce2e7f1d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/231 assertion remains recoverable.vq": {
+      "sha256": "a042c3635ca97e4e1ee820439f87b206b6935c53c3d47c9ca599fdcc2ce71511",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/232 panic wrong type error.vq": {
+      "sha256": "f9aa0b2a08519ce8574eedc85aa93e5a0894f8d5da7875e86d5ffa1e430c2f2e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "12 error handling/233 panic wrong arity error.vq": {
+      "sha256": "8c8a00f493a724e16c16b63677eee887d50315b4eb951b07c0f09d1346057d6e",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/234 basic import/main.vq": {
+      "sha256": "dc956b1e6437e1f4150faac08d5f32e477a55dcf4cb27b87724baf80b6819b1d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/234 basic import/math.vq": {
+      "sha256": "23cf718c49184de97b2e966b9426178d82ba04d4f3b591c7ed5fcb6b623f7afb",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/235 alias import/main.vq": {
+      "sha256": "374f5a6e86f8d5c39c4f39b6101b8df23fc099f0d87473775777c01a999632bc",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/235 alias import/math.vq": {
+      "sha256": "b06a490f0c671c78e4bac8084ce41ffda7d45578f463e517b0cbf4f5778f9675",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/236 nested module/main.vq": {
+      "sha256": "546bc69a95938b728c034b495492d89154e801c0de7b68b8d427f9a166517fbe",
+      "observed": {
+        "borrow": "ERROR",
+        "code": "PARSER_ERROR"
+      },
+      "reviewed": false
+    },
+    "13 modules/236 nested module/utilities/math.vq": {
+      "sha256": "e346068d5a9008b3b15483e364a7cd0def5f71401f7d90699ba60af55e86595d",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/237 multiple imports/add.vq": {
+      "sha256": "e5cc59c60337cc7ebcbc316195191a512e42bb0d48f4e1136af3de80d87f27c5",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/237 multiple imports/main.vq": {
+      "sha256": "e52011882df48e0be9fac3cdc1c323f6b6c62091420b83ddadebcc69fd914973",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/237 multiple imports/multiply.vq": {
+      "sha256": "41b6f10f9734e07084ce23496f2ec5cd83fbb068309a76f4afeb1ef670b502eb",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/238 module internal call/main.vq": {
+      "sha256": "4a1b181f058c144ad0c49e4f53222539f13e89c9afab0b6d6942ff423bbfc81a",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "13 modules/238 module internal call/math.vq": {
+      "sha256": "3211e633256066c15683d0f019f695ad04f492c148aaf965d2d05f444d7aa769",
+      "observed": {
+        "borrow": "UNSUPPORTED",
+        "code": "UNSUPPORTED_CONSTRUCT"
+      },
+      "reviewed": false
+    },
+    "15 memory safety/239 borrow source valid.vq": {
+      "sha256": "67e774e4a2d0651315e355cd4f82bbdd002d07882f0c580025a28caab1703b51",
+      "observed": {
+        "borrow": "PASS",
+        "code": "BORROW_PASS"
+      },
+      "reviewed": false
+    }
+  }
+}

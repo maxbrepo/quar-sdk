@@ -22,6 +22,7 @@ class TokenType(Enum):
     TYPE_BOOL = auto()
     TYPE_CHAR = auto()
     TYPE_STRING = auto()
+    TYPE_BYTES = auto()
     TYPE_SHORT = auto()
     TYPE_USHORT = auto()
     TYPE_UINT = auto()
@@ -36,6 +37,11 @@ class TokenType(Enum):
     TYPE_TUPLE = auto()
     IMPORT = auto()
     AS = auto()
+    WITH = auto()
+    TRY = auto()
+    CATCH = auto()
+    THROW = auto()
+    FROM = auto()
 
     TRUE = auto()
     FALSE = auto()
@@ -56,6 +62,11 @@ class TokenType(Enum):
     MATCH = auto()
     BREAK = auto()
     CONTINUE = auto()
+    CLASS = auto()
+    INIT = auto()
+    THIS = auto()
+    PUBLIC = auto()
+    PRIVATE = auto()
     STRUCT = auto()
     ENUM = auto()
     RECORD = auto()
@@ -101,6 +112,7 @@ class TokenType(Enum):
 
     COMMA = auto()
     END_STMT = auto()
+    QUESTION = auto()
 
     EOF = auto()
 

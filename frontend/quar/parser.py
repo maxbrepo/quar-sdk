@@ -13,6 +13,8 @@ from .ast_nodes import (
     ConstantDeclaration,
     Assignment,
     FunctionCall,
+    WithFileStatement,
+    TryCatchStatement, ThrowStatement,
     NamedArgument,
     FunctionParameter,
     ReturnStatement,
@@ -31,6 +33,7 @@ from .ast_nodes import (
     RecordDefinition,
     EnumDefinition,
     ObjectDeclaration,
+    ClassDefinition, ClassField, ClassConstructor, ClassMethod,
     MemberAccess,
     MemberAssignment,
     DoWhileStatement,
@@ -96,7 +99,7 @@ class Parser:
             TokenType.TYPE_DOUBLE,
             TokenType.TYPE_BOOL,
             TokenType.TYPE_CHAR,
-            TokenType.TYPE_STRING,
+            TokenType.TYPE_STRING, TokenType.TYPE_BYTES,
             TokenType.TYPE_SHORT,
             TokenType.TYPE_USHORT,
             TokenType.TYPE_UINT,
@@ -114,6 +117,21 @@ class Parser:
         if token.type == TokenType.MATCH:
             return self.parse_match_statement()
 
+        if token.type == TokenType.TRY:
+            return self.parse_try_catch()
+        if token.type == TokenType.THROW:
+            self.advance()
+            message = self.parse_expression()
+            cause = None
+            if self.current().type == TokenType.FROM:
+                self.advance()
+                cause = self.parse_expression()
+            self.expect(TokenType.END_STMT)
+            return ThrowStatement(message, cause)
+
+        if token.type == TokenType.WITH:
+            return self.parse_with_file()
+
         if token.type == TokenType.CONST:
             return self.parse_constant_declaration()
 
@@ -121,15 +139,19 @@ class Parser:
             return self.parse_import_statement()
 
         if token.type in primitive_types:
+            type_offset = 2 if self.tokens[self.pos + 1].type == TokenType.QUESTION else 1
             if (
-                self.tokens[self.pos + 1].type == TokenType.IDENTIFIER
-                and self.tokens[self.pos + 2].type == TokenType.LEFT_PAREN
+                self.tokens[self.pos + type_offset].type == TokenType.IDENTIFIER
+                and self.tokens[self.pos + type_offset + 1].type == TokenType.LEFT_PAREN
             ):
                 return self.parse_function_definition()
             return self.parse_variable_declaration()
 
         if token.type == TokenType.TYPE_VOID:
             return self.parse_function_definition()
+
+        if token.type == TokenType.CLASS:
+            return self.parse_class_definition()
 
         if token.type in (TokenType.STRUCT, TokenType.RECORD):
             return self.parse_composite_definition()
@@ -174,7 +196,7 @@ class Parser:
         if token.type == TokenType.RETURN:
             return self.parse_return_statement()
 
-        if token.type == TokenType.IDENTIFIER:
+        if token.type in (TokenType.IDENTIFIER, TokenType.THIS):
             next_token = self.tokens[self.pos + 1]
             if (
                 next_token.type == TokenType.IDENTIFIER
@@ -209,7 +231,7 @@ class Parser:
 
     def parse_import_statement(self):
         self.expect(TokenType.IMPORT)
-        parts = [self.expect(TokenType.IDENTIFIER).value]
+        parts = [self.advance().value]
 
         while self.current().type == TokenType.DOT:
             self.advance()
@@ -240,7 +262,7 @@ class Parser:
         )
 
     def parse_qualified_function_call(self):
-        parts = [self.expect(TokenType.IDENTIFIER).value]
+        parts = [self.advance().value]
 
         while self.current().type == TokenType.DOT:
             self.advance()
@@ -258,6 +280,50 @@ class Parser:
         self.expect(TokenType.RIGHT_PAREN)
         return FunctionCall(".".join(parts), arguments)
         # Return namespaced function call
+
+    def parse_class_definition(self):
+        self.expect(TokenType.CLASS)
+        name = self.expect(TokenType.IDENTIFIER).value
+        self.expect(TokenType.LEFT_BRACE)
+        fields = []
+        methods = []
+        constructor = None
+        while self.current().type != TokenType.RIGHT_BRACE:
+            visibility = "private"
+            if self.current().type in (TokenType.PUBLIC, TokenType.PRIVATE):
+                visibility = self.advance().value
+            if self.current().type == TokenType.INIT:
+                if constructor is not None:
+                    raise ParserError("Duplicate class constructor")
+                self.advance()
+                self.expect(TokenType.LEFT_PAREN)
+                parameters = self.parse_parameter_list()
+                constructor = ClassConstructor(parameters, self.parse_block(), visibility)
+                continue
+            member_type = self.parse_type_name(allow_void=True)
+            member_name = self.expect(TokenType.IDENTIFIER).value
+            if self.current().type == TokenType.LEFT_PAREN:
+                self.advance()
+                parameters = self.parse_parameter_list()
+                function = FunctionDefinition(member_type, member_name, parameters, self.parse_block())
+                methods.append(ClassMethod(function, visibility))
+            else:
+                if member_type == "void":
+                    raise ParserError("Class field cannot have void type")
+                self.expect(TokenType.END_STMT)
+                fields.append(ClassField(member_type, member_name, visibility))
+        self.expect(TokenType.RIGHT_BRACE)
+        return ClassDefinition(name, fields, constructor, methods)
+
+    def parse_parameter_list(self):
+        parameters = []
+        if self.current().type != TokenType.RIGHT_PAREN:
+            parameters.append(self.parse_function_parameter())
+            while self.current().type == TokenType.COMMA:
+                self.advance()
+                parameters.append(self.parse_function_parameter())
+        self.expect(TokenType.RIGHT_PAREN)
+        return parameters
 
     def parse_composite_definition(self):
         kind = self.advance().type
@@ -358,16 +424,35 @@ class Parser:
 
         value = self.parse_expression()
         self.expect(TokenType.END_STMT)
+        if isinstance(value, FunctionCall) and value.name == type_name:
+            return ObjectDeclaration(type_name, name, value.arguments)
         return VariableDeclaration(type_name, name, value)
         # Return custom typed declaration
 
     def parse_member_assignment(self):
-        object_name = self.expect(TokenType.IDENTIFIER).value
+        object_name = self.advance().value
         self.expect(TokenType.DOT)
         member_name = self.expect(TokenType.IDENTIFIER).value
-        self.expect(TokenType.ASSIGN)
+        assignment = self.advance()
+        operators = {
+            TokenType.PLUS_ASSIGN: "+",
+            TokenType.MINUS_ASSIGN: "-",
+            TokenType.MULTIPLY_ASSIGN: "*",
+            TokenType.DIVIDE_ASSIGN: "/",
+            TokenType.MODULO_ASSIGN: "%",
+        }
+        if assignment.type not in (TokenType.ASSIGN, *operators):
+            raise ParserError(
+                f"Line {assignment.line}: invalid member assignment"
+            )
         value = self.parse_expression()
         self.expect(TokenType.END_STMT)
+        if assignment.type in operators:
+            value = BinaryOperation(
+                MemberAccess(object_name, member_name),
+                operators[assignment.type],
+                value,
+            )
         return MemberAssignment(object_name, member_name, value)
 
     def parse_for_statement(self):
@@ -445,6 +530,7 @@ class Parser:
             TokenType.TYPE_BOOL: "bool",
             TokenType.TYPE_CHAR: "char",
             TokenType.TYPE_STRING: "string",
+            TokenType.TYPE_BYTES: "bytes",
             TokenType.TYPE_SHORT: "short",
             TokenType.TYPE_USHORT: "ushort",
             TokenType.TYPE_UINT: "uint",
@@ -577,6 +663,32 @@ class Parser:
         )
         # Return conditional statement
 
+    def parse_try_catch(self):
+        self.expect(TokenType.TRY)
+        try_body = self.parse_block()
+        self.expect(TokenType.CATCH)
+        self.expect(TokenType.LEFT_PAREN)
+        error_name = self.expect(TokenType.IDENTIFIER).value
+        self.expect(TokenType.RIGHT_PAREN)
+        catch_body = self.parse_block()
+        return TryCatchStatement(try_body, error_name, catch_body)
+
+    def parse_with_file(self):
+        self.expect(TokenType.WITH)
+        service = self.expect(TokenType.IDENTIFIER).value
+        self.expect(TokenType.DOT)
+        operation = self.expect(TokenType.IDENTIFIER).value
+        if service != "File" or operation != "open":
+            raise ParserError("with requires File.open")
+        self.expect(TokenType.LEFT_PAREN)
+        path = self.parse_expression()
+        self.expect(TokenType.COMMA)
+        mode = self.parse_expression()
+        self.expect(TokenType.RIGHT_PAREN)
+        self.expect(TokenType.AS)
+        name = self.expect(TokenType.IDENTIFIER).value
+        return WithFileStatement(path, mode, name, self.parse_block())
+
     def parse_block(self):
         self.expect(TokenType.LEFT_BRACE)
         statements = []
@@ -615,6 +727,7 @@ class Parser:
             TokenType.TYPE_BOOL: "bool",
             TokenType.TYPE_CHAR: "char",
             TokenType.TYPE_STRING: "string",
+            TokenType.TYPE_BYTES: "bytes",
             TokenType.TYPE_SHORT: "short",
             TokenType.TYPE_USHORT: "ushort",
             TokenType.TYPE_UINT: "uint",
@@ -627,13 +740,22 @@ class Parser:
         if allow_void:
             type_names[TokenType.TYPE_VOID] = "void"
         if token.type == TokenType.IDENTIFIER:
-            return token.value
-        if token.type not in type_names:
+            type_name = token.value
+        elif token.type in type_names:
+            type_name = type_names[token.type]
+        else:
             raise ParserError(
                 f"Line {token.line}: expected type, found {token.type.name}"
             )
-        return type_names[token.type]
-        # Return canonical primitive type
+        if self.current().type == TokenType.QUESTION:
+            if type_name == "void":
+                raise ParserError(f"Line {token.line}: void cannot be optional")
+            self.advance()
+            if self.current().type == TokenType.QUESTION:
+                raise ParserError(f"Line {self.current().line}: nested optional types are not supported")
+            return type_name + "?"
+        return type_name
+        # Return canonical primitive or optional type
 
     def parse_function_definition(self):
         return_type = self.parse_type_name(allow_void=True)
@@ -694,7 +816,7 @@ class Parser:
             TokenType.TYPE_U8, TokenType.TYPE_BYTE, TokenType.TYPE_U16, TokenType.TYPE_U32,
             TokenType.TYPE_U64, TokenType.TYPE_U128,
             TokenType.TYPE_F32, TokenType.TYPE_F64,
-            TokenType.TYPE_BOOL, TokenType.TYPE_CHAR, TokenType.TYPE_STRING,
+            TokenType.TYPE_BOOL, TokenType.TYPE_CHAR, TokenType.TYPE_STRING, TokenType.TYPE_BYTES,
             TokenType.TYPE_SHORT, TokenType.TYPE_USHORT, TokenType.TYPE_UINT,
             TokenType.TYPE_LONG, TokenType.TYPE_ULONG,
             TokenType.TYPE_LLONG, TokenType.TYPE_ULLONG,
@@ -976,7 +1098,7 @@ class Parser:
             self.advance()
             return Boolean(False)
 
-        if token.type == TokenType.IDENTIFIER:
+        if token.type in (TokenType.IDENTIFIER, TokenType.THIS):
             next_token = self.tokens[self.pos + 1]
             if next_token.type == TokenType.LEFT_PAREN:
                 return self.parse_function_call()
@@ -984,6 +1106,23 @@ class Parser:
                 object_name = self.advance().value
                 self.expect(TokenType.DOT)
                 member_name = self.expect(TokenType.IDENTIFIER).value
+                # Qualified function names may contain more than one namespace.
+                if self.current().type == TokenType.DOT:
+                    segments = [object_name, member_name]
+                    while self.current().type == TokenType.DOT:
+                        self.advance()
+                        segments.append(self.expect(TokenType.IDENTIFIER).value)
+                    if self.current().type == TokenType.LEFT_PAREN:
+                        self.advance()
+                        arguments = []
+                        if self.current().type != TokenType.RIGHT_PAREN:
+                            arguments.append(self.parse_call_argument())
+                            while self.current().type == TokenType.COMMA:
+                                self.advance()
+                                arguments.append(self.parse_call_argument())
+                        self.expect(TokenType.RIGHT_PAREN)
+                        return FunctionCall(".".join(segments), arguments)
+                    raise ParserError(f"Line {token.line}: qualified name requires a call")
                 if self.current().type == TokenType.LEFT_PAREN:
                     self.advance(); arguments=[]
                     if self.current().type != TokenType.RIGHT_PAREN:
@@ -1032,3 +1171,39 @@ class Parser:
 
         self.expect(TokenType.RIGHT_PAREN)
         return FunctionCall(name, arguments)
+
+
+# Source metadata is optional and never participates in AST equality or semantics.
+def _record_source_span(method):
+    """Decorate parser entry points with token-based, half-open source spans."""
+    from functools import wraps
+
+    @wraps(method)
+    def wrapped(self, *args, **kwargs):
+        first = self.current()
+        initial_pos = self.pos
+        node = method(self, *args, **kwargs)
+        if self.pos <= initial_pos or not hasattr(node, "__dict__"):
+            return node
+        last = self.tokens[self.pos - 1]
+        # Token text lengths are accurate for most lexemes; use the following
+        # token's position when on the same line to include closing punctuation.
+        end_line = last.line
+        end_column = last.column + len(str(last.value))
+        if self.pos < len(self.tokens):
+            following = self.tokens[self.pos]
+            if following.line == last.line and following.column > last.column:
+                end_column = following.column
+        if end_line > first.line or end_column > first.column:
+            if getattr(node, "start", None) is None:
+                node.start = (first.line, first.column)
+            if getattr(node, "end", None) is None:
+                node.end = (end_line, end_column)
+        return node
+
+    return wrapped
+
+
+Parser.parse_statement = _record_source_span(Parser.parse_statement)
+Parser.parse_expression = _record_source_span(Parser.parse_expression)
+Parser.parse_primary = _record_source_span(Parser.parse_primary)

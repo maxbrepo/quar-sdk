@@ -1,0 +1,662 @@
+{
+  "inferred/00 foundation/001 math.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "d0af2bb7c3a96ad311c6998f3d3b15cf91669273d17084bc18d277d3805441b1",
+    "stdout": "12.5\n"
+  },
+  "mixed/00 foundation/001 math.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "e599a02afd73fc260343daa7e2e4be47fba51bac41471886075a3d4ad25e060e",
+    "stdout": "25.0\n"
+  },
+  "typed/00 foundation/001 math.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "73e33e63c45caf6af32e4a49b7222298c179c10f610defd32a9a0f63529d5c30",
+    "stdout": "12.5\n"
+  },
+  "typed/00 foundation/002 function.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "019bab3f2eaa4a3b45eace51b0f97b191bb7d888ecbb32945bcaf1110e4906c9",
+    "stdout": "30\n"
+  },
+  "typed/00 foundation/003 bool.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8f9f3f34aad1a4e3bd7b0988e8e5c41dba6622766d1c25bed5737cf791d6383e",
+    "stdout": "True\nFalse\nTrue\nTrue\nTrue\nTrue\nTrue\nTrue\n"
+  },
+  "typed/00 foundation/004 logic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "3532a9eab22984c5803941a5daf48823ac40be944ba00d4adf5592034bb1cd5a",
+    "stdout": "True\nFalse\nTrue\nTrue\nTrue\nTrue\n"
+  },
+  "typed/00 foundation/005 if_else.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f576f4ed8db6f7c961136188a6d8df2319d978e92eb72e17383fae7bd13265f4",
+    "stdout": "20\n1\n100\n"
+  },
+  "typed/00 foundation/006 while.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8a67b5e702ecb2b586f422d973a26ca894c73056deacccc0cc216a0a3ad8687a",
+    "stdout": "0\n1\n2\n3\n4\n3\n20\n1\n100\n"
+  },
+  "typed/00 foundation/007 for.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "1cdab1cd446e0fd09541426b7c5d2c9bf47da310c1653d929e73259c7e8e3499",
+    "stdout": "1\n2\n3\n4\n5\n4\n3\n2\n1\n2\n3\n3\n2\n1\n"
+  },
+  "typed/00 foundation/008 array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "747b42f0dd49c85607e4f699d906a38f5ebef1d27c26cd413f95fad53c93f596",
+    "stdout": "10\n20\n30\n40\n"
+  },
+  "typed/00 foundation/009 char.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "695e5ca7c89de4869015c2e3817ab3d79659443e39aa480894d97ea021114896",
+    "stdout": "Q\n"
+  },
+  "typed/00 foundation/010 string.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "38568bb2b865a917f30410f4ce41d05fb2159685df29530e9c971855b0963338",
+    "stdout": "Visual Quar\n"
+  },
+  "typed/00 foundation/011 struct.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "314502a97c70eb213390dd7a605dd2e67d768658e2a0ea4e909b067ceb7037b7",
+    "stdout": "10\n30\n"
+  },
+  "typed/00 foundation/012 enum.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "538b738acb316139b2f2823f559a8bc1ea8bc7847240b730fc6eadf5ea9ed174",
+    "stdout": "Direction.North\n"
+  },
+  "typed/00 foundation/013 record.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2a6a44fe0f75c1101a3db409a8aa7da5c7b5a5b6bdffe764c59cd366fa83f5c1",
+    "stdout": "1\nQuar\n"
+  },
+  "typed/00 foundation/014 short.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "4803d1726c7bb3cea007942ca5751176be6fcbdca4bf5ce9c0c2c643cf9b80c6",
+    "stdout": "10\n20\n"
+  },
+  "typed/00 foundation/015 extended integers.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "969560a669024b40f4961dc8497c1709413871a71a7971d3a209fddfaa85aea3",
+    "stdout": "10\n20\n30\n40\n50\n"
+  },
+  "typed/00 foundation/017 do while.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "07faef52f58e555346e90506ae5f6d70d63235f9a707cf57080d77e4c24c3355",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/00 foundation/018 nested if.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8d6eb09725cc91a31fa1ee3fcdc7d98eecb591b7086ae0d9307507eb442756ae",
+    "stdout": "1\n"
+  },
+  "typed/00 foundation/019 break.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "aa4e0d0b85399e56d9d22c0525aa27621b1294737b809f1504a71fc035a87a9f",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/00 foundation/020 continue.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "cdaaceff6d21b69c272327784bf8a09bbf4805c22319d579ce049088f63b8ed9",
+    "stdout": "0\n1\n3\n4\n"
+  },
+  "typed/00 foundation/021 switch case.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c6e4d5ba65b2e58bb69d5bfaa3f1135457b9db6a83190d5f1f4159a652cf2baf",
+    "stdout": "20\n"
+  },
+  "typed/00 foundation/022 type alias.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "e2c9d00b2332d82321ebfd80bf483c1bfa2486761e77dbc21b54a3ac3e7badf4",
+    "stdout": "10\n"
+  },
+  "typed/00 foundation/023 void functions.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "a36c61e03efa16c7a083f0d16aa648ecb6eb21211a94106cd287067b046a28af",
+    "stdout": "23\n"
+  },
+  "typed/00 foundation/024 typed parameters.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "e5525706abac832626ec3f26387cce277c5a972b2859396cd9c29c2a703edf3d",
+    "stdout": "2.5\n"
+  },
+  "typed/00 foundation/025 multiple parameter types.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c56f38baf842b49132990af9d9899e12b5e8e9a401059d7ff3502492b9b1e24c",
+    "stdout": "Quar\n"
+  },
+  "typed/00 foundation/026 local scope.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8ae267ce9c5cfb7ad0f69d028588036a17e5ebcb1d24f1953d5d9dd2f4a11472",
+    "stdout": "26\n"
+  },
+  "typed/00 foundation/027 nested block scope.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c8a9e88dd0248dbe3df18eb11224739b55687d5d162cdff7cb322e09565c44bc",
+    "stdout": "27\n1\n"
+  },
+  "typed/00 foundation/028 recursion.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "590d581c082cde4f1f9d298d524e704b4368e65c8a8f06de2129d96f23d27156",
+    "stdout": "120\n"
+  },
+  "typed/00 foundation/029 function expression.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2e0d025965c6e17c1a3e4a69b08eae45f1bac04419b5401d447223708e77f302",
+    "stdout": "60\n"
+  },
+  "typed/00 foundation/030 return validation.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "29a05cdf7b90a3496c92cf0aa556bc70f2b790c24e19007c1c7fe90f89b51b36",
+    "stdout": "30\n"
+  },
+  "typed/00 foundation/031 array initialization.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "77bcfa249decbc37407de973d56981ecca0de35581560188fdfab50ff9cded69",
+    "stdout": "10\n20\n30\n"
+  },
+  "typed/00 foundation/032 array length.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "16cbbc8017068ef54ad30917eef7a3fa8e6fed73aae2ef86cfb23e79cb4a18f9",
+    "stdout": "4\n"
+  },
+  "typed/00 foundation/033 array iteration.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "cd1866c3d5bef179ed570486e5543b204426fac4b0d4db2316c085ef0a5fb2f6",
+    "stdout": "10\n20\n30\n"
+  },
+  "typed/00 foundation/034 multidimensional array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "92a03b3e75368780bbcaf9930a3e2a4adb59e37876c3d63c5a271bbe333d133d",
+    "stdout": "10\n20\n30\n40\n"
+  },
+  "typed/00 foundation/035 string indexing.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "d2323da2f2672c7f28c10a15ca8d8fcd2c914e1e3f6b693e8ec014f2cb2ddc3f",
+    "stdout": "Q\n"
+  },
+  "typed/00 foundation/036 string length.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "25c63da06d810e1ae2d47c8c7fe2061241a7a39bdf8e273ad6b8c5fa49ee2d56",
+    "stdout": "4\n"
+  },
+  "typed/00 foundation/037 string concatenation.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "d9ca82ff05995407e61919eec17fd102ab2ad7b13c15428c4b57f2102651799c",
+    "stdout": "Visual Quar\n"
+  },
+  "typed/00 foundation/038 nested struct.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "dee331d8860a1207ef6c8ce1c24dbc727caa8d2943fd37c81dc3565eca7d36da",
+    "stdout": "{'__type__': 'Point', '__fields__': {'x': 1, 'y': 2}}\n"
+  },
+  "typed/00 foundation/039 struct parameter.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "3a135cadc011d1771e4f459811c39fe9607b94b862e54e5ff6ba463aae86e6f8",
+    "stdout": "39\n"
+  },
+  "typed/00 foundation/040 struct return.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "7423d08622ced9ab7e9fbdff2f3b27dd24ba5b7ff200a1c16db9670c8c8b48ea",
+    "stdout": "40\n"
+  },
+  "typed/01 primitives/049 fixed width integers.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f29f1da057aafbcc0c98824db08bb51110f090c4d9553ac7fce047d0a2bab93a",
+    "stdout": "100\n100000000000000000000\n"
+  },
+  "typed/01 primitives/050 numeric aliases.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f3d37c876fb3f982a10f0101cda1f9e0bcc956d75e640112c4035ce7ffc12723",
+    "stdout": "30\n8.0\n"
+  },
+  "typed/01 primitives/053 safe numeric conversion.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "27ee765e57a1b7a7808902c3c6b72bfcc65fb46db52811e6c965b4c4cfe2980d",
+    "stdout": "100\n"
+  },
+  "typed/01 primitives/054 inferred constant.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f8e45a2bf369a273b50a3b2639b12f7de3ef5e0fe7c92dbd6a02443618233644",
+    "stdout": "42\nTrue\n"
+  },
+  "typed/01 primitives/055 explicit constant.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "67f6cfd94cdf1798bea5004b6e105db0936288492061276631e33a1c3c15d21c",
+    "stdout": "4\n"
+  },
+  "typed/01 primitives/057 byte alias.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c747fb29c0ed96aacf61dc0b31edd9412e1256a1a373ec212cb0157eb72ddc53",
+    "stdout": "255\n"
+  },
+  "typed/01 primitives/058 default initialization.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "9aa8de0ac84a752550dfb4c54a309185e14edff8f13c5381dd694348818bb594",
+    "stdout": "0\n0.0\nFalse\n\n\n"
+  },
+  "typed/01 primitives/059 unified text char.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "ea17af535e61d54896c56b76c27b9dde638261a3869a436d738b1f196c2b972f",
+    "stdout": "A\nAAA\n"
+  },
+  "typed/02 operators expressions/061 arithmetic operators.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "fda8ea833417f0eac5e7c26a3b3669f70e6da1312de2693e99a2cbc408967eb8",
+    "stdout": "26\n14\n120\n3.3333333333333335\n"
+  },
+  "typed/02 operators expressions/062 comparison operators.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "e774be8fddecf24674a6e5411836974f8ddb82a54e983e22fccb07bd22effc62",
+    "stdout": "False\nTrue\nTrue\nFalse\nTrue\nFalse\n"
+  },
+  "typed/02 operators expressions/063 logical operators.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c4e139b048a72a2911ad5eafcd6da37bf8425975d61197db28bed8d454305459",
+    "stdout": "False\nTrue\nTrue\n"
+  },
+  "typed/02 operators expressions/064 operator precedence.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "56fc02fceb64e3733950019cda2a5f4c23868a99515e2645a6a11fe68e25da59",
+    "stdout": "14\nTrue\n"
+  },
+  "typed/02 operators expressions/065 parentheses.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "1d33da06f5f6f6a98bbc84c78d2e674badc33b61e5052262d202b6c65ef384bd",
+    "stdout": "20\nTrue\n"
+  },
+  "typed/02 operators expressions/066 modulo.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8b1d1f79910033230e048816a258c3e9d36bb7ee910dfaa797e5cfb98496caa3",
+    "stdout": "2\n"
+  },
+  "typed/02 operators expressions/067 bitwise operators.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "ea889601cc7d746b0406032bf02bea0702d67f38d909da98ea87b64ff5d03203",
+    "stdout": "8\n14\n6\n"
+  },
+  "typed/02 operators expressions/068 shift operators.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "570d92ac6e16637cc5e4d71e0731ad307df640667ad6a76659d9b5d4f19d4cc9",
+    "stdout": "12\n6\n"
+  },
+  "typed/02 operators expressions/069 compound assignments.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "a88bf2b91c3693bbdac40608d35f3745de38e6e738053a54f1fcaefd014428f5",
+    "stdout": "0\n"
+  },
+  "typed/02 operators expressions/072 bitwise not.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "547f920cb5df443ae7edbd253d64ef5c272bc854d9d6423e1079d0a9a48c1424",
+    "stdout": "-6\n"
+  },
+  "typed/03 conditions/073 numeric truthiness.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "79c72b667cd5e4132936f7a2a2dec7e60b8a3f4abb48dbca7b953a7e9c1065c0",
+    "stdout": "enabled\ndisabled\n"
+  },
+  "typed/03 conditions/074 text truthiness.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "10dfd54d60f101af8feaedd5962e48f51f9485691a88a7aa4d86ee1f07506a38",
+    "stdout": "empty\nname\nempty char\n"
+  },
+  "typed/03 conditions/075 else if.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "5fc20432af5430ef0eeecb49f3bedbfe909c081c79d5af758f0bfb620d13d218",
+    "stdout": "medium\n"
+  },
+  "typed/03 conditions/076 multiple conditions.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "14405cf05fd228e9677b482eddbc1bb73294e102069dd17d4e04246f4da664ae",
+    "stdout": "allowed\n"
+  },
+  "typed/03 conditions/077 nested conditions.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "389bcc79580ebe9382c4e1c6ff9750ae0a076660be289d093a0f6f713d49386e",
+    "stdout": "ready\n"
+  },
+  "typed/03 conditions/078 numeric case.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "cb3784b6c3896e7aa9e211fdc1424e0c3bbe8752c73e7255ff2ed929d226885d",
+    "stdout": "two\n"
+  },
+  "typed/03 conditions/079 string case.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "0c0400b4cd965b9bd979d633655c77ec465e907dddffc56ee68da5b9087c056b",
+    "stdout": "hello\n"
+  },
+  "typed/03 conditions/080 case default.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "7fa26b5e67a5b73e4a611db98242ae6081f0bf4f5042f08e1d6f1dae2d5ff794",
+    "stdout": "other\n"
+  },
+  "typed/03 conditions/081 legacy switch compatibility.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "4f1f887c984d7cb541b4a44481a1e1cb41bcd892e3320799934d987b649013ab",
+    "stdout": "two\n"
+  },
+  "typed/04 loops/084 while loop.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "7393303c135c3319705ec45aa76ccbd51d4d5ef21c4b964e4ff6b9ffee6baf61",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/04 loops/085 do while loop.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "4761b53d71653361168debb9c144d68ee836211f841fc6fb2707b2dd5145d0c5",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/04 loops/086 automatic ascending for.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "a85eb4a29d7a1cc89b13318c41088784d3864042c900c4539a17c0aaaacbf348",
+    "stdout": "1\n2\n3\n4\n5\n"
+  },
+  "typed/04 loops/087 automatic descending for.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "23cf878d8a097068e9359ccf14fded4c6d03c84b668168cfcbad7f1b54aedc55",
+    "stdout": "5\n4\n3\n2\n1\n"
+  },
+  "typed/04 loops/088 explicit ascending for.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "11c7cfaf597a759aeef5abec2dd1cdbd7d4a154225564046f7014c4d888ad538",
+    "stdout": "1\n3\n5\n7\n9\n"
+  },
+  "typed/04 loops/089 explicit descending for.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "ea4380eb2a512568924bb85a4068ee363a11bea14b73b712fb8949b8ab227d77",
+    "stdout": "10\n8\n6\n4\n2\n"
+  },
+  "typed/04 loops/090 break loop.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "b0726dcae70481f4a78b7b9db94305267608f1e573857d34930dafa9e9264349",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/04 loops/091 continue loop.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "90e37f3aa7731f37ce1a1921beba40aa7accd8b8e8b7463a01efe1ea0fe6b186",
+    "stdout": "1\n2\n4\n5\n"
+  },
+  "typed/04 loops/092 explicit loop.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "0147a730b879342a376b95713f0d7edcf6a0456bc5a98f62f5f13cc2ac7293d6",
+    "stdout": "0\n1\n2\n"
+  },
+  "typed/04 loops/096 numeric while truthiness.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "3d3f4051fc7db530a2f19af6c049ba59322b5551e7ca02daedf1cb1edc142f3e",
+    "stdout": "3\n2\n1\n"
+  },
+  "typed/05 functions/097 function declaration.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "95200726b573b2f80b331993e8ef6102dc8f4b20c551155538b2516b17955bc4",
+    "stdout": "42\n"
+  },
+  "typed/05 functions/098 multiple parameters.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f0dd2833d240fd8bd80f0b1a55e290eeae1a59c25da54aef4b455bec397be5d4",
+    "stdout": "30\n"
+  },
+  "typed/05 functions/099 void function.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "775cc325c0b330f729930d8090131d93c42cb25bdf5c1ea9042bb18f56eaa606",
+    "stdout": "99\n"
+  },
+  "typed/05 functions/100 recursion.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "312e9dfa2f51817beb6562773f4f71f2a98ca8987e4201bb14271cdafc7fd276",
+    "stdout": "120\n"
+  },
+  "typed/05 functions/101 default argument.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "bc938085278d153d55ebadba949249379eba96bac8e80b3d7dcecca82072cb93",
+    "stdout": "20\n30\n"
+  },
+  "typed/05 functions/102 multiple default arguments.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "de275dc5d30ffe7cdb1e198f19d6585cf18a62d82c8266ad24414aefc30bd3c9",
+    "stdout": "21\n31\n35\n"
+  },
+  "typed/05 functions/103 named arguments.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "79a3dabe722bfdab9d4faf9b8790c07b2aaae71b7ca604b00e1a21572425c1a2",
+    "stdout": "7\n"
+  },
+  "typed/05 functions/104 positional and named arguments.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "1bde4b97020aa6b3127131ecbed2aa109d2885df70629ae900571998dc95e1bd",
+    "stdout": "25\n"
+  },
+  "typed/06 arrays/111 static array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "03fce41aa22aaab411a86c18d6101c4b6c595244aaa157027f39ba7d593927c8",
+    "stdout": "10\n"
+  },
+  "typed/06 arrays/112 array length.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8e687818e1d2d1d47d12c9ff91bbbd3625469edd7f8b3f401f01ddebfe1921a0",
+    "stdout": "4\n"
+  },
+  "typed/06 arrays/113 array access.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "887197fcd9357a0801df0b14fec8be5ae1f67fb9d869835e571efdbf919a6a4a",
+    "stdout": "30\n"
+  },
+  "typed/06 arrays/114 array assignment.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "75d9e7596b8606b62f7140c9f39ac3cbdc04dccee34871372ce6014493e59ab4",
+    "stdout": "99\n"
+  },
+  "typed/06 arrays/117 multidimensional array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "a2fcf7ec25653914a4bef3dfacef6e79ab3a5f9f2d0bd7d6e9b13d08bbcfe0c8",
+    "stdout": "4\n"
+  },
+  "typed/06 arrays/118 indexed array iteration.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "512987e7a2349765955920a8083ea3b4f08a8602762293acceaf4bb2e2c6d986",
+    "stdout": "2\n4\n6\n"
+  },
+  "typed/06 arrays/119 dynamic empty array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c44965d1ba6f9848c4e94b131f623c1ebef90daa0f88212f7f88a053d6685502",
+    "stdout": "0\n"
+  },
+  "typed/06 arrays/120 dynamic initialized array.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2eb4d8479adc43c58e0e5ddf8677b08b5962d509e80c04e409f3095078d698ec",
+    "stdout": "3\n"
+  },
+  "typed/06 arrays/121 dynamic array access.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2bdfd088d982fd887684bb2f20fbe44498f6ed73efd0d080a006332f3fb56524",
+    "stdout": "10\n"
+  },
+  "typed/06 arrays/122 dynamic array assignment.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "688221e5d2944a97cf7469c0b23239f38ffb50202c74cbafe4a92c4bd4473615",
+    "stdout": "42\n"
+  },
+  "typed/07 strings/125 unicode string.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "664c3b7c900279b78582a9e0e38b2653baf858e18b7844e22478a57f24040d75",
+    "stdout": "caffè\n"
+  },
+  "typed/07 strings/126 string concatenation.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "d2bd4ae16469cdc1468fe10c81b4baa27e4dcb7f632e13d447e2566c92d5c61b",
+    "stdout": "Visual Quar\n"
+  },
+  "typed/07 strings/127 string comparison.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "974ef21ad6548ba75f68f807052b1fb89229b4dfa5587d581b42e3b25d795396",
+    "stdout": "True\nTrue\n"
+  },
+  "typed/07 strings/128 string length unicode.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "1db1dba48c11fb056a55e4809b7355ea4daf190882b0ac5e3878a7b095ba5163",
+    "stdout": "5\n"
+  },
+  "typed/07 strings/129 string unicode indexing.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "75e08740260f060a70cba544f7c422bb34b1d02d321f4ffc4848895e477157c5",
+    "stdout": "è\n"
+  },
+  "typed/07 strings/130 substring.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "cd77764547e5a53749e6d10ece9d162deb864ae2195bdee59f4f9f97701e6a3a",
+    "stdout": "Quar\n"
+  },
+  "typed/07 strings/132 string find.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8751700ae77d359fed7c160c9e7b8f52e6a8eb0a15bf005ecd6a9d56503f1a5c",
+    "stdout": "7\n"
+  },
+  "typed/07 strings/133 string replace.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f8cd243fe389865d4307a30a1ff3d1a003249203553248d10491e8fd914b1f10",
+    "stdout": "Visual Quar\n"
+  },
+  "typed/07 strings/134 string trim.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "c82f3ecbee98bd298b401dc6864f4964f6ee5bf05538a5b3c78bde7ab961bb09",
+    "stdout": "Quar\n"
+  },
+  "typed/07 strings/135 number to string.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8e514debb8a20247b3151bd553b5f921e78a2adf65638a33963afc77b98bfee9",
+    "stdout": "42\n"
+  },
+  "typed/07 strings/136 string to integer.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "df664b10e8596ec8a2c669d271b3872ffb773d40f43853f42d922cd0a446a296",
+    "stdout": "42\n"
+  },
+  "typed/07 strings/137 string to double.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "273b2d425cdba9b234aa547461567e8e009e181361befd80f99f014a16c89579",
+    "stdout": "3.5\n"
+  },
+  "typed/07 strings/139 unicode iteration.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2540745c24f99d8692186523a40e804d9386379039be2539aeede49c20190be6",
+    "stdout": "è\nA\n"
+  },
+  "typed/07 strings/140 empty string truthiness.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "97fc8f688e375ad67cda78af33fee9fde346d2f504903fb1d24f564011db2d4a",
+    "stdout": "empty\n"
+  },
+  "typed/07 strings/141 string escapes.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "806bbf98d73d74d0a334363191b94efd7e5b526931157ac1729bb7b651b96ef3",
+    "stdout": "Quar \"text\"\n"
+  },
+  "typed/07 strings/142 ordered string comparison.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "5c88151e6c1f18a64d774c63a3e04cd408e2e1c3e23d4cf92af08c1a0549df17",
+    "stdout": "True\n"
+  },
+  "typed/08 structured types/143 struct basic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "8625c7b12968566515b23b161152edf5573b19af339e797c136d9ca74fdc6c07",
+    "stdout": "10\n"
+  },
+  "typed/08 structured types/144 record basic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "7c105eef4ea4a40f5f6ea125af20be3fb5d30ca6cacb19112934f71a5e6ff3ea",
+    "stdout": "20\n"
+  },
+  "typed/08 structured types/146 enum basic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "b0c7023787e88a318a625c9339b426ff7d4f4eeee1d85e1831bad95d54b42e1b",
+    "stdout": "Direction.NORTH\n"
+  },
+  "typed/08 structured types/147 alias basic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "62d58b1dccae10826dc61eec8bebb966da5f529adf1825e277621cf978a6fc05",
+    "stdout": "42\n"
+  },
+  "typed/08 structured types/148 tuple basic.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "173db6f7db6b5d45ffc013789e8f9086dfbb895d41a0bd329eb8281ab12c953a",
+    "stdout": "(10, 'hello')\n"
+  },
+  "typed/08 structured types/149 tuple destructuring.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "b2dd25649b9ed55e30fef449b0dc786d478e8f91a80bd1d9ae6336ab12c4dcab",
+    "stdout": "10\nhello\n"
+  },
+  "typed/08 structured types/151 enum associated value.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f8a489d0cb9f90043bf77dcc54b5cd96bf07ce8196202e67b521e1b4a8b861f8",
+    "stdout": "{'__enum__': 'Result', '__variant__': 'SUCCESS', '__payload__': [42]}\n"
+  },
+  "typed/08 structured types/152 match payload.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "f0dde1fa28f03fe5531fbabe66b302e68a28335f989a6be28ebeafbbc3f28788",
+    "stdout": "failed\n"
+  },
+  "typed/08 structured types/153 match exhaustive.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "d7a7d33acc5717812c5e3dfdc3bd6722f78c7e7ac9d98e069c27983b37e44447",
+    "stdout": "ready\n"
+  },
+  "typed/08 structured types/157 struct mutation.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "2075b32b19dd667f2448fbc9478d3955391dd389c5750351311cf4ea98830ab0",
+    "stdout": "5\n"
+  },
+  "typed/08 structured types/158 alias chain.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "cc761682e89b6b3259b7999b815b462f3db02f5eb821f1c93393e04a2e63febe",
+    "stdout": "7\n"
+  },
+  "typed/08 structured types/159 match default.vq": {
+    "origin": "0.0.3 baseline",
+    "source_sha256": "4b9a17dca2ee35327812bc9af7ff7b2191633378cd9d5f6b22cd245eba70ecf6",
+    "stdout": "3\n"
+  },
+  "typed/09 oop/161 class declaration.vq": {
+    "origin": "09A specification",
+    "source_sha256": "5005ddda22134d60ad19a10ea717de991fe98c43455aa545c414dcc5fd46e609",
+    "stdout": "1\n"
+  },
+  "typed/09 oop/162 default constructor.vq": {
+    "origin": "09A specification",
+    "source_sha256": "a8ce76f2ce20ed08f02d37a560a624a7c767666b02a47eea64fe12201d6d07f2",
+    "stdout": "0\n"
+  },
+  "typed/09 oop/163 initialized fields.vq": {
+    "origin": "09A specification",
+    "source_sha256": "317b2e608084bc876b758e6f343645f7fd490bfe32190408b423ccacaebf10ec",
+    "stdout": "100\n"
+  },
+  "typed/09 oop/164 parameterized constructor.vq": {
+    "origin": "09A specification",
+    "source_sha256": "3ff6438971bfffcba7304aefc433bd96f7911585ea7cd7b7e7d47623d8e4467d",
+    "stdout": "100\n"
+  },
+  "typed/09 oop/165 void method.vq": {
+    "origin": "09A specification",
+    "source_sha256": "3fd107e3ac42d9d3c643907a76a2d2f9fece52d0af9e44367f6f2670e90d9f10",
+    "stdout": "75\n"
+  },
+  "typed/09 oop/166 returning method.vq": {
+    "origin": "09A specification",
+    "source_sha256": "d4d7054950f1a38c6f9b4edc878c0eded58c49bd711e2b3c6446a4e055ab8276",
+    "stdout": "100\n"
+  },
+  "typed/09 oop/167 this access.vq": {
+    "origin": "09A specification",
+    "source_sha256": "b1439130c93ac5a2d10a13131e1dde133a73483c5a22175d96a8815168a8ab33",
+    "stdout": "80\n"
+  },
+  "typed/09 oop/168 independent instances.vq": {
+    "origin": "09A specification",
+    "source_sha256": "4a12edc816e5cba3699176308ef3e49a1f11a84e09a83d4028de0110a83b1230",
+    "stdout": "75\n100\n"
+  }
+}

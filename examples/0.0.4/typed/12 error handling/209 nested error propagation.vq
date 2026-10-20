@@ -1,0 +1,1 @@
+try { try { throw "nested"; } catch (inner) { throw inner.message; } } catch (outer) { print(outer.message); }

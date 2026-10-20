@@ -10,6 +10,10 @@ class OpCode(Enum):
 
     LOAD = auto()
     STORE = auto()
+    OPTIONAL_SOME = auto()
+    OPTIONAL_NONE = auto()
+    OPTIONAL_IS_PRESENT = auto()
+    OPTIONAL_UNWRAP = auto()
     POP = auto()
 
     ARRAY_NEW = auto()
@@ -17,6 +21,13 @@ class OpCode(Enum):
     ARRAY_STORE = auto()
     LENGTH = auto()
     STRING_OP = auto()
+    FILE_OP = auto()
+    WITH_FILE = auto()
+    TRY_CATCH = auto()
+    THROW = auto()
+    ASSERT = auto()
+    PANIC = auto()
+    HANDLE_OP = auto()
 
     OBJECT_NEW = auto()
     MEMBER_LOAD = auto()
@@ -54,6 +65,10 @@ class OpCode(Enum):
     JUMP = auto()
 
     PRINT = auto()
+    INPUT = auto()
+    CONSOLE_WRITE = auto()
+    CONSOLE_QUERY = auto()
+    EXIT = auto()
 
     CALL = auto()
     RETURN = auto()

@@ -1,9 +1,9 @@
 i32 enabled = 1;
 i32 disabled = 0;
-if (enabled) {
+if (enabled != 0) {
     print("enabled");
 }
-if (disabled) {
+if (disabled != 0) {
     print("wrong");
 } else {
     print("disabled");

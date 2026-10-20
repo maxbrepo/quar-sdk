@@ -1,0 +1,605 @@
+{
+  "version": 1,
+  "summary": {
+    "ANALYZER_GAP": 83,
+    "REVIEW_ERROR": 1,
+    "REVIEW_PASS": 1
+  },
+  "rows": [
+    {
+      "path": "09 oop/161 class declaration.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/162 default constructor.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/163 initialized fields.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/164 parameterized constructor.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/165 void method.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/166 returning method.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/167 this access.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/168 independent instances.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/169 unknown field error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "09 oop/170 constructor arguments error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/171 text round trip.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/172 append text.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/173 automatic text handle.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/174 binary round trip.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/175 binary append and length.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/176 binary indexing comparison.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/177 directory entries.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/178 path operations.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/179 atomic text write.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/180 atomic binary write.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/181 missing file error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/182 invalid hex error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/183 invalid bytes index error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "10 file io/184 invalid directory index error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/185 print and newline.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/186 input text.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/187 input numeric conversion.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/188 input no prompt.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/189 input invalid prompt error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/190 input too many arguments error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/191 stdout no newline.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/192 stderr output.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/193 exit success.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/194 stdout and print.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/195 stdout wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/196 exit wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/197 exit invalid range error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/198 cli arguments.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/199 environment variables.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/200 empty cli arguments.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/201 numeric cli argument.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/202 missing cli argument error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/203 missing environment variable error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/204 cli argument wrong index type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "11 console/205 environment wrong name type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/206 try success.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/207 catch thrown error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/208 catch file error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/209 nested error propagation.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/210 catch arithmetic error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/211 throw from function.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/212 uncaught throw error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/213 throw wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/214 chain caught error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/215 chain file error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/216 chain across function.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/217 chain multiple levels.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/218 plain throw empty cause.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/219 throw cause wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/220 throw missing cause error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/221 assertion success.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/222 assertion caught.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/223 function stack trace.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/224 main stack trace.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/225 assertion failure error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/226 assertion wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/227 assertion wrong arity error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/228 panic fatal error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/229 panic bypasses catch error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/230 catch ordinary error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/231 assertion remains recoverable.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/232 panic wrong type error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "12 error handling/233 panic wrong arity error.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/234 basic import/main.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/234 basic import/math.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/235 alias import/main.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/235 alias import/math.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/236 nested module/main.vq",
+      "category": "REVIEW_ERROR",
+      "borrow": "ERROR",
+      "code": "PARSER_ERROR",
+      "reason": "error may be intentional or a regression"
+    },
+    {
+      "path": "13 modules/236 nested module/utilities/math.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/237 multiple imports/add.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/237 multiple imports/main.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/237 multiple imports/multiply.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/238 module internal call/main.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "13 modules/238 module internal call/math.vq",
+      "category": "ANALYZER_GAP",
+      "borrow": "UNSUPPORTED",
+      "code": "UNSUPPORTED_CONSTRUCT",
+      "reason": "unsupported analysis"
+    },
+    {
+      "path": "15 memory safety/239 borrow source valid.vq",
+      "category": "REVIEW_PASS",
+      "borrow": "PASS",
+      "code": "BORROW_PASS",
+      "reason": "checks passed; not approved"
+    }
+  ]
+}

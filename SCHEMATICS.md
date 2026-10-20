@@ -1,6 +1,6 @@
 # Quar SDK Schematics
 
-These diagrams describe the current 0.0.3 development architecture. Quar Edit is the reference client, but reusable language services belong to the SDK rather than to a mandatory editor.
+These diagrams describe the 0.0.4 experimental development architecture. Quar Edit is the reference client, but reusable language services belong to the SDK rather than to a mandatory editor.
 
 ## 1. Visual Quar Execution and Compilation
 
@@ -47,7 +47,7 @@ These diagrams describe the current 0.0.3 development architecture. Quar Edit is
                 +------------------+
 ```
 
-QRVM is currently the reference path for the newest language features. Native support is tracked separately.
+The frontend now also has IR and QIR-related compilation paths; the diagram above is a simplified conceptual view, not an exhaustive depiction of every compiler stage. QRVM is the reference for many language features, while native backend coverage is tested separately. The second pass over chapters 1–18 is reconciling these paths.
 
 ## 2. Canonical Source and Source Projection
 

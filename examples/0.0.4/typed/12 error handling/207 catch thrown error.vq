@@ -1,0 +1,2 @@
+try { throw "bad request"; } catch (error) { print(error.message); }
+print("recovered");

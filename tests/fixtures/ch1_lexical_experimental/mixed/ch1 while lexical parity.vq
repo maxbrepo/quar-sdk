@@ -1,0 +1,9 @@
+int counter = 0;
+int value = 1;
+while (counter < 2) {
+    int value = 4;
+    local = value + 1;
+    print(local);
+    counter = counter + 1;
+}
+print(value);

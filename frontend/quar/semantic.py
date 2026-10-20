@@ -1,4 +1,5 @@
 from .errors import SemanticError
+from .scope_symbols import LexicalBindings, DuplicateBindingError
 from .numeric_types import (
     INTEGER_BITS,
     FLOAT_BITS,
@@ -21,6 +22,8 @@ from .ast_nodes import (
     ConstantDeclaration,
     Assignment,
     FunctionCall,
+    WithFileStatement,
+    TryCatchStatement, ThrowStatement,
     NamedArgument,
     FunctionDefinition,
     ReturnStatement,
@@ -33,6 +36,7 @@ from .ast_nodes import (
     ArrayAssignment,
     Char,
     String,
+    ClassDefinition,
     StructDefinition,
     RecordDefinition,
     EnumDefinition,
@@ -51,7 +55,8 @@ from .ast_nodes import (
 
 class SemanticAnalyzer:
 
-    def __init__(self):
+    def __init__(self, allow_lexical_shadowing=False):
+        self.allow_lexical_shadowing = allow_lexical_shadowing
         self.variables = {}
         self.arrays = {}
         self.types = {}
@@ -73,6 +78,7 @@ class SemanticAnalyzer:
         self.constants = set()
         self.loop_depth = 0
         self.tuple_types = {}
+        self.lexical_bindings = LexicalBindings()
 
     def analyze(self, program):
         for statement in program:
@@ -85,6 +91,41 @@ class SemanticAnalyzer:
         return program
 
     def analyze_statement(self, statement):
+        if isinstance(statement, ThrowStatement):
+            if self.resolve_type(self.analyze_expression(statement.message)) != "string":
+                raise SemanticError("throw requires a string message")
+            if statement.cause is not None and self.resolve_type(self.analyze_expression(statement.cause)) != "quar_error":
+                raise SemanticError("throw cause must be a caught error")
+            return
+        if isinstance(statement, TryCatchStatement):
+            if statement.error_name in self.variables:
+                raise SemanticError("catch variable already declared")
+            for inner in statement.try_body:
+                self.analyze_statement(inner)
+            self.variables[statement.error_name] = "quar_error"
+            try:
+                for inner in statement.catch_body:
+                    self.analyze_statement(inner)
+            finally:
+                del self.variables[statement.error_name]
+            return
+
+        if isinstance(statement, WithFileStatement):
+            if self.analyze_expression(statement.path) != "string" or self.analyze_expression(statement.mode) != "string":
+                raise SemanticError("File.open requires string path and mode")
+            if statement.name in self.variables:
+                raise SemanticError("File handle name already declared")
+            if not isinstance(statement.mode, String):
+                raise SemanticError("File.open mode must be a string literal for typed handles")
+            binary = "b" in statement.mode.value
+            self.variables[statement.name] = "file_handle_binary" if binary else "file_handle"
+            try:
+                for inner in statement.body:
+                    self.analyze_statement(inner)
+            finally:
+                del self.variables[statement.name]
+            return
+
         if isinstance(statement, TupleDeclaration):
             types = [self.analyze_expression(v) for v in statement.value.values]
             self.variables[statement.name] = "tuple"
@@ -121,6 +162,36 @@ class SemanticAnalyzer:
             return
         if isinstance(statement, SwitchStatement):
             self.analyze_switch_statement(statement)
+            return
+        if isinstance(statement, ClassDefinition):
+            if statement.name in self.types:
+                raise SemanticError(f"Duplicate type '{statement.name}'")
+            self.types[statement.name] = {"kind": "class", "fields": statement.fields, "immutable": False, "constructor": statement.constructor, "methods": {method.function.name: method.function for method in statement.methods}}
+            if statement.constructor:
+                saved_variables = self.variables.copy()
+                saved_objects = self.objects.copy()
+                self.variables["this"] = statement.name
+                self.objects["this"] = statement.name
+                for parameter in statement.constructor.parameters:
+                    self.variables[parameter.name] = parameter.var_type
+                for child in statement.constructor.body:
+                    self.analyze_statement(child)
+                self.variables = saved_variables
+                self.objects = saved_objects
+            for method in statement.methods:
+                saved_variables = self.variables.copy()
+                saved_objects = self.objects.copy()
+                saved_return_type = self.current_return_type
+                self.variables["this"] = statement.name
+                self.objects["this"] = statement.name
+                self.current_return_type = method.function.return_type
+                for parameter in method.function.parameters:
+                    self.variables[parameter.name] = parameter.var_type
+                for child in method.function.body:
+                    self.analyze_statement(child)
+                self.current_return_type = saved_return_type
+                self.variables = saved_variables
+                self.objects = saved_objects
             return
         if isinstance(statement, StructDefinition):
             self.register_composite(statement, False)
@@ -198,7 +269,7 @@ class SemanticAnalyzer:
 
         target = self.resolve_type(declaration.target_type)
         primitive_types = {
-            "int", "double", "bool", "char", "string",
+            "int", "double", "bool", "char", "string", "bytes",
             "short", "ushort", "uint", "long", "ulong",
             "llong", "ullong", "long_double",
             "i8", "i16", "i32", "i64", "i128",
@@ -301,6 +372,17 @@ class SemanticAnalyzer:
                 "Enum values use qualified members"
             )
         fields = info["fields"]
+        if info["kind"] == "class":
+            constructor = info["constructor"]
+            parameters = constructor.parameters if constructor else []
+            if len(declaration.arguments) != len(parameters):
+                raise SemanticError(f"Constructor for '{declaration.type_name}' expects {len(parameters)} arguments")
+            for parameter, argument in zip(parameters, declaration.arguments):
+                if not self.types_compatible(parameter.var_type, self.analyze_expression(argument)):
+                    raise SemanticError(f"Invalid constructor argument '{parameter.name}'")
+            self.objects[declaration.name] = declaration.type_name
+            self.variables[declaration.name] = declaration.type_name
+            return
         if len(fields) != len(declaration.arguments):
             raise SemanticError(
                 f"Type '{declaration.type_name}' requires {len(fields)} values"
@@ -340,6 +422,17 @@ class SemanticAnalyzer:
     def types_compatible(self, expected, actual):
         expected = self.resolve_type(expected)
         actual = self.resolve_type(actual)
+
+        # Optional values cannot flow into a non-optional destination.
+        # A present value can be safely promoted to an optional destination.
+        # Full absence/presence tracking is deliberately not enabled yet.
+        if expected.endswith("?") or actual.endswith("?"):
+            if not expected.endswith("?"):
+                return False
+            expected_base = expected[:-1]
+            actual_base = actual[:-1] if actual.endswith("?") else actual
+            return self.types_compatible(expected_base, actual_base)
+
         expected_numeric = canonical_numeric_type(expected)
         actual_numeric = canonical_numeric_type(actual)
 
@@ -364,8 +457,9 @@ class SemanticAnalyzer:
         self.variables = dict(self.variables)
         self.arrays = dict(self.arrays)
         try:
-            for statement in statements:
-                self.analyze_statement(statement)
+            with self.lexical_bindings.scoped():
+                for statement in statements:
+                    self.analyze_statement(statement)
         finally:
             self.variables = previous_variables
             self.arrays = previous_arrays
@@ -374,6 +468,8 @@ class SemanticAnalyzer:
     def block_guarantees_return(self, statements):
         for statement in statements:
             if isinstance(statement, ReturnStatement):
+                return True
+            if isinstance(statement, WithFileStatement) and self.block_guarantees_return(statement.body):
                 return True
             if isinstance(statement, IfStatement):
                 if (
@@ -433,16 +529,19 @@ class SemanticAnalyzer:
         self.objects = {}
         self.current_return_type = function.return_type
 
-        for parameter in function.parameters:
-            if parameter.name in self.variables:
-                raise SemanticError(
-                    f"Parameter '{parameter.name}' is already declared"
-                )
-            self.variables[parameter.name] = parameter.var_type
-
         try:
-            for statement in function.body:
-                self.analyze_statement(statement)
+            with self.lexical_bindings.function_scoped():
+                for parameter in function.parameters:
+                    try:
+                        self.lexical_bindings.declare(parameter.name)
+                    except DuplicateBindingError as exc:
+                        raise SemanticError(
+                            f"Parameter '{parameter.name}' is already declared"
+                        ) from exc
+                    self.variables[parameter.name] = parameter.var_type
+
+                for statement in function.body:
+                    self.analyze_statement(statement)
         finally:
             self.variables = global_variables
             self.arrays = global_arrays
@@ -574,8 +673,11 @@ class SemanticAnalyzer:
 
         self.loop_depth += 1
         try:
-            for child in statement.body:
-                self.analyze_statement(child)
+            if self.allow_lexical_shadowing:
+                self.analyze_scoped_block(statement.body)
+            else:
+                for child in statement.body:
+                    self.analyze_statement(child)
         finally:
             self.loop_depth -= 1
         # Validate while loop statement
@@ -721,7 +823,9 @@ class SemanticAnalyzer:
             raise SemanticError("Array index must be int")
 
         info = self.arrays[assignment.name]
+        self.check_fixed_array_index(info, assignment.index, 1)
         if assignment.second_index is not None:
+            self.check_fixed_array_index(info, assignment.second_index, 2)
             if info["second_size"] is None:
                 raise SemanticError(
                     "Second index requires multidimensional array"
@@ -740,6 +844,19 @@ class SemanticAnalyzer:
             )
         # Validate array element assignment
 
+
+    def check_fixed_array_index(self, info, expression, dimension):
+        """Reject provably invalid constant indices; defer dynamic indices to runtime."""
+        if info["dynamic"]:
+            return
+        bound = info["size"] if dimension == 1 else info["second_size"]
+        if bound is None:
+            return
+        index = self.constant_integer_value(expression)
+        if index is not None and not 0 <= index < bound:
+            raise SemanticError(
+                f"Array index out of bounds: {index} for dimension {dimension} (size {bound})"
+            )
 
     def constant_integer_value(self, expression):
         if isinstance(expression, Integer):
@@ -815,7 +932,16 @@ class SemanticAnalyzer:
         # Register immutable typed constant
 
     def analyze_variable_declaration(self, declaration):
-        if declaration.name in self.variables or declaration.name in self.arrays:
+        # A nested explicit declaration may shadow a visible outer variable.
+        # Duplicate declarations in the current lexical frame remain invalid.
+        if (
+            declaration.name in self.arrays
+            or self.lexical_bindings.is_declared_here(declaration.name)
+            or (
+                (not self.allow_lexical_shadowing or self.lexical_bindings.depth == 0)
+                and declaration.name in self.variables
+            )
+        ):
             raise SemanticError(
                 f"Variable '{declaration.name}' is already declared"
             )
@@ -855,6 +981,11 @@ class SemanticAnalyzer:
                 f"Cannot assign '{value_type}' to '{declaration.var_type}'"
             )
 
+        # Commit both symbol tables only after validation succeeds. A failed
+        # declaration must not leave a partially registered variable.
+        if self.lexical_bindings.is_declared_here(declaration.name):
+            raise SemanticError(f"Variable '{declaration.name}' is already declared")
+        self.lexical_bindings.declare(declaration.name)
         self.variables[declaration.name] = declaration.var_type
 
     def analyze_assignment(self, assignment):
@@ -866,6 +997,11 @@ class SemanticAnalyzer:
         value_type = self.analyze_expression(assignment.value)
 
         if assignment.name not in self.variables:
+            # An inferred first assignment introduces a binding in this scope.
+            # Reassignments of visible names retain the original identity.
+            if self.lexical_bindings.is_declared_here(assignment.name):
+                raise SemanticError(f"Variable '{assignment.name}' is already declared")
+            self.lexical_bindings.declare(assignment.name)
             self.variables[assignment.name] = value_type
             return
 
@@ -895,7 +1031,23 @@ class SemanticAnalyzer:
         if isinstance(expression, TupleLiteral):
             for value in expression.values: self.analyze_expression(value)
             return "tuple"
+        if isinstance(expression, VariantConstructor) and self.variables.get(expression.enum_name) in ("file_handle", "file_handle_binary"):
+            return self.analyze_function_call(FunctionCall(
+                expression.enum_name + "." + expression.variant_name, expression.arguments,
+            ))
+        if isinstance(expression, VariantConstructor) and expression.enum_name in {"File", "Directory", "Path", "Bytes", "Console"}:
+            return self.analyze_function_call(FunctionCall(
+                expression.enum_name + "." + expression.variant_name, expression.arguments,
+            ))
         if isinstance(expression, VariantConstructor):
+            qualified_name = expression.enum_name + "." + expression.variant_name
+            if qualified_name in self.functions:
+                return self.analyze_function_call(FunctionCall(qualified_name, expression.arguments))
+            if expression.enum_name in self.objects:
+                return self.analyze_function_call(FunctionCall(
+                    expression.enum_name + "." + expression.variant_name,
+                    expression.arguments,
+                ))
             if expression.enum_name not in self.types or self.types[expression.enum_name]["kind"] != "enum":
                 raise SemanticError(f"Unknown enum '{expression.enum_name}'")
             variant = next((m for m in self.types[expression.enum_name]["members"] if m.name == expression.variant_name), None)
@@ -911,6 +1063,11 @@ class SemanticAnalyzer:
         if isinstance(expression, String):
             return "string"
         if isinstance(expression, MemberAccess):
+            if self.variables.get(expression.object_name) == "quar_error":
+                if expression.member_name in ("message", "cause", "trace"):
+                    return "string"
+                raise SemanticError("Unknown error field")
+
             if expression.member_name == "length":
                 if expression.object_name in self.arrays:
                     return "int"
@@ -939,6 +1096,10 @@ class SemanticAnalyzer:
                 type_name = self.resolve_type(
                     self.variables[expression.object_name]
                 )
+                if type_name.endswith("?"):
+                    raise SemanticError(
+                        f"Cannot access a member of optional type '{type_name}' without a presence check"
+                    )
                 if type_name not in self.types:
                     raise SemanticError(
                         f"Unknown object '{expression.object_name}'"
@@ -946,6 +1107,10 @@ class SemanticAnalyzer:
             else:
                 raise SemanticError(
                     f"Unknown object '{expression.object_name}'"
+                )
+            if type_name.endswith("?"):
+                raise SemanticError(
+                    f"Cannot access a member of optional type '{type_name}' without a presence check"
                 )
             info = self.types[type_name]
             field = next(
@@ -972,7 +1137,9 @@ class SemanticAnalyzer:
 
             if expression.name in self.arrays:
                 info = self.arrays[expression.name]
+                self.check_fixed_array_index(info, expression.index, 1)
                 if expression.second_index is not None:
+                    self.check_fixed_array_index(info, expression.second_index, 2)
                     if info["second_size"] is None:
                         raise SemanticError(
                             "Second index requires multidimensional array"
@@ -996,6 +1163,14 @@ class SemanticAnalyzer:
                     )
                 return "char"
 
+            if (
+                expression.name in self.variables
+                and self.resolve_type(self.variables[expression.name]) == "bytes"
+            ):
+                if expression.second_index is not None:
+                    raise SemanticError("Bytes accepts one index")
+                return "int"
+
             raise SemanticError(
                 f"Sequence '{expression.name}' is not declared"
             )
@@ -1017,6 +1192,11 @@ class SemanticAnalyzer:
         operand_type = self.analyze_expression(
             expression.operand
         )
+
+        if self.resolve_type(operand_type).endswith("?"):
+            raise SemanticError(
+                f"Cannot apply unary operator to optional type '{operand_type}' without a presence check"
+            )
 
         if expression.operator == "not":
             if operand_type != "bool":
@@ -1049,6 +1229,10 @@ class SemanticAnalyzer:
     def analyze_binary_operation(self, expression):
         left_type = self.analyze_expression(expression.left)
         right_type = self.analyze_expression(expression.right)
+        if self.resolve_type(left_type).endswith("?") or self.resolve_type(right_type).endswith("?"):
+            raise SemanticError(
+                "Optional values cannot be used in binary operations without a presence check"
+            )
         numeric_types = {
             "int", "double", "short", "ushort", "uint",
             "long", "ulong", "llong", "ullong", "long_double",
@@ -1127,6 +1311,13 @@ class SemanticAnalyzer:
                 "Bitwise operation requires explicit conversion"
             )
 
+        if expression.operator in {"==", "!="} and (
+            left_type == "bytes" or right_type == "bytes"
+        ):
+            if left_type != right_type:
+                raise SemanticError("Bytes comparison requires matching bytes types")
+            return "bool"
+
         if expression.operator in comparison_operators:
             if left_type in {"string", "char"} or right_type in {"string", "char"}:
                 if left_type != right_type:
@@ -1162,6 +1353,141 @@ class SemanticAnalyzer:
         )
 
     def analyze_function_call(self, call):
+        if "." in call.name:
+            handle, method = call.name.split(".", 1)
+            if self.variables.get(handle) in ("file_handle", "file_handle_binary"):
+                content_type = "bytes" if self.variables[handle] == "file_handle_binary" else "string"
+                methods = {"read_all": ([], content_type), "read_line": ([], content_type),
+                           "write": ([content_type], "void"), "seek": (["int"], "void")}
+                if method not in methods:
+                    raise SemanticError(f"Unknown file method '{method}'")
+                expected, result = methods[method]
+                if len(call.arguments) != len(expected):
+                    raise SemanticError(f"File method '{method}' expects {len(expected)} arguments")
+                for arg, required in zip(call.arguments, expected):
+                    if self.analyze_expression(arg) != required:
+                        raise SemanticError(f"File method '{method}' expects '{required}'")
+                return result
+
+        file_operations = {
+            "File.read_text": (["string"], "string"),
+            "File.write_text": (["string", "string"], "void"),
+            "File.write_text_atomic": (["string", "string"], "void"),
+            "File.append_text": (["string", "string"], "void"),
+            "File.exists": (["string"], "bool"),
+            "File.delete": (["string"], "void"),
+            "File.copy": (["string", "string"], "void"),
+            "File.move": (["string", "string"], "void"),
+            "Directory.create": (["string"], "void"),
+            "Directory.exists": (["string"], "bool"),
+            "Directory.delete": (["string"], "void"),
+            "Path.join": (["string", "string"], "string"),
+            "Path.name": (["string"], "string"),
+            "Path.parent": (["string"], "string"),
+            "File.size": (["string"], "int"),
+            "File.read_line": (["string", "int"], "string"),
+            "File.read_range": (["string", "int", "int"], "string"),
+            "Directory.count": (["string"], "int"),
+            "Directory.create_all": (["string"], "void"),
+            "File.line_count": (["string"], "int"),
+            "File.read_bytes": (["string"], "bytes"),
+            "File.write_bytes": (["string", "bytes"], "void"),
+            "File.write_bytes_atomic": (["string", "bytes"], "void"),
+            "File.append_bytes": (["string", "bytes"], "void"),
+            "File.read_bytes_range": (["string", "int", "int"], "bytes"),
+            "Bytes.from_hex": (["string"], "bytes"),
+            "Bytes.to_hex": (["bytes"], "string"),
+            "Bytes.length": (["bytes"], "int"),
+            "File.read_bytes_hex": (["string"], "string"),
+            "File.write_bytes_hex": (["string", "string"], "void"),
+            "File.append_bytes_hex": (["string", "string"], "void"),
+            "File.read_bytes_hex_range": (["string", "int", "int"], "string"),
+            "Directory.is_empty": (["string"], "bool"),
+            "Directory.list_text": (["string"], "string"),
+            "Directory.entry": (["string", "int"], "string"),
+            "Directory.entry_is_file": (["string", "int"], "bool"),
+            "Directory.entry_is_directory": (["string", "int"], "bool"),
+            "Path.suffix": (["string"], "string"),
+            "Path.stem": (["string"], "string"),
+            "Path.absolute": (["string"], "string"),
+            "Path.normalize": (["string"], "string"),
+        }
+        if call.name in file_operations:
+            expected, result = file_operations[call.name]
+            if len(call.arguments) != len(expected):
+                raise SemanticError(f"'{call.name}' expects {len(expected)} arguments")
+            for argument, required in zip(call.arguments, expected):
+                actual = self.resolve_type(self.analyze_expression(argument))
+                if actual != self.resolve_type(required):
+                    raise SemanticError(f"'{call.name}' expects '{required}', received '{actual}'")
+            return result
+        if "." in call.name:
+            object_name, method_name = call.name.split(".", 1)
+            if object_name in self.objects:
+                type_name = self.objects[object_name]
+                info = self.types[type_name]
+                if info["kind"] != "class":
+                    raise SemanticError(f"Type '{type_name}' has no methods")
+                method = info["methods"].get(method_name)
+                if method is None:
+                    raise SemanticError(f"Unknown method '{method_name}'")
+                if len(call.arguments) != len(method.parameters):
+                    raise SemanticError(f"Method '{method_name}' argument count mismatch")
+                for parameter, argument in zip(method.parameters, call.arguments):
+                    if not self.types_compatible(parameter.var_type, self.analyze_expression(argument)):
+                        raise SemanticError(f"Invalid method argument '{parameter.name}'")
+                return method.return_type
+        console_calls = {
+            "Console.arg_count": (0, None, "int"),
+            "Console.arg": (1, "int", "string"),
+            "Console.env": (1, "string", "string"),
+            "Console.env_exists": (1, "string", "bool"),
+        }
+        if call.name in console_calls:
+            count, required, result = console_calls[call.name]
+            if len(call.arguments) != count:
+                raise SemanticError(f"{call.name} expects {count} arguments")
+            if required is not None:
+                actual = self.resolve_type(self.analyze_expression(call.arguments[0]))
+                if required == "int":
+                    if not is_integer_type(canonical_numeric_type(actual)):
+                        raise SemanticError("Console.arg index must be an integer")
+                elif actual != required:
+                    raise SemanticError(f"{call.name} argument must be a string")
+            return result
+
+        if call.name in {"stdout", "stderr", "exit"}:
+            if len(call.arguments) != 1:
+                raise SemanticError(f"{call.name} expects exactly one argument")
+            actual = self.resolve_type(self.analyze_expression(call.arguments[0]))
+            if call.name == "exit":
+                if not is_integer_type(canonical_numeric_type(actual)):
+                    raise SemanticError("exit code must be an integer")
+            elif actual != "string":
+                raise SemanticError(f"{call.name} argument must be a string")
+            return "void"
+
+        if call.name == "panic":
+            if len(call.arguments) != 1:
+                raise SemanticError("panic expects one string argument")
+            if self.resolve_type(self.analyze_expression(call.arguments[0])) != "string":
+                raise SemanticError("panic message must be a string")
+            return "void"
+
+        if call.name == "assert":
+            if len(call.arguments) != 1:
+                raise SemanticError("assert expects one boolean argument")
+            if self.resolve_type(self.analyze_expression(call.arguments[0])) != "bool":
+                raise SemanticError("assert argument must be a boolean")
+            return "void"
+
+        if call.name == "input":
+            if len(call.arguments) > 1:
+                raise SemanticError("input expects zero or one string argument")
+            if call.arguments and self.resolve_type(self.analyze_expression(call.arguments[0])) != "string":
+                raise SemanticError("input prompt must be a string")
+            return "string"
+
         string_builtins = {
             "substring": (["string", "int", "int"], "string"),
             "find": (["string", "string"], "int"),

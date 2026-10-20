@@ -1,0 +1,1 @@
+try { panic("cannot recover"); } catch (error) { print("unexpected"); }

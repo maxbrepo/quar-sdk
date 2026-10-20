@@ -1,0 +1,2 @@
+void fail() { throw "from function"; }
+try { fail(); } catch (error) { print(error.message); }

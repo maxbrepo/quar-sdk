@@ -1,0 +1,5 @@
+class Player {
+    i32 health;
+    init(i32 value) { this.health = value; }
+}
+Player player = Player();

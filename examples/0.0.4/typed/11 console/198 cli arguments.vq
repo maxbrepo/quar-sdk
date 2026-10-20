@@ -1,0 +1,3 @@
+print(Console.arg_count());
+print(Console.arg(0));
+print(Console.arg(1));

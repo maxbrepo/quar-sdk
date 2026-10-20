@@ -1,0 +1,1 @@
+print(Path.name(Path.join("alpha", "beta.txt"))); print(Path.stem("beta.txt")); print(Path.suffix("beta.txt"));

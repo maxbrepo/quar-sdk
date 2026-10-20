@@ -1,0 +1,2 @@
+stderr("Warning\n");
+print("Done");

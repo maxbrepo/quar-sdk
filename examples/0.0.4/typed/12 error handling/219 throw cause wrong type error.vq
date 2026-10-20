@@ -1,0 +1,1 @@
+throw "wrapper" from "not an error";

@@ -1,0 +1,1 @@
+try { int value = 1 / 0; print(value); } catch (error) { print("division handled"); }

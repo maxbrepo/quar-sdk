@@ -1,0 +1,4 @@
+int count = 2;
+const int increment = 3;
+count = count + increment;
+print(count);

@@ -1,0 +1,2 @@
+class Player { i32 health; }
+print(1);

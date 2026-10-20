@@ -1,0 +1,1 @@
+bytes a = Bytes.from_hex("00ff10"); bytes b = Bytes.from_hex("00ff10"); print(a[1]); print(a == b);

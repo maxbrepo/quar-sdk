@@ -1,0 +1,1 @@
+try { throw "root"; } catch (error) { print(error.trace); }

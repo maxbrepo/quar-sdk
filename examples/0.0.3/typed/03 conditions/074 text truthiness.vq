@@ -1,16 +1,17 @@
 string empty = "";
 string name = "Quar";
 char symbol;
-if (empty) {
+char empty_symbol;
+if (empty.length != 0) {
     print("wrong");
 } else {
     print("empty");
 }
-if (name) {
+if (name.length != 0) {
     print("name");
 }
-if (symbol) {
-    print("wrong");
-} else {
+if (symbol == empty_symbol) {
     print("empty char");
+} else {
+    print("wrong");
 }

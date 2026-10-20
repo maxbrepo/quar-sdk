@@ -1,0 +1,1 @@
+try { try { throw "root"; } catch (original) { throw "wrapper" from original; } } catch (error) { print(error.message); print(error.cause); }

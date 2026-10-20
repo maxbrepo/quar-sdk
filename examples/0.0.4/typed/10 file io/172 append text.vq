@@ -1,0 +1,1 @@
+File.write_text("note.txt", "a"); File.append_text("note.txt", "b"); print(File.read_text("note.txt"));

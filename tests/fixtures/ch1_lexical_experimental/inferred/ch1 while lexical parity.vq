@@ -1,0 +1,9 @@
+counter = 0;
+value = 1;
+while (counter < 2) {
+    local = 7;
+    print(local);
+    value = value + 2;
+    counter = counter + 1;
+}
+print(value);

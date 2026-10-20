@@ -1,0 +1,1 @@
+void wrap() { try { throw "low"; } catch (error) { throw "high" from error; } } try { wrap(); } catch (error) { print(error.message); print(error.cause); }

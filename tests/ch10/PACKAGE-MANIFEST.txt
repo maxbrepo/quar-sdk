@@ -1,0 +1,47 @@
+Chapter 10 cumulative candidate manifest (development only; no merge authorization)
+frontend/quar/ast_nodes.py
+frontend/quar/lexer.py
+frontend/quar/parser.py
+frontend/quar/semantic.py
+frontend/quar/tokens.py
+qrvm/compiler.py
+qrvm/instructions.py
+qrvm/vm.py
+qrvm/atomic_io.py
+qrvm/io_errors.py
+documentations/CH10-FILE-IO-STATUS.md
+documentations/README-CH10-COLLAUDO.md
+documentations/chapter-10-binary-validation.md
+documentations/chapter-10-memory-lifetime.md
+tests/ch10/PACKAGE-MANIFEST.txt
+tests/ch10/audit_output_comparison.py
+tests/ch10/reference_outputs.json
+tests/ch10/run_acceptance.py
+tests/ch10/test_atomic_writes.py
+tests/ch10/test_bytes_resources.py
+examples/0.0.3/typed/09 oop/161 class declaration.vq
+examples/0.0.3/typed/09 oop/162 default constructor.vq
+examples/0.0.3/typed/09 oop/163 initialized fields.vq
+examples/0.0.3/typed/09 oop/164 parameterized constructor.vq
+examples/0.0.3/typed/09 oop/165 void method.vq
+examples/0.0.3/typed/09 oop/166 returning method.vq
+examples/0.0.3/typed/09 oop/167 this access.vq
+examples/0.0.3/typed/09 oop/168 independent instances.vq
+examples/0.0.3/typed/09 oop/169 unknown field error.vq
+examples/0.0.3/typed/09 oop/170 constructor arguments error.vq
+tests/ch10/test_ch10_examples.py
+tests/ch10/ch10_example_expectations.json
+examples/0.0.4/typed/10 file io/171 text round trip.vq
+examples/0.0.4/typed/10 file io/172 append text.vq
+examples/0.0.4/typed/10 file io/173 automatic text handle.vq
+examples/0.0.4/typed/10 file io/174 binary round trip.vq
+examples/0.0.4/typed/10 file io/175 binary append and length.vq
+examples/0.0.4/typed/10 file io/176 binary indexing comparison.vq
+examples/0.0.4/typed/10 file io/177 directory entries.vq
+examples/0.0.4/typed/10 file io/178 path operations.vq
+examples/0.0.4/typed/10 file io/179 atomic text write.vq
+examples/0.0.4/typed/10 file io/180 atomic binary write.vq
+examples/0.0.4/typed/10 file io/181 missing file error.vq
+examples/0.0.4/typed/10 file io/182 invalid hex error.vq
+examples/0.0.4/typed/10 file io/183 invalid bytes index error.vq
+examples/0.0.4/typed/10 file io/184 invalid directory index error.vq

@@ -1,5 +1,5 @@
 string text = "";
-if (text) {
+if (text.length != 0) {
     print("wrong");
 } else {
     print("empty");

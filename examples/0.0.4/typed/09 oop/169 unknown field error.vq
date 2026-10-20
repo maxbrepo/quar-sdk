@@ -1,0 +1,3 @@
+class Player { i32 health; }
+Player player = Player();
+print(player.unknown);

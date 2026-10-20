@@ -2,6 +2,30 @@
 
 This document records released Quar SDK versions and the current development line.
 
+# Version 0.0.4
+
+**Release date:** October 20, 2026** 
+**Status:** Private development release candidate; not a public stable release
+
+**Component targets:** Quar SDK 0.0.4, Visual Quar 0.0.4; Quar Edit last documented at 0.0.2; Kart begins at 0.0.1. Component version metadata should be verified independently.
+
+## Development summary
+
+- First pass through chapters 1–18: QRVM-first implementation and tests.
+- Second pass: reconcile frontend, IR, QIR, QRVM, and Quarc, adding missing functionality without claiming complete backend parity.
+- Chapter 1 second pass: lexical resolution and IR/module-loader reconciliation validated by the project owner. Ordinary shadowing remains off; experimental shadowing is explicit.
+- Kart local package-management foundation; ongoing experimental memory-safety, diagnostics and bytecode/runtime work.
+- Last reported full Python suite: **1,392 PASS, 0 FAIL, 1 XFAIL**, plus 419 passing subtests. User confirmed examples and tests pass on the applied cumulative baseline.
+
+## Boundaries
+
+QRVM typed/inferred/mixed and Quarc/native paths have tested cases, but do not yet guarantee equal support for all language constructs. The remaining second-pass chapters 2–18 are not yet reconciled. The project is pre-1.0 and may change interfaces or semantics.
+
+The repository remains private pending a separate license and security review before any future public release.
+
+============================================================
+
+
 ============================================================
 
 # Version 0.0.3

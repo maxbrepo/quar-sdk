@@ -1,0 +1,72 @@
+{
+  "171 text round trip.vq": {
+    "source_sha256": "42a950fad777c54b3493368edb731978a940e63d1e0926ed84492e5d7babad57",
+    "stdout": "hello\n",
+    "error_type": null
+  },
+  "172 append text.vq": {
+    "source_sha256": "f129588801dc4b822aa2b8401d925de3d4ea28f52759bc0ecbcd7b1090168fd9",
+    "stdout": "ab\n",
+    "error_type": null
+  },
+  "173 automatic text handle.vq": {
+    "source_sha256": "78422096c9eb5c8bcc0d94f818374e7db4458a61cd726e14613d8ac017d96d37",
+    "stdout": "hello\n",
+    "error_type": null
+  },
+  "174 binary round trip.vq": {
+    "source_sha256": "0c18dedc4c99d978e7466c2723c62b8c73b57ef66a9e857a36af5906dd56901c",
+    "stdout": "00ff10\n",
+    "error_type": null
+  },
+  "175 binary append and length.vq": {
+    "source_sha256": "9bf12016fb71a5bb43d9ecb3e24c0145978a4bef30f4fbc68baff3124be8d331",
+    "stdout": "3\n",
+    "error_type": null
+  },
+  "176 binary indexing comparison.vq": {
+    "source_sha256": "3e2c4541000ccc2ac5d17fdc262c7846681d492fd851170b795f66861a9f07e1",
+    "stdout": "255\nTrue\n",
+    "error_type": null
+  },
+  "177 directory entries.vq": {
+    "source_sha256": "a73150a1fba74667a6dad9c75d718cd2d23d310cafaf92d01183cf02bb50168b",
+    "stdout": "1\na.txt\nTrue\n",
+    "error_type": null
+  },
+  "178 path operations.vq": {
+    "source_sha256": "dce66429a148cdb7be198648136cb11da2487da156fb3ec065b732c6f01a0271",
+    "stdout": "beta.txt\nbeta\n.txt\n",
+    "error_type": null
+  },
+  "179 atomic text write.vq": {
+    "source_sha256": "cc87e5e9303841ec5e40cbc3f96fc799a2579f3e620aab8b1f2e3455a931a682",
+    "stdout": "new\n",
+    "error_type": null
+  },
+  "180 atomic binary write.vq": {
+    "source_sha256": "85371d73964d6443e07ae524fcd13964f23ab37aaab152f92bd61e151aeaa1ce",
+    "stdout": "ff10\n",
+    "error_type": null
+  },
+  "181 missing file error.vq": {
+    "source_sha256": "6cbe934ebd0a421245320327ab6d41e56b3e1be40bc35db1c08c399028066e8b",
+    "stdout": null,
+    "error_type": "QuarIOError"
+  },
+  "182 invalid hex error.vq": {
+    "source_sha256": "b1d1e4d75e1ed6dd9c312ca06be19d42df02ee8cb5067b9361506364ee2f0386",
+    "stdout": null,
+    "error_type": "QuarIOError"
+  },
+  "183 invalid bytes index error.vq": {
+    "source_sha256": "6728594ff42f5e9f42ad252b7937612010c3aee4ed27c47063b1b08878ffca8a",
+    "stdout": null,
+    "error_type": "RuntimeError"
+  },
+  "184 invalid directory index error.vq": {
+    "source_sha256": "7c0755e5a24b25571b0fe5d29dd1d9789c9c4f438b30305f8ad24e2cdcf43f4c",
+    "stdout": null,
+    "error_type": "QuarIOError"
+  }
+}

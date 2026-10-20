@@ -1,0 +1,1 @@
+bytes data = Bytes.from_hex("00ff10"); File.write_bytes("data.bin", data); print(Bytes.to_hex(File.read_bytes("data.bin")));
