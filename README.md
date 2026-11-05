@@ -122,4 +122,13 @@ Quar SDK, Visual Quar, and Quar Edit use independent component versions. The cur
 - **Memory safety and tooling:** experimental memory-safety, diagnostics, and bytecode/runtime work progressed across later chapters, with known limitations retained.
 - **Verification:** the final development-session report recorded 1,392 passing Python tests, zero failures, one expected failure and 419 passing subtests; the project owner subsequently confirmed that tests and examples worked on their PC. These figures describe that tested baseline, not universal QRVM/Quarc equivalence.
 
-The 0.0.4 repository is intended to remain private for now. License selection, history-wide secret scanning, credential rotation where needed, and public-release review are deferred to a later publication milestone. Any credential known to be exposed must be revoked immediately rather than waiting for that milestone.
+The 0.0.4 repository remains private pending a separate public-release review. History-wide secret scanning and credential rotation where needed must be completed before publication. Any credential known to be exposed must be revoked immediately rather than waiting for that milestone.
+
+
+## License
+
+Quar SDK and the original Visual Quar project code are licensed under the **Apache License, Version 2.0**, unless otherwise indicated. See `LICENSE` for the full terms.
+
+Third-party components retain their respective licenses. See `THIRD_PARTY_LICENSES.md` for the dependency inventory and licensing notes.
+
+Programs written and compiled with Visual Quar may be licensed by their authors, subject to applicable third-party and runtime licensing requirements.
