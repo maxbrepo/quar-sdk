@@ -1,0 +1,4 @@
+i8 small = -128;
+i16 medium = 32767;
+i32 total = small + medium;
+print(total);

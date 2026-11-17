@@ -1,0 +1,4 @@
+u8 small = 12;
+i16 larger = small;
+i32 result = larger + 3;
+print(result);

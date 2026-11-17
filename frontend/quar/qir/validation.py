@@ -1,10 +1,11 @@
 """Structural validation for canonical QIR control flow."""
-from .model import QBranch, QFunction, QJump, QModule, QReturn, QMetadata
+from .model import QBranch, QFunction, QJump, QModule, QReturn, QMetadata, QType
+from .function_signatures import QFunctionSignatures, QIRSignatureError
 from .operations import QIROperationError, validate_instruction
 from .types import canonical_type
 from .dataflow import QIRDataflowError, validate_dataflow
 
-_SAFETY_CHECKS = frozenset({"bounds", "null", "lifetime", "overflow", "division_zero", "cast"})
+_SAFETY_CHECKS = frozenset({"bounds", "null", "lifetime", "overflow", "division_zero", "cast", "string_length"})
 
 def _validate_metadata(metadata: QMetadata | None) -> None:
     if metadata is None:
@@ -107,3 +108,34 @@ def validate_module(module: QModule) -> None:
         raise QIRValidationError("Duplicate function name")
     for function in module.functions:
         validate_function(function)
+    # Native symbols have an explicit ABI contract and cannot shadow QIR functions.
+    native = {}
+    supported = {"i32", "u32", "u64", "bool", "opaque", "cstring", "void"}
+    for name, arguments, result in module.native_declarations:
+        if (not isinstance(name, str) or not name.isascii() or not name.isidentifier()
+                or name in native or name in names or not isinstance(arguments, tuple)
+                or any(arg not in supported - {"void"} for arg in arguments)
+                or result not in supported):
+            raise QIRValidationError("Invalid or conflicting native ABI declaration")
+        native[name] = (arguments, result)
+    for function in module.functions:
+        for block in function.blocks:
+            for instruction in block.instructions:
+                if instruction.opcode in ("native_call", "native_call_void"):
+                    signature = native.get(instruction.immediate)
+                    expected = "void" if instruction.result is None else instruction.result.type.name
+                    if (signature is None or signature != (
+                            tuple("cstring" if value.type.name == "string" else value.type.name for value in instruction.operands),
+                            "cstring" if expected == "string" else expected)):
+                        raise QIRValidationError("Native call ABI signature mismatch")
+    try:
+        signatures = QFunctionSignatures(module.functions)
+        for function in module.functions:
+            for block in function.blocks:
+                for instruction in block.instructions:
+                    if instruction.opcode in ("call", "call_void"):
+                        signatures.resolve(instruction.immediate,
+                                           tuple(value.type for value in instruction.operands),
+                                           instruction.result.type if instruction.result is not None else QType("void"))
+    except QIRSignatureError as exc:
+        raise QIRValidationError(str(exc)) from exc

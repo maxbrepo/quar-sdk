@@ -1,0 +1,5 @@
+i8 seed() { return 7; }
+i8 identity(i8 x) { return x; }
+i8 value = seed();
+result = identity(value);
+print(result);

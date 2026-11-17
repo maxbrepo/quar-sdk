@@ -34,7 +34,7 @@ class QInstruction:
     opcode: str
     operands: tuple[QValue, ...] = ()
     result: QValue | None = None
-    immediate: int | None = None
+    immediate: int | str | bool | None = None
     metadata: QMetadata | None = None
 
 @dataclass(frozen=True)
@@ -81,3 +81,4 @@ class QFunction:
 class QModule:
     name: str
     functions: tuple[QFunction, ...]
+    native_declarations: tuple[tuple[str, tuple[str, ...], str], ...] = ()

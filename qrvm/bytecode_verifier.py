@@ -50,6 +50,15 @@ def _verify_body(instructions: Any, location: str) -> bool:
         if opcode in (OpCode.JUMP, OpCode.JUMP_IF_FALSE):
             if type(operand) is not int or not 0 <= operand <= size:
                 raise BytecodeVerificationError(f"{where}: invalid jump target")
+        elif opcode == OpCode.FUNCTION_REF:
+            if not isinstance(operand, str) or not operand:
+                raise BytecodeVerificationError(f"{where}: invalid function reference")
+        elif opcode == OpCode.CALL_INDIRECT:
+            count = operand
+            if isinstance(operand, tuple) and len(operand) == 2 and operand[1] is True:
+                count = operand[0]
+            if type(count) is not int or count < 0:
+                raise BytecodeVerificationError(f"{where}: invalid indirect call count")
         elif opcode == OpCode.CALL:
             if (not isinstance(operand, tuple) or len(operand) != 2 or
                     not isinstance(operand[0], str) or not operand[0] or

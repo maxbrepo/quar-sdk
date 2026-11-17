@@ -13,12 +13,17 @@ from .ast_nodes import (
     ConstantDeclaration,
     Assignment,
     FunctionCall,
+    FunctionReference,
+    LambdaExpression,
+    IndirectFunctionCall,
     WithFileStatement,
     TryCatchStatement, ThrowStatement,
     NamedArgument,
     FunctionParameter,
     ReturnStatement,
     FunctionDefinition,
+    ExternalFunctionDeclaration,
+    ExternalCStructDeclaration,
     IfStatement,
     WhileStatement,
     ForStatement,
@@ -113,6 +118,25 @@ class Parser:
         if token.type == TokenType.TYPE_TUPLE:
             return self.parse_tuple_declaration()
         if token.type == TokenType.LEFT_PAREN:
+            # A parenthesized callable may be invoked as a standalone statement.
+            # Keep typed tuple destructuring on its existing canonical path.
+            depth = 0
+            closing = None
+            for index in range(self.pos, len(self.tokens)):
+                current = self.tokens[index].type
+                if current == TokenType.LEFT_PAREN:
+                    depth += 1
+                elif current == TokenType.RIGHT_PAREN:
+                    depth -= 1
+                    if depth == 0:
+                        closing = index
+                        break
+            if closing is not None and closing + 1 < len(self.tokens) and self.tokens[closing + 1].type == TokenType.LEFT_PAREN:
+                call = self.parse_expression()
+                if not isinstance(call, IndirectFunctionCall):
+                    raise ParserError(f"Line {token.line}: expected indirect function call statement")
+                self.expect(TokenType.END_STMT)
+                return call
             return self.parse_destructuring_declaration()
         if token.type == TokenType.MATCH:
             return self.parse_match_statement()
@@ -134,6 +158,9 @@ class Parser:
 
         if token.type == TokenType.CONST:
             return self.parse_constant_declaration()
+
+        if token.type == TokenType.EXTERN:
+            return self.parse_external_function_declaration()
 
         if token.type == TokenType.IMPORT:
             return self.parse_import_statement()
@@ -213,6 +240,8 @@ class Parser:
                 return self.parse_member_assignment()
             if next_token.type == TokenType.LEFT_BRACKET:
                 return self.parse_array_assignment()
+            if next_token.type == TokenType.ASSIGN and self.tokens[self.pos + 2].type == TokenType.LEFT_BRACE:
+                return self.parse_inferred_array_declaration()
             if next_token.type in (
                 TokenType.ASSIGN,
                 TokenType.PLUS_ASSIGN,
@@ -757,6 +786,60 @@ class Parser:
         return type_name
         # Return canonical primitive or optional type
 
+    def parse_external_function_declaration(self):
+        """Parse an explicit C declaration without assuming runtime support."""
+        self.expect(TokenType.EXTERN)
+        abi = self.expect(TokenType.STRING).value
+        if abi != "C":
+            raise ParserError("Only the C external ABI is currently recognized")
+        if self.current().type == TokenType.STRUCT:
+            self.advance()
+            name = self.expect(TokenType.IDENTIFIER).value
+            self.expect(TokenType.LEFT_BRACE)
+            fields = []
+            allowed = {"i32", "u32", "i64", "u64", "f32", "f64"}
+            while self.current().type != TokenType.RIGHT_BRACE:
+                kind = self.parse_type_name()
+                if kind not in allowed:
+                    raise ParserError("Unsupported native C struct field type")
+                field_name = self.expect(TokenType.IDENTIFIER).value
+                if any(field.name == field_name for field in fields):
+                    raise ParserError("Duplicate native C struct field")
+                self.expect(TokenType.END_STMT)
+                fields.append(TypeField(kind, field_name))
+            self.expect(TokenType.RIGHT_BRACE)
+            self.expect(TokenType.END_STMT)
+            if not fields:
+                raise ParserError("Native C struct cannot be empty")
+            return ExternalCStructDeclaration(name, fields)
+        return_type = self.parse_type_name(allow_void=True)
+        if return_type not in ("i32", "u32", "i64", "u64", "f32", "f64", "opaque", "bool", "void") and (not return_type.isidentifier() or return_type in {"string", "char", "int", "double"}):
+            raise ParserError("Unsupported external C return type")
+        name = self.expect(TokenType.IDENTIFIER).value
+        self.expect(TokenType.LEFT_PAREN)
+        parameters = []
+        output_struct = None
+        if self.current().type == TokenType.IDENTIFIER and self.current().value == "out":
+            self.advance()
+            output_struct = self.parse_type_name()
+            self.expect(TokenType.IDENTIFIER)
+            if self.current().type != TokenType.RIGHT_PAREN:
+                raise ParserError("Native out currently requires a single output parameter")
+        elif self.current().type != TokenType.RIGHT_PAREN:
+            while True:
+                parameter = self.parse_function_parameter()
+                if not parameter.var_type.isidentifier() or parameter.var_type in {"string", "char", "int", "double", "void"} or parameter.default_value is not None or parameter.is_variadic:
+                    raise ParserError("External parameters require supported scalar types")
+                if any(previous.name == parameter.name for previous in parameters):
+                    raise ParserError("Duplicate external parameter name")
+                parameters.append(parameter)
+                if self.current().type != TokenType.COMMA:
+                    break
+                self.advance()
+        self.expect(TokenType.RIGHT_PAREN)
+        self.expect(TokenType.END_STMT)
+        return ExternalFunctionDeclaration(abi, return_type, name, parameters, output_struct)
+
     def parse_function_definition(self):
         return_type = self.parse_type_name(allow_void=True)
         name = self.expect(TokenType.IDENTIFIER).value
@@ -770,19 +853,52 @@ class Parser:
                 parameters.append(self.parse_function_parameter())
 
         self.expect(TokenType.RIGHT_PAREN)
+        self.validate_variadic_parameters(parameters)
         body = self.parse_block()
         return FunctionDefinition(return_type, name, parameters, body)
         # Return typed function definition
 
     def parse_function_parameter(self):
         var_type = self.parse_type_name()
+        callback_signature = None
+        if var_type == "function" and self.current().type == TokenType.LEFT_PAREN:
+            # Experimental syntax: function(int, string)->bool predicate
+            # The signature is attached to the existing FunctionParameter AST.
+            from .function_types import FunctionSignature
+            self.advance()
+            parameter_types = []
+            if self.current().type != TokenType.RIGHT_PAREN:
+                parameter_types.append(self.parse_type_name())
+                while self.current().type == TokenType.COMMA:
+                    self.advance()
+                    parameter_types.append(self.parse_type_name())
+            self.expect(TokenType.RIGHT_PAREN)
+            self.expect(TokenType.MINUS)
+            self.expect(TokenType.GREATER)
+            return_type = self.parse_type_name(allow_void=True)
+            callback_signature = FunctionSignature(tuple(parameter_types), return_type)
+        is_variadic = False
+        if self.current().type == TokenType.DOT:
+            for _ in range(3):
+                self.expect(TokenType.DOT)
+            is_variadic = True
+            if callback_signature is not None:
+                raise ParserError("Variadic callback parameters are not supported")
         name = self.expect(TokenType.IDENTIFIER).value
         default_value = None
+        if is_variadic and self.current().type == TokenType.ASSIGN:
+            raise ParserError("Variadic parameters cannot have default values")
         if self.current().type == TokenType.ASSIGN:
             self.advance()
             default_value = self.parse_expression()
-        return FunctionParameter(var_type, name, default_value)
-        # Return typed function parameter
+        return FunctionParameter(var_type, name, default_value, callback_signature, is_variadic)
+        # Return typed function parameter with optional callback signature.
+
+    def validate_variadic_parameters(self, parameters):
+        """Reject multiple or non-final variadic parameters at parse time."""
+        for index, parameter in enumerate(parameters):
+            if parameter.is_variadic and index != len(parameters) - 1:
+                raise ParserError("Variadic parameter must be last")
 
     def parse_call_argument(self):
         if (
@@ -900,6 +1016,21 @@ class Parser:
         self.expect(TokenType.END_STMT)
         return VariableDeclaration(var_type, name, value)
 
+
+    def parse_inferred_array_declaration(self):
+        """Parse an inferred array using the existing array declaration AST."""
+        name = self.expect(TokenType.IDENTIFIER).value
+        self.expect(TokenType.ASSIGN)
+        self.expect(TokenType.LEFT_BRACE)
+        values = []
+        if self.current().type != TokenType.RIGHT_BRACE:
+            values.append(self.parse_expression())
+            while self.current().type == TokenType.COMMA:
+                self.advance()
+                values.append(self.parse_expression())
+        self.expect(TokenType.RIGHT_BRACE)
+        self.expect(TokenType.END_STMT)
+        return ArrayDeclaration(None, name, None, values, None, True)
 
     def parse_array_assignment(self):
         name = self.expect(TokenType.IDENTIFIER).value
@@ -1059,6 +1190,9 @@ class Parser:
 
     def parse_unary(self):
         token = self.current()
+        if token.type == TokenType.BIT_AND:
+            self.advance()
+            return FunctionReference(self.expect(TokenType.IDENTIFIER).value)
         if token.type == TokenType.NOT:
             self.advance()
             return UnaryOperation("not", self.parse_unary())
@@ -1071,8 +1205,27 @@ class Parser:
         return self.parse_primary()
         # Return unary expression
 
+    def parse_lambda_expression(self):
+        """Parse an experimental capture-free lambda; return its AST node."""
+        self.advance()  # Consume the contextual `lambda` identifier.
+        self.expect(TokenType.LEFT_PAREN)
+        parameters = []
+        if self.current().type != TokenType.RIGHT_PAREN:
+            parameters.append(self.parse_function_parameter())
+            while self.current().type == TokenType.COMMA:
+                self.advance()
+                parameters.append(self.parse_function_parameter())
+        self.expect(TokenType.RIGHT_PAREN)
+        self.expect(TokenType.MINUS)
+        self.expect(TokenType.GREATER)
+        return_type = self.parse_type_name(allow_void=True)
+        body = self.parse_block()
+        return LambdaExpression(parameters, return_type, body)
+
     def parse_primary(self):
         token = self.current()
+        if token.type == TokenType.IDENTIFIER and token.value == "lambda" and self.tokens[self.pos + 1].type == TokenType.LEFT_PAREN:
+            return self.parse_lambda_expression()
 
         if token.type == TokenType.CHAR:
             self.advance()
@@ -1154,7 +1307,18 @@ class Parser:
                 while self.current().type == TokenType.COMMA:
                     self.advance(); values.append(self.parse_expression())
                 self.expect(TokenType.RIGHT_PAREN); return TupleLiteral(values)
-            self.expect(TokenType.RIGHT_PAREN); return first
+            self.expect(TokenType.RIGHT_PAREN)
+            if self.current().type == TokenType.LEFT_PAREN:
+                self.advance()
+                arguments = []
+                if self.current().type != TokenType.RIGHT_PAREN:
+                    arguments.append(self.parse_expression())
+                    while self.current().type == TokenType.COMMA:
+                        self.advance()
+                        arguments.append(self.parse_expression())
+                self.expect(TokenType.RIGHT_PAREN)
+                return IndirectFunctionCall(first, arguments)
+            return first
 
         raise ParserError(f"Line {token.line}: invalid expression")
 

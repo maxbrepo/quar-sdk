@@ -23,11 +23,60 @@ def validate_instruction(instruction: QInstruction) -> None:
         raise QIROperationError(str(exc)) from exc
 
     if op == "const":
-        valid = (not operands and result is not None and is_integer(result.type)
-                 and type(instruction.immediate) is int and
-                 _fits_integer(instruction.immediate, result.type.name))
-    elif instruction.immediate is not None:
+        valid = (not operands and result is not None and ((is_integer(result.type) and type(instruction.immediate) is int and
+                       _fits_integer(instruction.immediate, result.type.name)) or
+                      (result.type.name == "bool" and type(instruction.immediate) is bool)))
+    elif op == "string_const":
+        valid = (not operands and result is not None and result.type.name == "string" and
+                 type(instruction.immediate) is str)
+    elif instruction.immediate is not None and op not in ("array_alloc", "call", "call_void", "native_call", "native_call_void"):
         valid = False
+    elif op == "print":
+        # Observable output is a side-effecting, result-free QIR instruction.
+        valid = (len(operands) == 1 and result is None and
+                 operands[0].type.name in ("i32", "bool") and instruction.immediate is None)
+    elif op in ("call", "call_void", "native_call", "native_call_void"):
+        # The immediate is a callee symbol, never a numeric constant.
+        # Cross-function signature checking is performed by validate_module.
+        valid = (type(instruction.immediate) is str and
+                 bool(instruction.immediate) and instruction.immediate.isidentifier() and
+                 ((result is None) if op in ("call_void", "native_call_void") else (result is not None and result.type.name != "void")) and
+                 all(value.type.name != "void" for value in operands))
+    elif op in ("string_byte_len", "string_scalar_len"):
+        # A length-delimited UTF-8 string is distinct from an array of bytes.
+        # Runtime lowering must check that the result fits signed i32.
+        valid = (len(operands) == 1 and result is not None and
+                 operands[0].type.name == "string" and
+                 result.type.name == "i32" and
+                 instruction.metadata is not None and
+                 "string_length" in instruction.metadata.safety.checks)
+    elif op == "string_scalar_at":
+        # Index counts Unicode scalar values, not UTF-8 bytes or graphemes.
+        valid = (len(operands) == 2 and result is not None and
+                 operands[0].type.name == "string" and
+                 operands[1].type.name == "i32" and
+                 result.type.name == "i32" and
+                 instruction.metadata is not None and
+                 "string_length" in instruction.metadata.safety.checks and
+                 "bounds" in instruction.metadata.safety.checks)
+    elif op == "array_alloc":
+        valid = (not operands and result is not None and
+                 result.type.name == "ptr<i32>" and
+                 type(instruction.immediate) is int and
+                 0 < instruction.immediate <= 1_000_000)
+    elif op == "array_get":
+        valid = (len(operands) == 2 and result is not None and
+                 operands[0].type.name == "ptr<i32>" and
+                 operands[1].type.name == "i32" and result.type.name == "i32" and
+                 instruction.metadata is not None and
+                 "bounds" in instruction.metadata.safety.checks)
+    elif op == "array_set":
+        valid = (len(operands) == 3 and result is None and
+                 operands[0].type.name == "ptr<i32>" and
+                 operands[1].type.name == "i32" and
+                 operands[2].type.name == "i32" and
+                 instruction.metadata is not None and
+                 "bounds" in instruction.metadata.safety.checks)
     elif op == "alloca":
         valid = len(operands) == 0 and result is not None and result.type.name.startswith("ptr<")
     elif op == "load":
@@ -47,10 +96,20 @@ def validate_instruction(instruction: QInstruction) -> None:
                  is_numeric(operands[0].type) and is_numeric(result.type))
     elif op == "copy":
         valid = len(operands) == 1 and result is not None and result.type == operands[0].type
-    elif op in ("add", "sub", "mul", "div"):
+    elif op in ("add", "sub", "mul", "div", "mod"):
         valid = (len(operands) == 2 and result is not None
-                 and is_numeric(result.type)
+                 and (is_integer(result.type) if op == "mod" else is_numeric(result.type))
                  and all(value.type == result.type for value in operands))
+    elif op in ("bit_and", "bit_or", "bit_xor", "shl", "shr"):
+        valid = (len(operands) == 2 and result is not None
+                 and is_integer(result.type)
+                 and all(value.type == result.type for value in operands))
+    elif op == "logical_not":
+        valid = (len(operands) == 1 and result is not None
+                 and result.type.name == "bool" and operands[0].type == result.type)
+    elif op == "bit_not":
+        valid = (len(operands) == 1 and result is not None
+                 and is_integer(result.type) and operands[0].type == result.type)
     elif op in ("eq", "ne", "lt", "le", "gt", "ge"):
         valid = (len(operands) == 2 and result is not None
                  and result.type.name == "bool"

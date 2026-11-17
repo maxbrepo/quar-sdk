@@ -1,0 +1,13 @@
+bool positive(int x) { return x > 0; }
+int choose(function(int)->bool predicate, int x) {
+    if ((predicate)(x) and x < 10) {
+        return x + 10;
+    } else {
+        return x - 10;
+    }
+}
+function predicate = &positive;
+high = choose(predicate, 5);
+low = choose(predicate, -2);
+print(high);
+print(low);

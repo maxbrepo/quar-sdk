@@ -1,0 +1,6 @@
+int add(int left, int right) {
+    int result = left + right;
+    return result;
+}
+int answer = add(10, 20);
+print(answer);

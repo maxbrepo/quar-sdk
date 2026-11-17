@@ -64,11 +64,50 @@ class CBackendTests(unittest.TestCase):
         with self.assertRaises(QIRCBackendError):
             emit_c_function(fn)
 
+    def test_division_and_modulo(self):
+        a, b, out = (QValue(x, I) for x in "abc")
+        for op, expected in (("div", -2), ("mod", -1)):
+            with self.subTest(op=op):
+                fn = make_function([QInstruction(op, (a, b), out)], (a, b))
+                self.assertEqual(self.run_c(fn, (-7, 3)), expected)
+
+    def test_comparisons_return_bool(self):
+        a, b = QValue("a", I), QValue("b", I)
+        result = QValue("result", QType("bool"))
+        for op, expected in (("eq", 0), ("ne", 1), ("lt", 1), ("le", 1), ("gt", 0), ("ge", 0)):
+            with self.subTest(op=op):
+                fn = QFunction("qir_test", result.type, (a, b),
+                    (QBlock("entry", (QInstruction(op, (a, b), result),), QReturn(result)),))
+                self.assertEqual(self.run_c(fn, (2, 3)), expected)
+
+    def test_bitwise_and_shifts(self):
+        a, b, out = (QValue(x, I) for x in "abc")
+        cases = (
+            ("bit_and", -1, 6, 6),
+            ("bit_or", -8, 3, -5),
+            ("bit_xor", -1, 3, -4),
+            ("shl", -1, 1, -2),
+            ("shl", 1, 31, -2147483648),
+            ("shr", -7, 1, -4),
+            ("shr", -1, 31, -1),
+            ("shr", 8, 2, 2),
+            ("shr", -7, 0, -7),
+        )
+        for op, left, right, expected in cases:
+            with self.subTest(op=op, left=left, right=right):
+                fn = make_function([QInstruction(op, (a, b), out)], (a, b))
+                self.assertEqual(self.run_c(fn, (left, right)), expected)
+        fn = make_function([QInstruction("bit_not", (a,), out)], (a,))
+        self.assertEqual(self.run_c(fn, (0,)), -1)
+        self.assertEqual(self.run_c(fn, (-1,)), 0)
+
     def test_reject_unsupported_opcode(self):
         a, b, c = (QValue(x, I) for x in "abc")
-        fn = make_function([QInstruction("const", (), a, 8), QInstruction("const", (), b, 2), QInstruction("div", (a, b), c)])
+        fn = make_function([QInstruction("const", (), a, 8), QInstruction("const", (), b, 2), QInstruction("cast", (a,), c)])
+        # Casts within the supported integer subset are now executable.
+        self.assertIn("(int32_t)", emit_c_function(fn))
         with self.assertRaises(QIRCBackendError):
-            emit_c_function(fn)
+            emit_c_function(make_function([QInstruction("cast", (QValue("wide", QType("i64")),), c)], (QValue("wide", QType("i64")),)))
 
     def test_reject_invalid_name(self):
         v = QValue("v", I)

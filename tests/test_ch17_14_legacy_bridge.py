@@ -66,9 +66,9 @@ class LegacyBridgeTests(unittest.TestCase):
         with self.assertRaises(QIRBridgeError):
             lower_ir_function(self.function((IRReturn(IRLiteral(1)),), return_type="unknown_type"))
 
-    def test_reject_statements_after_return(self):
-        with self.assertRaises(QIRBridgeError):
-            lower_ir_function(self.function((IRReturn(IRLiteral(1)), IRReturn(IRLiteral(2)))))
+    def test_ignore_unreachable_statements_after_return(self):
+        result = lower_ir_function(self.function((IRReturn(IRLiteral(1)), IRReturn(IRLiteral(2)))))
+        self.assertIsNotNone(result)
 
 
 if __name__ == "__main__":

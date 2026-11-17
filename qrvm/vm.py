@@ -55,6 +55,12 @@ class QuarOptional:
     value: Any = None
 
 
+@dataclass(frozen=True)
+class FunctionValue:
+    """Named callable handle; captures no environment."""
+    name: str
+
+
 class QRVM:
     def __init__(self, args=None, environ=None) -> None:
         # CLI arguments exclude the executable/source path.
@@ -63,6 +69,12 @@ class QRVM:
         self.stack: list[int | float | bool] = []
         self.variables: dict[str, object] = {}
         self.functions: dict[str, dict] = {}
+        self.native_functions: dict[str, tuple] = {}
+        self.native_release_symbols: frozenset[str] = frozenset()
+        self.native_output_functions: dict[str, tuple] = {}
+        self.native_output_decoders: dict[str, dict[str, str]] = {}
+        self.native_output_statuses: dict[str, tuple[int, ...]] = {}
+        self.native_output_empty_statuses: dict[str, tuple[int, ...]] = {}
         self.class_methods: dict[tuple[str, str], dict] = {}
         self.heap = BootstrapHeap()
         self.call_frames: list[CallFrame] = []
@@ -70,6 +82,74 @@ class QRVM:
         self.last_diagnostic: QVMDiagnostic | None = None
         self.debug_hook: DebugHook | None = None
         self.profiler: InstructionProfiler | None = None
+
+    def bind_native(self, declarations: dict, library, *, release_symbols=(), struct_layouts=None, output_layouts=None, output_union_members=None, output_success_statuses=None, output_empty_statuses=None, declared_output_layouts=None) -> None:
+        """Explicitly bind declared C symbols from a trusted NativeLibrary."""
+        from .native_ffi import NativeSignature
+        from .native_struct_layout import NativeStructLayout
+        layouts = {
+            name: NativeStructLayout(name, tuple(fields))
+            for name, fields in (struct_layouts or {}).items()
+        }
+        def resolve(kind):
+            return layouts.get(kind, kind)
+        self.native_functions = {
+            name: (library, NativeSignature(name, tuple(resolve(arg) for arg in arguments), resolve(result)))
+            for name, (arguments, result) in declarations.items()
+        }
+        selected = frozenset(release_symbols)
+        for name in selected:
+            entry = self.native_functions.get(name)
+            if entry is None or entry[1].arguments != ("opaque",) or entry[1].result != "void":
+                raise ValueError(f"Native release symbol '{name}' must be declared (opaque) -> void")
+        self.native_release_symbols = selected
+        from .native_composite_layout import NativeCompositeLayout
+        output_bindings = {}
+        for name, layout in (output_layouts or {}).items():
+            if name in self.native_functions or not isinstance(layout, NativeCompositeLayout):
+                raise ValueError(f"Invalid or conflicting native output declaration: {name}")
+            if not isinstance(name, str) or not name.isascii() or not name.isidentifier():
+                raise ValueError("Native output symbol must be an ASCII identifier")
+            output_bindings[name] = (library, layout)
+        # A trusted runtime binding must not silently replace the ABI layout
+        # declared by the Visual Quar source program.
+        declared = declared_output_layouts if declared_output_layouts is not None else {}
+        if not isinstance(declared, dict) or set(declared) - set(output_bindings):
+            raise ValueError("Declared output layouts require matching native output bindings")
+        for name, expected in declared.items():
+            if not isinstance(expected, NativeCompositeLayout):
+                raise ValueError(f"Invalid declared output layout: {name}")
+            actual = output_bindings[name][1]
+            if (expected.kind != actual.kind or expected.fields != actual.fields
+                    or expected.describe() != actual.describe()):
+                raise ValueError(f"Native output ABI layout mismatch for '{name}'")
+        selections = output_union_members or {}
+        if not isinstance(selections, dict) or set(selections) - set(output_bindings):
+            raise ValueError("Union selections require a declared native output function")
+        for name, members in selections.items():
+            if not isinstance(members, dict) or any(type(k) is not str or type(v) is not str for k, v in members.items()):
+                raise ValueError("Invalid union member selections")
+        policies = output_success_statuses or {}
+        if not isinstance(policies, dict) or set(policies) - set(output_bindings):
+            raise ValueError("Output status policies require a declared output function")
+        for name, statuses in policies.items():
+            if (not isinstance(statuses, tuple) or not statuses
+                    or any(type(code) is not int or not -(2**31) <= code < 2**31 for code in statuses)
+                    or len(set(statuses)) != len(statuses)):
+                raise ValueError(f"Invalid output status policy: {name}")
+        empty_policies = output_empty_statuses if output_empty_statuses is not None else {}
+        if not isinstance(empty_policies, dict) or set(empty_policies) - set(output_bindings):
+            raise ValueError("Empty status policies require a declared output function")
+        for name, statuses in empty_policies.items():
+            if (not isinstance(statuses, tuple)
+                    or any(type(code) is not int or not -(2**31) <= code < 2**31 for code in statuses)
+                    or len(set(statuses)) != len(statuses)
+                    or set(statuses) & set(policies.get(name, (0,)))):
+                raise ValueError(f"Invalid empty status policy: {name}")
+        self.native_output_empty_statuses = dict(empty_policies)
+        self.native_output_statuses = dict(policies)
+        self.native_output_functions = output_bindings
+        self.native_output_decoders = {name: dict(members) for name, members in selections.items()}
 
     def set_profiling(self, enabled: bool) -> None:
         """Enable or disable instruction profiling (reset on enable)."""
@@ -723,7 +803,8 @@ class QRVM:
                         and isinstance(right, int)
                         and not isinstance(right, bool)
                     ):
-                        self.stack.append(int(left / right))
+                        quotient = abs(left) // abs(right)
+                        self.stack.append(-quotient if (left < 0) != (right < 0) else quotient)
                     else:
                         self.stack.append(left / right)
 
@@ -732,7 +813,16 @@ class QRVM:
                     left = self.stack.pop()
                     if right == 0:
                         raise RuntimeError("Modulo by zero")
-                    self.stack.append(left % right)
+                    if (
+                        isinstance(left, int)
+                        and not isinstance(left, bool)
+                        and isinstance(right, int)
+                        and not isinstance(right, bool)
+                    ):
+                        remainder = abs(left) % abs(right)
+                        self.stack.append(-remainder if left < 0 else remainder)
+                    else:
+                        self.stack.append(left % right)
 
                 elif opcode == OpCode.BIT_AND:
                     right = self.stack.pop()
@@ -899,6 +989,39 @@ class QRVM:
                     except EOFError as error:
                         raise RuntimeError("Console input reached EOF.") from error
 
+                elif opcode == OpCode.FUNCTION_REF:
+                    if not isinstance(operand, str) or operand not in self.functions:
+                        raise RuntimeError(f"Unknown function reference '{operand}'.")
+                    self.stack.append(FunctionValue(operand))
+
+                elif opcode == OpCode.CALL_INDIRECT:
+                    discard_result = isinstance(operand, tuple) and len(operand) == 2 and operand[1] is True
+                    argument_count = operand[0] if discard_result else operand
+                    if type(argument_count) is not int or argument_count < 0:
+                        raise RuntimeError("Invalid indirect call argument count.")
+                    if len(self.stack) < argument_count + 1:
+                        raise RuntimeError("Indirect call stack underflow.")
+                    arguments = self.stack[-argument_count:] if argument_count else []
+                    reference = self.stack[-argument_count - 1]
+                    if not isinstance(reference, FunctionValue):
+                        raise RuntimeError("Indirect call target is not a function reference.")
+                    function = self.functions.get(reference.name)
+                    if function is None:
+                        raise RuntimeError(f"Unknown function '{reference.name}'.")
+                    parameters = function["parameters"]
+                    if len(parameters) != argument_count:
+                        raise RuntimeError(f"Function '{reference.name}' argument count mismatch.")
+                    del self.stack[-argument_count - 1:]
+                    result = self.execute(
+                        function["instructions"], dict(zip(parameters, arguments)),
+                        frame_name=reference.name, isolate_stack=True,
+                    )
+                    if function.get("return_type") != "void":
+                        if result is None:
+                            raise RuntimeError(f"Function '{reference.name}' did not return a value.")
+                        if not discard_result:
+                            self.stack.append(result)
+
                 elif opcode == OpCode.CALL:
                     if not isinstance(operand, tuple):
                         raise RuntimeError(
@@ -906,6 +1029,38 @@ class QRVM:
                         )
 
                     name, argument_count = operand
+
+                    if name in self.native_output_functions:
+                        if argument_count != 0:
+                            raise RuntimeError(f"Native output function '{name}' requires zero source arguments")
+                        library, layout = self.native_output_functions[name]
+                        _, raw = library.call_composite_out(
+                            name, layout,
+                            success_statuses=self.native_output_statuses.get(name, (0,)),
+                            empty_statuses=self.native_output_empty_statuses.get(name, ()),
+                        )
+                        if raw is None:
+                            self.stack.append(None)
+                            continue
+                        if name in self.native_output_decoders:
+                            from .native_composite_decode import decode_composite
+                            self.stack.append(decode_composite(raw, layout, union_members=self.native_output_decoders[name]))
+                        else:
+                            self.stack.append(raw)
+                        continue
+
+                    if name in self.native_functions:
+                        library, signature = self.native_functions[name]
+                        if argument_count != len(signature.arguments) or len(self.stack) < argument_count:
+                            raise RuntimeError(f"Native function '{name}' argument mismatch")
+                        arguments = [self.stack.pop() for _ in range(argument_count)]
+                        arguments.reverse()
+                        if name in self.native_release_symbols:
+                            library.release_handle(arguments[0], signature)
+                            self.stack.append(None)
+                        else:
+                            self.stack.append(library.call(signature, *arguments))
+                        continue
 
                     instance = None
                     if "." in name:

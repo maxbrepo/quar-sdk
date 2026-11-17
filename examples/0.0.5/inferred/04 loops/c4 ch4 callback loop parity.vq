@@ -1,0 +1,13 @@
+int increment(int x) { return x + 1; }
+int fold(function(int)->int callback, int limit) {
+    i = 0;
+    total = 0;
+    while (i < limit) {
+        total = total + (callback)(i);
+        i = i + 1;
+    }
+    return total;
+}
+callback = &increment;
+result = fold(callback, 3);
+print(result);

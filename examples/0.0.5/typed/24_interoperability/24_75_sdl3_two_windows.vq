@@ -1,0 +1,6 @@
+extern "C" bool SDL_Init(u32 flags);
+extern "C" opaque SDL_CreateWindow(cstring title, i32 width, i32 height, u64 flags);
+extern "C" void SDL_DestroyWindow(opaque window);
+extern "C" void SDL_Quit();
+extern "C" void SDL_Delay(u32 milliseconds);
+u32 subsystems = 32; bool ready = SDL_Init(subsystems); u64 window_flags = 0; first = SDL_CreateWindow("VQ SDL3 first", 320, 240, window_flags); second = SDL_CreateWindow("VQ SDL3 second", 320, 240, window_flags); SDL_DestroyWindow(second); SDL_DestroyWindow(first); SDL_Quit();

@@ -1,0 +1,4 @@
+i8 start = -5;
+i16 middle = start;
+i64 final_value = middle;
+print(final_value);

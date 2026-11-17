@@ -1,0 +1,4 @@
+byte raw = 42;
+u16 expanded = raw;
+uint total = expanded;
+print(total);

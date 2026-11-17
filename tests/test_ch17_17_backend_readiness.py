@@ -25,8 +25,8 @@ class BackendReadinessTests(unittest.TestCase):
     def test_unsupported_opcode(self):
         a, b, c = (QValue(x, I) for x in ("a", "b", "c"))
         fn = function(QInstruction("const", (), a, 6), QInstruction("const", (), b, 2),
-                      QInstruction("div", (a, b), c))
-        self.assertIn("opcode", [x.feature for x in inspect_backend_readiness(fn, "c").issues])
+                      QInstruction("cast", (a,), c))
+        self.assertIn("opcode", [x.feature for x in inspect_backend_readiness(fn, "qrvm").issues])
 
     def test_non_i32_type(self):
         a = QValue("a", QType("i64"))
@@ -56,8 +56,8 @@ class BackendReadinessTests(unittest.TestCase):
             QBlock("entry", (QInstruction("const", (), a, 1),), QJump("end")),
             QBlock("end", (), QReturn(a))))
         features = {x.feature for x in inspect_backend_readiness(fn, "c").issues}
-        self.assertIn("cfg", features)
-        self.assertIn("terminator", features)
+        self.assertNotIn("cfg", features)
+        self.assertNotIn("terminator", features)
 
     def test_unknown_backend(self):
         a = QValue("a", I)

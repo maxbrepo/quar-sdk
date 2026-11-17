@@ -2,6 +2,23 @@
 
 This document records released Quar SDK versions and the current development line.
 
+# Version 0.0.5-dev
+
+**Snapshot date:** November 17, 2026  
+**Status:** Active private development; not an official stable release
+
+**Component targets:** Quar SDK 0.0.5-dev; Visual Quar 0.0.5-dev. Quar Edit and Kart retain their independently documented versions. QRVM bytecode format version is independent and unchanged.
+
+## Development scope
+
+- Ongoing reconciliation of typed, inferred, and mixed language profiles.
+- Ongoing QIR-to-QRVM numeric type propagation and overflow validation.
+- ABI/FFI and SDL3 integration work with external QGF, subject to separate regression checks.
+- This entry records the development version only; it does not certify completion of the above work or validate changes made by external coding tools.
+
+============================================================
+
+
 # Version 0.0.4
 
 **Release date:** October 20, 2026** 

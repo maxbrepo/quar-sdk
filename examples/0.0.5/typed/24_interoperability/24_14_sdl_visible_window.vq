@@ -1,0 +1,13 @@
+extern "C" i32 SDL_Init(u32 flags);
+extern "C" opaque SDL_CreateWindow(cstring title, i32 x, i32 y, i32 width, i32 height, u32 flags);
+extern "C" void SDL_DestroyWindow(opaque window);
+extern "C" void SDL_Quit();
+extern "C" void SDL_Delay(u32 milliseconds);
+u32 flags = 0;
+i32 status = SDL_Init(flags);
+u32 window_flags = 4;
+window = SDL_CreateWindow("Visual Quar SDL2", 100, 100, 640, 480, window_flags);
+u32 duration = 1500;
+SDL_Delay(duration);
+SDL_DestroyWindow(window);
+SDL_Quit();

@@ -1,0 +1,5 @@
+u8 small = 4;
+copy = small;
+i16 wider = copy;
+answer = wider + 6;
+print(answer);

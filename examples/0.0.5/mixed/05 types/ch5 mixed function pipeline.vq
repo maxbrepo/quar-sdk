@@ -1,0 +1,8 @@
+int combine(int left, int right) {
+    total = left + right;
+    return total;
+}
+i16 small = 8;
+next = 5;
+i32 result = combine(small, next);
+print(result);

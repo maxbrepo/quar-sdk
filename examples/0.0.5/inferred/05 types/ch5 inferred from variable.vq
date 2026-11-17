@@ -1,0 +1,3 @@
+source = 12;
+copy = source;
+print(copy);

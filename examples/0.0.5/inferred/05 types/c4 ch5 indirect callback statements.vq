@@ -1,0 +1,16 @@
+void emit(int x) { print(x); }
+int increment(int x) { return x + 1; }
+int apply(function(int)->int cb, int x) {
+    function copy = cb;
+    (copy)(x);
+    return (copy)(x);
+}
+logger = &emit;
+(logger)(40);
+operation = &increment;
+(operation)(39);
+result = apply(operation, 41);
+print(result);
+operation = lambda(int x)->int { return x + 2; };
+print((operation)(40));
+(&emit)(43);

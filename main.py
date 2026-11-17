@@ -1,4 +1,5 @@
 import contextlib
+import os
 import io
 import platform
 import re
@@ -76,18 +77,16 @@ def emit_ir_c_sources(source_file, layout, output_directory):
     return emit_c(project, Path(output_directory), layout)
 
 def clear_screen():
-    command = (
-        "cls"
-        if platform.system().lower() == "windows"
-        else "clear"
-    )
+    """Clear interactive terminals without emitting control errors in test logs."""
+    import os
+    import sys
 
-    subprocess.run(
-        command,
-        shell=True,
-        check=False,
-    )
-    # Clear terminal screen
+    if not sys.stdout.isatty():
+        return
+    if platform.system().lower() != "windows" and not os.environ.get("TERM"):
+        return
+    command = "cls" if platform.system().lower() == "windows" else "clear"
+    subprocess.run(command, shell=True, check=False)
 
 
 def select_execution_mode():
@@ -217,7 +216,11 @@ def ask_program_execution(
     print("[1] Yes")
     print("[2] No")
 
-    choice = input("> ").strip()
+    try:
+        choice = input("> ").strip()
+    except EOFError:
+        # Non-interactive compilation must not crash when no answer is available.
+        return False
 
     if choice not in ("1", "2"):
         raise ValueError(
@@ -564,7 +567,7 @@ def build_frontend(source, source_profile=CANONICAL_PROFILE, *, borrow_check=Fal
     # Return validated AST and types
 
 
-def run_qrvm(validated_program, *, lexical=False, allow_inference=False):
+def run_qrvm(validated_program, *, lexical=False, allow_inference=False, native_library=None, native_release_symbols=()):
     compiler = QRVMCompiler()
 
     instructions = compiler.compile(
@@ -572,6 +575,31 @@ def run_qrvm(validated_program, *, lexical=False, allow_inference=False):
     )
 
     vm = QRVM()
+    if native_library is not None:
+        from qrvm.native_ffi import NativeLibrary
+        if not isinstance(instructions, dict):
+            raise RuntimeError("Native linking requires a compiled QRVM package")
+        from qrvm.native_composite_layout import NativeCompositeLayout
+        vm.bind_native(
+            instructions.get("native_declarations", {}),
+            NativeLibrary(native_library),
+            release_symbols=native_release_symbols,
+            struct_layouts=instructions.get("native_struct_layouts", {}),
+            output_layouts={
+                name: NativeCompositeLayout(
+                    kind, "struct", tuple(instructions["native_struct_layouts"][kind])
+                )
+                for name, kind in instructions.get("native_output_declarations", {}).items()
+            },
+            declared_output_layouts={
+                name: NativeCompositeLayout(kind, "struct", tuple(instructions["native_struct_layouts"][kind]))
+                for name, kind in instructions.get("native_output_declarations", {}).items()
+            },
+        )
+    elif native_release_symbols:
+        raise ValueError("--native-release requires --native-library PATH")
+    elif isinstance(instructions, dict) and (instructions.get("native_declarations") or instructions.get("native_output_declarations")):
+        raise RuntimeError("External C declarations require --native-library PATH")
 
     print()
     print("=== QRVM OUTPUT ===")
@@ -1130,9 +1158,28 @@ def fixture_input(values):
     return read_input
 
 
+def regression_native_dependency(source_file):
+    """Read optional per-example native dependency metadata without changing VQ syntax."""
+    import json
+
+    source_file = Path(source_file)
+    metadata_file = source_file.with_name(source_file.name + ".native.json")
+    if not metadata_file.is_file():
+        return None
+    metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
+    dependency = metadata.get("regression_requires_native_library")
+    if not isinstance(dependency, str) or not re.fullmatch(r"[A-Za-z0-9_.+-]+", dependency):
+        raise ValueError(f"Invalid native dependency metadata: {metadata_file}")
+    return dependency
+
+
 def execute_regression_source(source_file):
     test_number = extract_test_number(source_file)
     expected_error = EXPECTED_TEST_ERRORS.get(test_number)
+    native_dependency = regression_native_dependency(source_file)
+    if native_dependency is not None:
+        # External examples are validated by their dedicated configured tests.
+        return "EXTERNAL DEPENDENCY", f"Requires native library: {native_dependency}"
 
     try:
         program = ModuleLoader(
@@ -1239,13 +1286,14 @@ def print_regression_results(records, root):
 def browse_regression_results(records, root):
     """Filter the most recent results without rerunning any test."""
     counts = {status: sum(result == status for _, result, _ in records)
-              for status in ("PASS", "EXPECTED ERROR", "FAIL", "CRASH")}
+              for status in ("PASS", "EXPECTED ERROR", "EXTERNAL DEPENDENCY", "FAIL", "CRASH")}
     current = records
     while True:
         print_regression_results(current, root)
         print(
             f"Displayed: {len(current)}/{len(records)} | "
             f"PASS: {counts['PASS']} | EXPECTED ERROR: {counts['EXPECTED ERROR']} | "
+            f"EXTERNAL: {counts['EXTERNAL DEPENDENCY']} | "
             f"FAIL: {counts['FAIL']} | CRASH: {counts['CRASH']}"
         )
         print("\nSelect: [0] \\ Back, [1] All, [2] Failures, [3] Crash, [4] Pass, [5] Expected error")
@@ -1397,7 +1445,14 @@ def run_external_test_selection(files):
             *[f"tests.{path.stem}" for path in files],
         ]
     print(f"\nRunning {len(files)} external test files...\n")
-    result = subprocess.run(command, cwd=project_root, check=False)
+    # Selected modules use tests.* names, while some older tests import sibling
+    # helpers by their bare module name. Make both import forms available.
+    environment = os.environ.copy()
+    existing_pythonpath = environment.get("PYTHONPATH", "")
+    environment["PYTHONPATH"] = os.pathsep.join(
+        part for part in (str(tests_root), existing_pythonpath) if part
+    )
+    result = subprocess.run(command, cwd=project_root, env=environment, check=False)
     print(f"\nExternal tests: {'PASS' if result.returncode == 0 else 'FAIL'}")
     print(f"Exit code: {result.returncode}")
     input("\nPress Enter to continue...")
@@ -1481,10 +1536,53 @@ def parse_lexical_options(arguments):
     return remaining, lexical, inference
 
 
+def extract_native_library_option(arguments):
+    """Extract one explicit native library path; return remaining arguments and path."""
+    remaining = []
+    library = None
+    index = 0
+    while index < len(arguments):
+        if arguments[index] == "--native-library":
+            if library is not None or index + 1 >= len(arguments):
+                raise ValueError("--native-library requires exactly one path")
+            library = arguments[index + 1]
+            if not library or library.startswith("--"):
+                raise ValueError("--native-library requires a valid path")
+            index += 2
+        else:
+            remaining.append(arguments[index])
+            index += 1
+    return remaining, library
+
+
+def extract_native_release_options(arguments):
+    """Extract explicitly named C destructor symbols and return remaining arguments."""
+    remaining = []
+    symbols = []
+    index = 0
+    while index < len(arguments):
+        if arguments[index] == "--native-release":
+            if index + 1 >= len(arguments):
+                raise ValueError("--native-release requires a symbol name")
+            symbol = arguments[index + 1]
+            if not symbol.isidentifier() or symbol in symbols:
+                raise ValueError("--native-release requires a unique valid C symbol name")
+            symbols.append(symbol)
+            index += 2
+        else:
+            remaining.append(arguments[index])
+            index += 1
+    return remaining, tuple(symbols)
+
+
 def main():
     try:
         source_arguments, lexical, allow_inference = parse_lexical_options(sys.argv[1:])
         arguments, inspect_enabled = extract_inspector_flag(source_arguments)
+        arguments, native_library = extract_native_library_option(arguments)
+        arguments, native_release_symbols = extract_native_release_options(arguments)
+        if native_release_symbols and native_library is None:
+            raise ValueError("--native-release requires --native-library PATH")
         kart_enabled = "--kart" in arguments
         if arguments.count("--kart") > 1:
             raise ValueError("--kart may be specified only once")
@@ -1540,6 +1638,8 @@ def main():
                 validated_program,
                 lexical=lexical,
                 allow_inference=allow_inference,
+                native_library=native_library,
+                native_release_symbols=native_release_symbols,
             )
             return
 

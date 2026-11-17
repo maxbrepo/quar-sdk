@@ -1,0 +1,13 @@
+int increment(int x) { return x + 1; }
+int plus_two(int x) { return x + 2; }
+int apply(function(int)->int callback, int x = 41) {
+    function local_copy = callback;
+    return (local_copy)(x);
+}
+function original = &increment;
+copy = original;
+original = &plus_two;
+int first = apply(callback = copy);
+second = apply(callback = original);
+print(first);
+print(second);

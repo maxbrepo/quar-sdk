@@ -1,0 +1,4 @@
+i16 base = 7;
+extra = 3;
+i32 total = base + extra;
+print(total);

@@ -6,7 +6,7 @@ from .model import QType
 _POINTER_PREFIX = "ptr<"
 
 _INTEGER_WIDTHS = (8, 16, 32, 64, 128)
-_PRIMITIVES = frozenset({"void", "bool", "char", "string", "f32", "f64"} | {
+_PRIMITIVES = frozenset({"void", "bool", "char", "string", "opaque", "f32", "f64"} | {
     f"{prefix}{width}" for prefix in ("i", "u") for width in _INTEGER_WIDTHS
 })
 

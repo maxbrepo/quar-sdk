@@ -2,7 +2,7 @@
 import unittest
 
 from frontend.quar.ast_nodes import (Assignment, BinaryOperation, FunctionDefinition,
-    FunctionParameter, IfStatement, Integer, ReturnStatement, Variable, VariableDeclaration)
+    FunctionParameter, IfStatement, Integer, ReturnStatement, UnaryOperation, Variable, VariableDeclaration)
 from frontend.quar.ir.builder import lower_statement
 from frontend.quar.qir.ast_lowering import QIRASTLoweringError, lower_ast_function
 from frontend.quar.qir.legacy_bridge import lower_ir_function
@@ -45,6 +45,59 @@ class DirectASTQIRTests(unittest.TestCase):
                          [(i.opcode, i.immediate) for i in bridged.blocks[0].instructions])
         self.assertEqual(len(direct.blocks), len(bridged.blocks))
 
+    def test_division_and_modulo_parity(self):
+        for symbol, opcode in (("/", "div"), ("%", "mod")):
+            with self.subTest(operator=symbol):
+                ast = self.function([ReturnStatement(BinaryOperation(Variable("x"), symbol, Integer(3)))],
+                                    [FunctionParameter("int", "x")])
+                direct = lower_ast_function(ast)
+                bridged = lower_ir_function(lower_statement(ast))
+                self.assertEqual(direct.blocks[0].instructions[-1].opcode, opcode)
+                self.assertEqual([i.opcode for i in direct.blocks[0].instructions],
+                                 [i.opcode for i in bridged.blocks[0].instructions])
+                validate_function(direct)
+                validate_function(bridged)
+
+    def test_bitwise_and_shift_parity(self):
+        for symbol, opcode in (("&", "bit_and"), ("|", "bit_or"),
+                               ("^", "bit_xor"), ("<<", "shl"), (">>", "shr")):
+            with self.subTest(operator=symbol):
+                ast = self.function([ReturnStatement(BinaryOperation(Variable("x"), symbol, Integer(1)))],
+                                    [FunctionParameter("int", "x")])
+                direct = lower_ast_function(ast)
+                bridged = lower_ir_function(lower_statement(ast))
+                self.assertEqual(direct.blocks[0].instructions[-1].opcode, opcode)
+                self.assertEqual([i.opcode for i in direct.blocks[0].instructions],
+                                 [i.opcode for i in bridged.blocks[0].instructions])
+                validate_function(direct)
+                validate_function(bridged)
+
+    def test_bitwise_not_parity(self):
+        ast = self.function([ReturnStatement(UnaryOperation("~", Variable("x")))],
+                            [FunctionParameter("int", "x")])
+        direct = lower_ast_function(ast)
+        bridged = lower_ir_function(lower_statement(ast))
+        self.assertEqual(direct.blocks[0].instructions[-1].opcode, "bit_not")
+        self.assertEqual([i.opcode for i in direct.blocks[0].instructions],
+                         [i.opcode for i in bridged.blocks[0].instructions])
+        validate_function(direct)
+        validate_function(bridged)
+
+    def test_comparison_parity_and_bool_result(self):
+        for symbol, opcode in (("==", "eq"), ("!=", "ne"), ("<", "lt"),
+                               ("<=", "le"), (">", "gt"), (">=", "ge")):
+            with self.subTest(operator=symbol):
+                ast = self.function([ReturnStatement(BinaryOperation(Variable("x"), symbol, Integer(3)))],
+                                    [FunctionParameter("int", "x")], "bool")
+                direct = lower_ast_function(ast)
+                bridged = lower_ir_function(lower_statement(ast))
+                self.assertEqual(direct.return_type.name, "bool")
+                self.assertEqual(direct.blocks[0].instructions[-1].opcode, opcode)
+                self.assertEqual([i.opcode for i in direct.blocks[0].instructions],
+                                 [i.opcode for i in bridged.blocks[0].instructions])
+                validate_function(direct)
+                validate_function(bridged)
+
     def test_alias_and_source_unchanged(self):
         ast = self.function([ReturnStatement(Variable("x"))],
                             [FunctionParameter("Counter", "x")], "Counter")
@@ -79,9 +132,9 @@ class DirectASTQIRTests(unittest.TestCase):
         with self.assertRaises(QIRASTLoweringError):
             lower_ast_function(self.function([VariableDeclaration("int", "x", Integer(1))]))
 
-    def test_reject_statement_after_return(self):
-        with self.assertRaises(QIRASTLoweringError):
-            lower_ast_function(self.function([ReturnStatement(Integer(1)), ReturnStatement(Integer(2))]))
+    def test_ignore_unreachable_statement_after_return(self):
+        result = lower_ast_function(self.function([ReturnStatement(Integer(1)), ReturnStatement(Integer(2))]))
+        self.assertIsNotNone(result)
 
     def test_reject_duplicate_local(self):
         ast = self.function([VariableDeclaration("int", "x", Integer(1)),

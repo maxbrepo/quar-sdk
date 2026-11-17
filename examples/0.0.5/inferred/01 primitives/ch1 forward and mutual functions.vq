@@ -1,0 +1,36 @@
+int forward(int value) {
+    result = later(value);
+    return result;
+}
+
+int later(int value) {
+    return value + 1;
+}
+
+bool is_even(int n) {
+    if (n == 0) {
+        return true;
+    }
+    return is_odd(n - 1);
+}
+
+bool is_odd(int n) {
+    if (n == 0) {
+        return false;
+    }
+    return is_even(n - 1);
+}
+
+void relay() {
+    announce();
+}
+
+void announce() {
+    print(9);
+}
+
+answer = forward(5);
+print(answer);
+print(is_even(4));
+print(is_odd(4));
+relay();

@@ -1,17 +1,17 @@
 # Quar SDK
 
-**Current development version: 0.0.4 — private development release candidate, October 2026**
+**Current development version: 0.0.5-dev — private development snapshot, November 2026**
 
 Quar SDK is the modular development environment and experimental toolchain for the Quar language ecosystem.
 
 Its purpose is to let Visual Quar, Quar Edit, QRVM, native compilation, external programming-language toolchains, source representation, localization, and future development tools evolve as cooperating modules rather than as a single mandatory editor or runtime.
 
-Version 0.0.4 extends the previously developed QRVM-first language baseline with intermediate-representation work, package-management foundations, runtime and memory-safety experiments, and a second review of chapters 1–18. Chapter 1 of that second pass has been tested by the project owner. The release remains experimental and is intended to stay private pending a separate public-release review.
+Version 0.0.5-dev continues the experimental Visual Quar toolchain, including typed/inferred/mixed reconciliation, QIR/QRVM alignment, and ABI/FFI development. This is an active development snapshot, not a stable release or a claim of complete feature parity. Historical release information remains in VERSIONS.md.
 
 ## Component Versions
 
-- Quar SDK: **0.0.4**
-- Visual Quar: **0.0.4**
+- Quar SDK: **0.0.5-dev**
+- Visual Quar: **0.0.5-dev**
 - Quar Edit: **0.0.2** (last documented component version; verify independently before tagging)
 - Kart: **0.0.1** (initial package-manager version in this development line)
 

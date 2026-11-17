@@ -1,0 +1,5 @@
+extern "C" struct QgfKeyboardEvent {
+    u32 type; i32 scancode; i32 sym; u32 reserved; u64 payload;
+};
+extern "C" i32 qgf_poll_keyboard(out QgfKeyboardEvent event);
+bytes result = qgf_poll_keyboard();

@@ -61,6 +61,30 @@ class FunctionCall:
 
 
 @dataclass
+class FunctionReference:
+    """Reference to a named function without invoking it."""
+    name: str
+
+
+@dataclass
+class IndirectFunctionCall:
+    """Call a function-valued expression (not a direct named call)."""
+    callee: object
+    arguments: list
+
+
+@dataclass
+class LambdaExpression:
+    """Experimental anonymous function node; not yet executable.
+
+    Captures are intentionally unsupported until lifetime rules are defined.
+    """
+    parameters: list
+    return_type: str
+    body: list
+
+
+@dataclass
 class NamedArgument:
     name: str
     value: object
@@ -78,11 +102,30 @@ class FunctionParameter:
     var_type: str
     name: str
     default_value: object | None = None
+    callback_signature: object | None = None  # Experimental AST-only signature metadata.
+    is_variadic: bool = False  # Syntax metadata; runtime packing is not implemented.
 
 
 @dataclass
 class ReturnStatement:
     value: object
+
+
+@dataclass
+class ExternalCStructDeclaration:
+    """C ABI struct layout declaration; not a Visual Quar object."""
+    name: str
+    fields: list
+
+
+@dataclass
+class ExternalFunctionDeclaration:
+    """An explicit C ABI declaration; runtime binding is not yet implemented."""
+    abi: str
+    return_type: str
+    name: str
+    parameters: list
+    output_struct: str | None = None
 
 
 @dataclass

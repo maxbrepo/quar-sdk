@@ -9,9 +9,14 @@ from frontend.quar.ast_nodes import (
     ConstantDeclaration,
     Assignment,
     FunctionCall,
+    FunctionReference,
+    LambdaExpression,
+    IndirectFunctionCall,
     WithFileStatement,
     TryCatchStatement, ThrowStatement,
     FunctionDefinition,
+    ExternalFunctionDeclaration,
+    ExternalCStructDeclaration,
     ReturnStatement,
     IfStatement,
     WhileStatement,
@@ -46,6 +51,7 @@ class QRVMCompiler:
 
     def __init__(self):
         self.functions = {}
+        self.lambda_counter = 0
         self.switch_counter = 0
         self._optional_variables = set()
         self._optional_presence = {}
@@ -92,6 +98,9 @@ class QRVMCompiler:
         self._optional_presence = {}
         self._conditional_absence = set()
         self._declared_types = {}
+        self.functions = {}
+        self.lambda_counter = 0
+        self._generated_lambda_functions = {}
         instructions = []
         self.type_fields = {}
         self.enum_types = set()
@@ -123,7 +132,7 @@ class QRVMCompiler:
                 self.functions[statement.name] = statement
 
         for statement in program:
-            if isinstance(statement, FunctionDefinition):
+            if isinstance(statement, (FunctionDefinition, ExternalFunctionDeclaration, ExternalCStructDeclaration)):
                 continue
 
             self.extend_chunk(
@@ -135,12 +144,32 @@ class QRVMCompiler:
             (OpCode.HALT, None)
         )
 
+        compiled_functions = {}
+        pending = list(self.functions.items()) + list(self._generated_lambda_functions.items())
+        while pending:
+            name, function = pending.pop(0)
+            if name in compiled_functions:
+                continue
+            compiled_functions[name] = self.compile_function(function)
+            pending.extend(
+                (key, value) for key, value in self._generated_lambda_functions.items()
+                if key not in compiled_functions
+            )
         return {
             "instructions": instructions,
             "class_methods": self.class_methods,
-            "functions": {
-                name: self.compile_function(function)
-                for name, function in self.functions.items()
+            "functions": compiled_functions,
+            "native_struct_layouts": {
+                statement.name: tuple((field.name, field.field_type) for field in statement.fields)
+                for statement in program if isinstance(statement, ExternalCStructDeclaration)
+            },
+            "native_declarations": {
+                statement.name: (tuple(p.var_type for p in statement.parameters), statement.return_type)
+                for statement in program if isinstance(statement, ExternalFunctionDeclaration) and not statement.output_struct
+            },
+            "native_output_declarations": {
+                statement.name: statement.output_struct
+                for statement in program if isinstance(statement, ExternalFunctionDeclaration) and statement.output_struct
             },
         }
         # Return QRVM program package
@@ -433,6 +462,15 @@ class QRVMCompiler:
             )
             return instructions
             # Return function result value
+
+        if isinstance(statement, IndirectFunctionCall):
+            instructions.extend(self.compile_expression(statement))
+            # Preserve the existing expression-call operand (int). A tuple
+            # requests that the VM discard a non-void result at the call site.
+            opcode, count = instructions[-1]
+            assert opcode == OpCode.CALL_INDIRECT
+            instructions[-1] = (opcode, (count, True))
+            return instructions
 
         if isinstance(statement, FunctionCall):
             if statement.name == "panic":
@@ -884,6 +922,25 @@ class QRVMCompiler:
         return instructions
 
     def compile_expression(self, expression):
+        if isinstance(expression, LambdaExpression):
+            self.lambda_counter += 1
+            name = f"__quar_lambda_{self.lambda_counter}"
+            while name in self.functions or name in self._generated_lambda_functions:
+                self.lambda_counter += 1
+                name = f"__quar_lambda_{self.lambda_counter}"
+            self._generated_lambda_functions[name] = FunctionDefinition(
+                expression.return_type, name, expression.parameters, expression.body
+            )
+            return [(OpCode.FUNCTION_REF, name)]
+        if isinstance(expression, FunctionReference):
+            return [(OpCode.FUNCTION_REF, expression.name)]
+        if isinstance(expression, IndirectFunctionCall):
+            instructions = self.compile_expression(expression.callee)
+            for argument in expression.arguments:
+                instructions.extend(self.compile_expression(argument))
+            instructions.append((OpCode.CALL_INDIRECT, len(expression.arguments)))
+            self._invalidate_optional_call_facts()
+            return instructions
         # Chapter 15.16: internal AST bridge for optional runtime operations.
         # These names are not yet part of the public Visual Quar syntax.
         if isinstance(expression, FunctionCall) and expression.name in {"present", "unwrap"}:

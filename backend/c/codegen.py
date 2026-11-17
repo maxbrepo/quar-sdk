@@ -23,6 +23,7 @@ class CCodeGenerator:
         self.variable_types = {}
         self.declared_names = set()
         self.scope_depth = 0
+        self.in_function = False
 
     def generate(self, program, variable_types=None, *, lexical=False, allow_inference=False):
         inferred_names = set()
@@ -35,11 +36,21 @@ class CCodeGenerator:
         self.variable_types = dict(variable_types or {})
         self.declared_names = set()
         self.scope_depth = 0
+        self.in_function = False
         functions = [statement for statement in program
                      if isinstance(statement, FunctionDefinition)]
+        self.function_return_types = {
+            function.name: function.return_type for function in functions
+        }
         statements = [statement for statement in program
                       if not isinstance(statement, FunctionDefinition)]
         lines = ["#include <stdio.h>", "#include <stdint.h>", "#include <stdbool.h>", ""]
+        # Declare every function before emitting bodies: QRVM resolves calls
+        # independently of definition order, including mutual recursion.
+        for function in functions:
+            lines.append(self.generate_function_signature(function) + ";")
+        if functions:
+            lines.append("")
         for function in functions:
             lines.append(self.generate_function_definition(function))
             lines.append("")
@@ -60,12 +71,23 @@ class CCodeGenerator:
         # collisions between dots and underscores.
         return "q_" + "".join(f"{len(part)}_{part}" for part in name.split("."))
 
+    def generate_function_signature(self, function):
+        parameters = ", ".join(
+            f"{self.get_c_type(parameter.var_type)} {parameter.name}"
+            for parameter in function.parameters
+        ) or "void"
+        return (f"{self.get_c_type(function.return_type)} "
+                f"{self.c_symbol(function.name)}({parameters})")
+        # Return a canonical C signature for declarations and definitions.
+
     def generate_function_definition(self, function):
         # Function parameters and locals must not leak into another function
         # or into main. Each function starts with its own symbol environment.
         outer_names = self.declared_names
         outer_types = self.variable_types
         outer_depth = self.scope_depth
+        outer_in_function = self.in_function
+        self.in_function = True
         self.declared_names = {parameter.name for parameter in function.parameters}
         self.variable_types = {
             **outer_types,
@@ -73,12 +95,7 @@ class CCodeGenerator:
         }
         self.scope_depth = 0
         try:
-            parameters = ", ".join(
-                f"{self.get_c_type(parameter.var_type)} {parameter.name}"
-                for parameter in function.parameters
-            ) or "void"
-            lines = [f"{self.get_c_type(function.return_type)} "
-                     f"{self.c_symbol(function.name)}({parameters}) {{"]
+            lines = [self.generate_function_signature(function) + " {"]
             for statement in function.body:
                 lines.append("    " + self.generate_statement(statement))
             lines.append("}")
@@ -87,6 +104,7 @@ class CCodeGenerator:
             self.declared_names = outer_names
             self.variable_types = outer_types
             self.scope_depth = outer_depth
+            self.in_function = outer_in_function
 
     def generate_scoped_statements(self, statements):
         # A C block owns its declarations; outer bindings remain visible.
@@ -202,7 +220,8 @@ class CCodeGenerator:
             value = self.generate_expression(statement.value)
             if statement.name not in self.declared_names:
                 if statement.name not in self.variable_types:
-                    if self.scope_depth == 0 and statement.name not in self.lexical_inferred_names:
+                    if (self.scope_depth == 0 and not self.in_function
+                            and statement.name not in self.lexical_inferred_names):
                         raise ValueError(f"Unknown assignment target: '{statement.name}'")
                     # The semantic pass validates inferred local declarations,
                     # but does not export block-local types to the C backend.
@@ -335,6 +354,11 @@ class CCodeGenerator:
         if isinstance(expression, FunctionCall):
             if expression.name == "sum":
                 return "int"
+            # Preserve the declared return type for direct calls, especially
+            # when print() receives a boolean result without a local binding.
+            return getattr(self, "function_return_types", {}).get(
+                expression.name, "int"
+            )
 
         return "int"
         # Return expression numeric type

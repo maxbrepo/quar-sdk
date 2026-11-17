@@ -1,0 +1,3114 @@
+{
+  "catalog_sha256": "17efb2a674db8ff887a3beb9adc956c3fd4875509d0f33b87d332218c9517aa8",
+  "chapter_progress": [
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 4,
+      "chapter": 1,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 8,
+        "mixed": 8,
+        "typed": 20
+      },
+      "total": 36,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 2,
+      "chapter": 2,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 1,
+        "mixed": 1,
+        "typed": 13
+      },
+      "total": 15,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 2,
+      "chapter": 3,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 1,
+        "mixed": 1,
+        "typed": 12
+      },
+      "total": 14,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 3,
+      "chapter": 4,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 1,
+        "mixed": 1,
+        "typed": 14
+      },
+      "total": 16,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 6,
+      "chapter": 5,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 9,
+        "mixed": 9,
+        "typed": 23
+      },
+      "total": 41,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 4,
+      "chapter": 6,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 14
+      },
+      "total": 14,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 2,
+      "chapter": 7,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 18
+      },
+      "total": 18,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 6,
+      "chapter": 8,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 18
+      },
+      "total": 18,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 2,
+      "chapter": 9,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 10
+      },
+      "total": 10,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 4,
+      "chapter": 10,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 14
+      },
+      "total": 14,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 5,
+      "candidate_negative": 9,
+      "chapter": 11,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 21
+      },
+      "total": 21,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 18,
+      "chapter": 12,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 28
+      },
+      "total": 28,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 13,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 5
+      },
+      "total": 5,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 14,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 0
+      },
+      "total": 0,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 15,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 1
+      },
+      "total": 1,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 16,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 0
+      },
+      "total": 0,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 17,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 0
+      },
+      "total": 0,
+      "verified": 0
+    },
+    {
+      "candidate_interactive": 0,
+      "candidate_negative": 0,
+      "chapter": 18,
+      "percent": 0.0,
+      "profiles": {
+        "inferred": 0,
+        "mixed": 0,
+        "typed": 1
+      },
+      "total": 1,
+      "verified": 0
+    }
+  ],
+  "checkpoint": "QIR-02",
+  "excluded_sources": [
+    {
+      "path": "examples/0.0.1/000 example.vq",
+      "reason": "outside version/profile/chapter layout",
+      "sha256": "c973ac53a76cdf4679829acd6b14b845641746bcd9f1c59a94ed035cad23d82c"
+    },
+    {
+      "path": "examples/0.0.3/inferred/00 foundation/001 math.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "d0af2bb7c3a96ad311c6998f3d3b15cf91669273d17084bc18d277d3805441b1"
+    },
+    {
+      "path": "examples/0.0.3/inferred/00 foundation/002 function.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "fb3ee4673816f22ab40e17e38cff99533aaeca1b08038b242a1ee06b07600aea"
+    },
+    {
+      "path": "examples/0.0.3/mixed/00 foundation/001 math.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "e599a02afd73fc260343daa7e2e4be47fba51bac41471886075a3d4ad25e060e"
+    },
+    {
+      "path": "examples/0.0.3/mixed/00 foundation/002 function.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "fb3ee4673816f22ab40e17e38cff99533aaeca1b08038b242a1ee06b07600aea"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/001 math.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "73e33e63c45caf6af32e4a49b7222298c179c10f610defd32a9a0f63529d5c30"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/002 function.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "019bab3f2eaa4a3b45eace51b0f97b191bb7d888ecbb32945bcaf1110e4906c9"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/003 bool.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "8f9f3f34aad1a4e3bd7b0988e8e5c41dba6622766d1c25bed5737cf791d6383e"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/004 logic.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "3532a9eab22984c5803941a5daf48823ac40be944ba00d4adf5592034bb1cd5a"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/005 if_else.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "f576f4ed8db6f7c961136188a6d8df2319d978e92eb72e17383fae7bd13265f4"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/006 while.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "8a67b5e702ecb2b586f422d973a26ca894c73056deacccc0cc216a0a3ad8687a"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/007 for.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "1cdab1cd446e0fd09541426b7c5d2c9bf47da310c1653d929e73259c7e8e3499"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/008 array.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "747b42f0dd49c85607e4f699d906a38f5ebef1d27c26cd413f95fad53c93f596"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/009 char.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "695e5ca7c89de4869015c2e3817ab3d79659443e39aa480894d97ea021114896"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/010 string.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "38568bb2b865a917f30410f4ce41d05fb2159685df29530e9c971855b0963338"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/011 struct.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "314502a97c70eb213390dd7a605dd2e67d768658e2a0ea4e909b067ceb7037b7"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/012 enum.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "538b738acb316139b2f2823f559a8bc1ea8bc7847240b730fc6eadf5ea9ed174"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/013 record.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "2a6a44fe0f75c1101a3db409a8aa7da5c7b5a5b6bdffe764c59cd366fa83f5c1"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/014 short.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "4803d1726c7bb3cea007942ca5751176be6fcbdca4bf5ce9c0c2c643cf9b80c6"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/015 extended integers.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "969560a669024b40f4961dc8497c1709413871a71a7971d3a209fddfaa85aea3"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/016 long double.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "db670a51300126c88fcbb93dd5fad67d28324853660f439e06c79b9faac93296"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/017 do while.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "07faef52f58e555346e90506ae5f6d70d63235f9a707cf57080d77e4c24c3355"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/018 nested if.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "8d6eb09725cc91a31fa1ee3fcdc7d98eecb591b7086ae0d9307507eb442756ae"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/019 break.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "aa4e0d0b85399e56d9d22c0525aa27621b1294737b809f1504a71fc035a87a9f"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/020 continue.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "cdaaceff6d21b69c272327784bf8a09bbf4805c22319d579ce049088f63b8ed9"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/021 switch case.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "c6e4d5ba65b2e58bb69d5bfaa3f1135457b9db6a83190d5f1f4159a652cf2baf"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/022 type alias.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "e2c9d00b2332d82321ebfd80bf483c1bfa2486761e77dbc21b54a3ac3e7badf4"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/023 void functions.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "a36c61e03efa16c7a083f0d16aa648ecb6eb21211a94106cd287067b046a28af"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/024 typed parameters.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "e5525706abac832626ec3f26387cce277c5a972b2859396cd9c29c2a703edf3d"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/025 multiple parameter types.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "c56f38baf842b49132990af9d9899e12b5e8e9a401059d7ff3502492b9b1e24c"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/026 local scope.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "8ae267ce9c5cfb7ad0f69d028588036a17e5ebcb1d24f1953d5d9dd2f4a11472"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/027 nested block scope.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "c8a9e88dd0248dbe3df18eb11224739b55687d5d162cdff7cb322e09565c44bc"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/028 recursion.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "590d581c082cde4f1f9d298d524e704b4368e65c8a8f06de2129d96f23d27156"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/029 function expression.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "2e0d025965c6e17c1a3e4a69b08eae45f1bac04419b5401d447223708e77f302"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/030 return validation.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "29a05cdf7b90a3496c92cf0aa556bc70f2b790c24e19007c1c7fe90f89b51b36"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/031 array initialization.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "77bcfa249decbc37407de973d56981ecca0de35581560188fdfab50ff9cded69"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/032 array length.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "16cbbc8017068ef54ad30917eef7a3fa8e6fed73aae2ef86cfb23e79cb4a18f9"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/033 array iteration.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "cd1866c3d5bef179ed570486e5543b204426fac4b0d4db2316c085ef0a5fb2f6"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/034 multidimensional array.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "92a03b3e75368780bbcaf9930a3e2a4adb59e37876c3d63c5a271bbe333d133d"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/035 string indexing.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "d2323da2f2672c7f28c10a15ca8d8fcd2c914e1e3f6b693e8ec014f2cb2ddc3f"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/036 string length.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "25c63da06d810e1ae2d47c8c7fe2061241a7a39bdf8e273ad6b8c5fa49ee2d56"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/037 string concatenation.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "d9ca82ff05995407e61919eec17fd102ab2ad7b13c15428c4b57f2102651799c"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/038 nested struct.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "dee331d8860a1207ef6c8ce1c24dbc727caa8d2943fd37c81dc3565eca7d36da"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/039 struct parameter.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "3a135cadc011d1771e4f459811c39fe9607b94b862e54e5ff6ba463aae86e6f8"
+    },
+    {
+      "path": "examples/0.0.3/typed/00 foundation/040 struct return.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "7423d08622ced9ab7e9fbdff2f3b27dd24ba5b7ff200a1c16db9670c8c8b48ea"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/041 basic import.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "453cdbd4754244d48f67d10d4b1e559ecbc089482d29508ff54b18118b1cff6e"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/042 module function.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "92878b45326d108a09547fdf70f9a2e63bcfcd9bdbfdbb87ccc3ec773afad227"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/043 nested module path.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "0bb0d50a23520dbd1eb49be153d05e33aef896b2f3f37a80ac831e294dda59f5"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/044 import alias.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "fbdaae3d9e8d99c215ea85834b702b168bfc78b633a3f0679a0ef4a67953a6e5"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/045 multiple imports.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "e59df1103037bcbb689b76c5068ca9d777b1f1cfe0893142238eb1f570cd6862"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/046 duplicate import.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "d5a198935b882b4030e2c0d94a2c90e4c4944e71ccdd22695cdfcbea0f23b258"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/047 missing module.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "c9de7329b385df6696c5bd4a3b43edde7013af341984744df9293a8edd4688e8"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/048 circular dependency.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "7f59efbc9810d936ea3a3ba50277e2ddb738163086643733aaab7fd71e50083c"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules41/helper.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "69f7f262d7d725617d5dc03b8199ea60659fdbce58417640a84fc1c3764b2ec5"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules42/math.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "4bab8cefa856176fb195c60ad4a3fff09a5f9e55d729b15f1acbaccc7689a2e0"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules43/geometry/point.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "8f57f5f2d378f963e048ead985e5e7205828ef8e78c7d51e57db098875ba738b"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules44/geometry/point.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "1e49f4f5ca7f5b948113f799dc1a43df36582c9946dc7a3be10ddaaaf37b0ad2"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules45/left.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "d0b695ff78a14ff1044fd249cda0a71e9cd111b2a9c16bc52d750813c897d7c2"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules45/right.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "464d3f50439eb0710e85e7a05859d6c440bcc9932f08732912c1c3bd2791f005"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules46/helper.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "dfd25a3286a2eb598666513339b9eeedb9651b1f1513605a97480b8b2a7803ec"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules48/a.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "65602222ecd6537eef7a6c40caf9e67a06ac2011c070ef33481588898cc17507"
+    },
+    {
+      "path": "examples/0.0.3/typed/XX modules/fixtures/modules48/b.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "1a88090a2da0959bbf664c6db4b15dff0eceaee36e5feb3562fca4b97c38441a"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/234 basic import/math.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "23cf718c49184de97b2e966b9426178d82ba04d4f3b591c7ed5fcb6b623f7afb"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/235 alias import/math.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "b06a490f0c671c78e4bac8084ce41ffda7d45578f463e517b0cbf4f5778f9675"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/236 nested module/utilities/math.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "e346068d5a9008b3b15483e364a7cd0def5f71401f7d90699ba60af55e86595d"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/237 multiple imports/add.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "e5cc59c60337cc7ebcbc316195191a512e42bb0d48f4e1136af3de80d87f27c5"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/237 multiple imports/multiply.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "41b6f10f9734e07084ce23496f2ec5cd83fbb068309a76f4afeb1ef670b502eb"
+    },
+    {
+      "path": "examples/0.0.4/typed/13 modules/238 module internal call/math.vq",
+      "reason": "chapter 13 imported module",
+      "sha256": "3211e633256066c15683d0f019f695ad04f492c148aaf965d2d05f444d7aa769"
+    },
+    {
+      "path": "examples/0.0.5/typed/24_interoperability/24_14_sdl_visible_window.vq",
+      "reason": "outside numbered Chapters 1-18",
+      "sha256": "944c42278c195bb964c1fa3bfcf76371c7f28c37cb71646f0ea81c3007690846"
+    }
+  ],
+  "programs": [
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/049 fixed width integers.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f29f1da057aafbcc0c98824db08bb51110f090c4d9553ac7fce047d0a2bab93a",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/050 numeric aliases.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f3d37c876fb3f982a10f0101cda1f9e0bcc956d75e640112c4035ce7ffc12723",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/051 overflow error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2eb69318e66cc1e93bc28e9c0e4dcdf495482a1be9216d87d1ac42a47434a405",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/052 underflow error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "54aa220a97cbecfa07ce9512c7e4434cfbc917ecf16d50d0de603d423f1d1339",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/053 safe numeric conversion.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "27ee765e57a1b7a7808902c3c6b72bfcc65fb46db52811e6c965b4c4cfe2980d",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/054 inferred constant.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f8e45a2bf369a273b50a3b2639b12f7de3ef5e0fe7c92dbd6a02443618233644",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/055 explicit constant.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "67f6cfd94cdf1798bea5004b6e105db0936288492061276631e33a1c3c15d21c",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/056 constant reassignment error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4770ee1c947248b5bddbf670b17fa4baa4b35ef62129568c41fc49c99a4bf055",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/057 byte alias.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c747fb29c0ed96aacf61dc0b31edd9412e1256a1a373ec212cb0157eb72ddc53",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/058 default initialization.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "9aa8de0ac84a752550dfb4c54a309185e14edff8f13c5381dd694348818bb594",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/059 unified text char.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ea17af535e61d54896c56b76c27b9dde638261a3869a436d738b1f196c2b972f",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 1,
+      "path": "examples/0.0.3/typed/01 primitives/060 precision loss error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c326ae065e40de4e3f635840c65d36607e4d3ed019091aad90ed005ba6238879",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/061 arithmetic operators.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "fda8ea833417f0eac5e7c26a3b3669f70e6da1312de2693e99a2cbc408967eb8",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/062 comparison operators.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "e774be8fddecf24674a6e5411836974f8ddb82a54e983e22fccb07bd22effc62",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/063 logical operators.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c4e139b048a72a2911ad5eafcd6da37bf8425975d61197db28bed8d454305459",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/064 operator precedence.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "56fc02fceb64e3733950019cda2a5f4c23868a99515e2645a6a11fe68e25da59",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/065 parentheses.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1d33da06f5f6f6a98bbc84c78d2e674badc33b61e5052262d202b6c65ef384bd",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/066 modulo.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8b1d1f79910033230e048816a258c3e9d36bb7ee910dfaa797e5cfb98496caa3",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/067 bitwise operators.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ea889601cc7d746b0406032bf02bea0702d67f38d909da98ea87b64ff5d03203",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/068 shift operators.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "570d92ac6e16637cc5e4d71e0731ad307df640667ad6a76659d9b5d4f19d4cc9",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/069 compound assignments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a88bf2b91c3693bbdac40608d35f3745de38e6e738053a54f1fcaefd014428f5",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/070 division by zero error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8c4914f48b5c07c9c77ff754179fa29efd07dbf000fbeae0f9b1df5fec2b0fe3",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/071 modulo by zero error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "83fc143c83045cc087c3a5bff5c45a44146d603e3f62aa6199d6851229666914",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.3/typed/02 operators expressions/072 bitwise not.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "547f920cb5df443ae7edbd253d64ef5c272bc854d9d6423e1079d0a9a48c1424",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/073 numeric truthiness.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "80f9e1ea8de0ec068b008ddd2a87724b7a8d40c768b7e4f914b4930ad82a040b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/074 text truthiness.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "16b244039c67929332207959e558a79bc03ecc7db9852d6c6286fbfcdda42e07",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/075 else if.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5fc20432af5430ef0eeecb49f3bedbfe909c081c79d5af758f0bfb620d13d218",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/076 multiple conditions.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "14405cf05fd228e9677b482eddbc1bb73294e102069dd17d4e04246f4da664ae",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/077 nested conditions.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "389bcc79580ebe9382c4e1c6ff9750ae0a076660be289d093a0f6f713d49386e",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/078 numeric case.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cb3784b6c3896e7aa9e211fdc1424e0c3bbe8752c73e7255ff2ed929d226885d",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/079 string case.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "0c0400b4cd965b9bd979d633655c77ec465e907dddffc56ee68da5b9087c056b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/080 case default.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7fa26b5e67a5b73e4a611db98242ae6081f0bf4f5042f08e1d6f1dae2d5ff794",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/081 legacy switch compatibility.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4f1f887c984d7cb541b4a44481a1e1cb41bcd892e3320799934d987b649013ab",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/082 duplicate default error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4a4989c17386d6441afd4c4c9a3e464c9c2348cf0a67f4f7e49c3f548ecdcfb1",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 3,
+      "path": "examples/0.0.3/typed/03 conditions/083 duplicate case value error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2daf99c2ea5bcd2b7a0472b5b3a1c96894e93d88a0152228468d6caa4857033f",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/084 while loop.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7393303c135c3319705ec45aa76ccbd51d4d5ef21c4b964e4ff6b9ffee6baf61",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/085 do while loop.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4761b53d71653361168debb9c144d68ee836211f841fc6fb2707b2dd5145d0c5",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/086 automatic ascending for.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a85eb4a29d7a1cc89b13318c41088784d3864042c900c4539a17c0aaaacbf348",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/087 automatic descending for.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "23cf878d8a097068e9359ccf14fded4c6d03c84b668168cfcbad7f1b54aedc55",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/088 explicit ascending for.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "11c7cfaf597a759aeef5abec2dd1cdbd7d4a154225564046f7014c4d888ad538",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/089 explicit descending for.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ea4380eb2a512568924bb85a4068ee363a11bea14b73b712fb8949b8ab227d77",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/090 break loop.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b0726dcae70481f4a78b7b9db94305267608f1e573857d34930dafa9e9264349",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/091 continue loop.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "90e37f3aa7731f37ce1a1921beba40aa7accd8b8e8b7463a01efe1ea0fe6b186",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/092 explicit loop.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "0147a730b879342a376b95713f0d7edcf6a0456bc5a98f62f5f13cc2ac7293d6",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/093 incoherent for direction error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "41ca83dbdea2c4bb7132ca389a9d561e89b895ec457706a3aca88114a65e5b8b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/094 infinite while error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "bcadaedfd962cf672df0a7d81d59e58504701e62b480c480ca28a7fba2d1555e",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/095 infinite explicit loop error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "e13aebbe6aa568fb394a388dddd9c1501911089aadd359efd995fd0920a4ad9e",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.3/typed/04 loops/096 numeric while truthiness.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3d3f4051fc7db530a2f19af6c049ba59322b5551e7ca02daedf1cb1edc142f3e",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/097 function declaration.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "95200726b573b2f80b331993e8ef6102dc8f4b20c551155538b2516b17955bc4",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/098 multiple parameters.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f0dd2833d240fd8bd80f0b1a55e290eeae1a59c25da54aef4b455bec397be5d4",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/099 void function.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "775cc325c0b330f729930d8090131d93c42cb25bdf5c1ea9042bb18f56eaa606",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/100 recursion.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "312e9dfa2f51817beb6562773f4f71f2a98ca8987e4201bb14271cdafc7fd276",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/101 default argument.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "bc938085278d153d55ebadba949249379eba96bac8e80b3d7dcecca82072cb93",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/102 multiple default arguments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "de275dc5d30ffe7cdb1e198f19d6585cf18a62d82c8266ad24414aefc30bd3c9",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/103 named arguments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "79a3dabe722bfdab9d4faf9b8790c07b2aaae71b7ca604b00e1a21572425c1a2",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/104 positional and named arguments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1bde4b97020aa6b3127131ecbed2aa109d2885df70629ae900571998dc95e1bd",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/105 missing required argument error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "dc0910590843f94ab9e35618a8e0e3124e9514a5f04f4c95843ad0968c575402",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/106 unknown named argument error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "def6f6574e0f2f95606a045a02b8b53060ff42628dfe82f1a5c1d60177b6c844",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/107 duplicate named argument error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3a8645be72763ba274b62a9dc1a16476b8ac2c73ec877202bca74c86e11c97c1",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/108 positional after named error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b82e02fc6b83edda74c30db7df30d1ba72cb0aa30b1a62ff8374d6fdd189e22d",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/109 required after default error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "37dbe5bfe5d45951a0d652b70285b0bed447045bc21e2014e8a8b0be07784f8c",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 5,
+      "path": "examples/0.0.3/typed/05 functions/110 default argument type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6a69b4b64dd70df489b93f4775dc5c88c885a1a2397196c86a6cbd03871e9b1b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/111 static array.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "03fce41aa22aaab411a86c18d6101c4b6c595244aaa157027f39ba7d593927c8",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/112 array length.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8e687818e1d2d1d47d12c9ff91bbbd3625469edd7f8b3f401f01ddebfe1921a0",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/113 array access.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "887197fcd9357a0801df0b14fec8be5ae1f67fb9d869835e571efdbf919a6a4a",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/114 array assignment.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "75d9e7596b8606b62f7140c9f39ac3cbdc04dccee34871372ce6014493e59ab4",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/115 array read bounds error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a6ee88126ef778a074a67b525c3b3bb78e995e0843a0fea395cd4de55769ee7f",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/116 array write bounds error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "438bc8ff8b929c91625eefb70fd89cf1f228c69d52835a45aa3d3cd737320954",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/117 multidimensional array.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a2fcf7ec25653914a4bef3dfacef6e79ab3a5f9f2d0bd7d6e9b13d08bbcfe0c8",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/118 indexed array iteration.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "512987e7a2349765955920a8083ea3b4f08a8602762293acceaf4bb2e2c6d986",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/119 dynamic empty array.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c44965d1ba6f9848c4e94b131f623c1ebef90daa0f88212f7f88a053d6685502",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/120 dynamic initialized array.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2eb4d8479adc43c58e0e5ddf8677b08b5962d509e80c04e409f3095078d698ec",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/121 dynamic array access.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2bdfd088d982fd887684bb2f20fbe44498f6ed73efd0d080a006332f3fb56524",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/122 dynamic array assignment.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "688221e5d2944a97cf7469c0b23239f38ffb50202c74cbafe4a92c4bd4473615",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/123 dynamic array bounds error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "27a70707e94eb47de76cff40dd064a50f37a33f13c8b58c38a6037dc5aa74652",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 6,
+      "path": "examples/0.0.3/typed/06 arrays/124 multidimensional bounds error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "60aa310deb79562bdd42bcbda838327c359a5f7d31cd1339647f55f3e16e0874",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/125 unicode string.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "664c3b7c900279b78582a9e0e38b2653baf858e18b7844e22478a57f24040d75",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/126 string concatenation.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "d2bd4ae16469cdc1468fe10c81b4baa27e4dcb7f632e13d447e2566c92d5c61b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/127 string comparison.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "974ef21ad6548ba75f68f807052b1fb89229b4dfa5587d581b42e3b25d795396",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/128 string length unicode.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1db1dba48c11fb056a55e4809b7355ea4daf190882b0ac5e3878a7b095ba5163",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/129 string unicode indexing.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "75e08740260f060a70cba544f7c422bb34b1d02d321f4ffc4848895e477157c5",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/130 substring.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cd77764547e5a53749e6d10ece9d162deb864ae2195bdee59f4f9f97701e6a3a",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/131 substring bounds error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c03e72835c0ab7cd33ad681b7b0ebdade6adfe3e412ab9ac6b2c148897f828e1",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/132 string find.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8751700ae77d359fed7c160c9e7b8f52e6a8eb0a15bf005ecd6a9d56503f1a5c",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/133 string replace.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f8cd243fe389865d4307a30a1ff3d1a003249203553248d10491e8fd914b1f10",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/134 string trim.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c82f3ecbee98bd298b401dc6864f4964f6ee5bf05538a5b3c78bde7ab961bb09",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/135 number to string.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8e514debb8a20247b3151bd553b5f921e78a2adf65638a33963afc77b98bfee9",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/136 string to integer.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "df664b10e8596ec8a2c669d271b3872ffb773d40f43853f42d922cd0a446a296",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/137 string to double.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "273b2d425cdba9b234aa547461567e8e009e181361befd80f99f014a16c89579",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/138 invalid numeric string error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a9477bee2b8bdacba0d7341379569a89576ee4d7bf01b9827822c0b64b52cc46",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/139 unicode iteration.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2540745c24f99d8692186523a40e804d9386379039be2539aeede49c20190be6",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/140 empty string truthiness.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8a25beaea3ab6bedda71f80027262f45b6f9d1629a51bb78b6c87743364ec71b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/141 string escapes.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "806bbf98d73d74d0a334363191b94efd7e5b526931157ac1729bb7b651b96ef3",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 7,
+      "path": "examples/0.0.3/typed/07 strings/142 ordered string comparison.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5c88151e6c1f18a64d774c63a3e04cd408e2e1c3e23d4cf92af08c1a0549df17",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/143 struct basic.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8625c7b12968566515b23b161152edf5573b19af339e797c136d9ca74fdc6c07",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/144 record basic.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7c105eef4ea4a40f5f6ea125af20be3fb5d30ca6cacb19112934f71a5e6ff3ea",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/145 record mutation error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a703468c4397e118c4425a5bc2e12105e8e35311d88ca4fd7afe4d8ddc6a1b49",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/146 enum basic.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b0c7023787e88a318a625c9339b426ff7d4f4eeee1d85e1831bad95d54b42e1b",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/147 alias basic.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "62d58b1dccae10826dc61eec8bebb966da5f529adf1825e277621cf978a6fc05",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/148 tuple basic.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "173db6f7db6b5d45ffc013789e8f9086dfbb895d41a0bd329eb8281ab12c953a",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/149 tuple destructuring.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b2dd25649b9ed55e30fef449b0dc786d478e8f91a80bd1d9ae6336ab12c4dcab",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/150 destructuring arity error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "62ffe7967e7ccde307b94c144005150a7e8554a7bfce19969733c971c3d422d3",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/151 enum associated value.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f8a489d0cb9f90043bf77dcc54b5cd96bf07ce8196202e67b521e1b4a8b861f8",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/152 match payload.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f0dde1fa28f03fe5531fbabe66b302e68a28335f989a6be28ebeafbbc3f28788",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/153 match exhaustive.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "d7a7d33acc5717812c5e3dfdc3bd6722f78c7e7ac9d98e069c27983b37e44447",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/154 match non exhaustive error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1688677733756cf6d7d69b068417c1eea5abaca46ca8755fd8618fb93eae8a27",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/155 enum payload type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6cf5c41fa4bf57bda4c108760bc5fdd789bfd4f6ddcd4494048c70894d801be7",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/156 match duplicate variant error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "26fbc33352588f10ae2caa98321f0fe5a0f7a53d6246dee9253bb4260d48241c",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/157 struct mutation.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2075b32b19dd667f2448fbc9478d3955391dd389c5750351311cf4ea98830ab0",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/158 alias chain.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cc761682e89b6b3259b7999b815b462f3db02f5eb821f1c93393e04a2e63febe",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/159 match default.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4b9a17dca2ee35327812bc9af7ff7b2191633378cd9d5f6b22cd245eba70ecf6",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 8,
+      "path": "examples/0.0.3/typed/08 structured types/160 match binding error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6d7a5d0aebf9486d003d3340b9ee3d93a067c5d10b17ec8a96e806d27fe2c9c2",
+      "version": "0.0.3"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 constants and assignments.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "7d1613a6149acf95a2fea3ac5b2f8ecb3a949c9f239398fa38f0d9e591e45851",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 function and local values.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "72408f394f314e8f312cf27e05b8f19782db966276b0f21df44f017cea9e18db",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 function scope isolation.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "3329923d70b1b608edf34d4f7e494069cc48711344647371c00a0425b91f0961",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 nested scope baseline.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "7066d4653892242ecc230561bdcfda27bb31005aea3ea46706513909999d1511",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 nested scope isolation.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "7066d4653892242ecc230561bdcfda27bb31005aea3ea46706513909999d1511",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 outer assignment across scopes.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "02a02d7ea96201719ada0aa0a24f7ce5fe2cd08944d5431b88642c1b397706ea",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/inferred/01 primitives/ch1 sibling branch scopes.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "13ad15295f00031b2fb171763c1be31c71d576d31ce5c646d7fdafd4b3961fe8",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 constants and assignments.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "e608770764672e9cd1ce1118abc2f7bdf4ba3c22cb510b3592aef24a9907b4b7",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 function and local values.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "72408f394f314e8f312cf27e05b8f19782db966276b0f21df44f017cea9e18db",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 function scope isolation.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "3329923d70b1b608edf34d4f7e494069cc48711344647371c00a0425b91f0961",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 nested scope baseline.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "7066d4653892242ecc230561bdcfda27bb31005aea3ea46706513909999d1511",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 nested scope isolation.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "df57de4e03dc85d87b14fca3eeca765c3c65b483407c9dc958ef887def8d8447",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 outer assignment across scopes.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "77f6bbeea09622198a487853fcac99183d0594c22b389eca1fa9d0282b2f3d8d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/mixed/01 primitives/ch1 sibling branch scopes.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "a39cf5cb9c4d95f5f36d48df847a67c956adfd091e44c8a1e3c25f604d89b908",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/typed/01 primitives/ch1 constants and assignments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7d1613a6149acf95a2fea3ac5b2f8ecb3a949c9f239398fa38f0d9e591e45851",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/typed/01 primitives/ch1 function scope isolation.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "aedd299217f5e39a2115dcedee481fb823263e5eded89e890b1c90d9bd2949a2",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/typed/01 primitives/ch1 nested scope isolation.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "eb1403b8533db88159aa859e0e3848d517ab7bd41343435017e66b206d9c0042",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/typed/01 primitives/ch1 outer assignment across scopes.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "77f6bbeea09622198a487853fcac99183d0594c22b389eca1fa9d0282b2f3d8d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.4/typed/01 primitives/ch1 sibling branch scopes.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "0396cff837b2d9e372b52c38c6212e008c6d905ca9d4d0d8b705e70f769437e7",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/161 class declaration.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5005ddda22134d60ad19a10ea717de991fe98c43455aa545c414dcc5fd46e609",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/162 default constructor.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a8ce76f2ce20ed08f02d37a560a624a7c767666b02a47eea64fe12201d6d07f2",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/163 initialized fields.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "317b2e608084bc876b758e6f343645f7fd490bfe32190408b423ccacaebf10ec",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/164 parameterized constructor.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3ff6438971bfffcba7304aefc433bd96f7911585ea7cd7b7e7d47623d8e4467d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/165 void method.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3fd107e3ac42d9d3c643907a76a2d2f9fece52d0af9e44367f6f2670e90d9f10",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/166 returning method.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "d4d7054950f1a38c6f9b4edc878c0eded58c49bd711e2b3c6446a4e055ab8276",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/167 this access.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b1439130c93ac5a2d10a13131e1dde133a73483c5a22175d96a8815168a8ab33",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/168 independent instances.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4a12edc816e5cba3699176308ef3e49a1f11a84e09a83d4028de0110a83b1230",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/169 unknown field error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c62487dff3614f1909cc7ad0bb7e761a482300babce96a9d47766f9f19e0f89f",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 9,
+      "path": "examples/0.0.4/typed/09 oop/170 constructor arguments error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "621c0be684c5e3fe32396c402a6ab40be6da1217bd4c9b81627266b9bdd003f1",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/171 text round trip.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "42a950fad777c54b3493368edb731978a940e63d1e0926ed84492e5d7babad57",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/172 append text.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f129588801dc4b822aa2b8401d925de3d4ea28f52759bc0ecbcd7b1090168fd9",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/173 automatic text handle.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "78422096c9eb5c8bcc0d94f818374e7db4458a61cd726e14613d8ac017d96d37",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/174 binary round trip.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "0c18dedc4c99d978e7466c2723c62b8c73b57ef66a9e857a36af5906dd56901c",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/175 binary append and length.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "9bf12016fb71a5bb43d9ecb3e24c0145978a4bef30f4fbc68baff3124be8d331",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/176 binary indexing comparison.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3e2c4541000ccc2ac5d17fdc262c7846681d492fd851170b795f66861a9f07e1",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/177 directory entries.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a73150a1fba74667a6dad9c75d718cd2d23d310cafaf92d01183cf02bb50168b",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/178 path operations.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "dce66429a148cdb7be198648136cb11da2487da156fb3ec065b732c6f01a0271",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/179 atomic text write.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cc87e5e9303841ec5e40cbc3f96fc799a2579f3e620aab8b1f2e3455a931a682",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/180 atomic binary write.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "85371d73964d6443e07ae524fcd13964f23ab37aaab152f92bd61e151aeaa1ce",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/181 missing file error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6cbe934ebd0a421245320327ab6d41e56b3e1be40bc35db1c08c399028066e8b",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/182 invalid hex error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b1d1e4d75e1ed6dd9c312ca06be19d42df02ee8cb5067b9361506364ee2f0386",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/183 invalid bytes index error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6728594ff42f5e9f42ad252b7937612010c3aee4ed27c47063b1b08878ffca8a",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 10,
+      "path": "examples/0.0.4/typed/10 file io/184 invalid directory index error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7c0755e5a24b25571b0fe5d29dd1d9789c9c4f438b30305f8ad24e2cdcf43f4c",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/185 print and newline.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7222d46130b5801dbc2d6c061c18afadbc4db26c7ad704570880e8a2a3e277b8",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": true,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/186 input text.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "956215b6dcb07e2e56cb3126fa32f8a439ee31944e97c4582016dbc8ea74ab72",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": true,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/187 input numeric conversion.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8b2769228ff116d3453087aae9f79d674450eaf7a8b1c4294aa0b88330d69deb",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": true,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/188 input no prompt.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "942e68fb76784536429b445951f4d64215150f1309ce57051e78ed3d1496f6af",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": true,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/189 input invalid prompt error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "bf18ece499d0b519015dd7916b069abb66ea46d897619adff3a8e4fcb549503e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": true,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/190 input too many arguments error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5a2b12ad9bc5f4fc0ec179752d37d09f3f17ac22c3969d6417d65e3834d836dd",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/191 stdout no newline.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "dc9cda107bb3697748ca3ffd58dd0d8654cd3e8ea65b523ee5c9c890b6f6b554",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/192 stderr output.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "186065cc1625e5836b8ffe8ccb0529f3d69b5db56927341ff205670771a26b68",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/193 exit success.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "de69b4664d0e1b6f1a69fe5c38d26d22f296da05236cb95f9b3f6f3b94257ffb",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/194 stdout and print.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "78ad4f2f25cbed72ca28529b703a3f4fef44301a0051dc74456d62a5eed66c28",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/195 stdout wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ecb62d1348a171b1dbdc23627279748e6a7edc7e036bb15761a906e0f3511610",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/196 exit wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7585cecbd63c09c4ec994e9271e5cb125a6c1c13dbf2d4473b255c80721ebbd8",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/197 exit invalid range error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "423d9c6db7caa78e3ecf7a377f3e9c4b1a2b9199c2d22986c0df45d47e80677e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/198 cli arguments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4994807aa866d30f241cdda740a70355bb583398ea0c391301ff2ca7bf9cc3c5",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/199 environment variables.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7529e5e3cf691fdf350f98ef8af31ba1c8a26219fffd3c3ef2d8c10351ad8f4e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/200 empty cli arguments.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cd2df143bdf535d11300a4f70ddfce801b317eaab8181dbef3d2b46d72648159",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/201 numeric cli argument.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8c307584b5f3db69b74f11e6ea7e471b4eab2baebdf9fffbddccb9ee992680d1",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/202 missing cli argument error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "82cb547be936ea2cb9dde2c7a112ac0ac94ab48ac087a5a7e9dc81ead367cdee",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/203 missing environment variable error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5442e8e7f3646aec3bd4e523798db4493e514251a5e5d163b4206cda561e89f3",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/204 cli argument wrong index type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cd3415ddd322a0675c5c5e06b4336b73ff12afd841d77e519bee8ee3b3a90f4a",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 11,
+      "path": "examples/0.0.4/typed/11 console/205 environment wrong name type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "76d960919e24a4801822ac38b829e7df98e88e414b7ab9fb53bc81cd45f570bc",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/206 try success.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b76aaef32ae8ec32c783282b3dae736877c3dd4b9d2420ad715ffba32574c683",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/207 catch thrown error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5c3b83fde91db43efb235b6c03f23746f6d538e454067249d8a64df02107218d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/208 catch file error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1a22e7e81a73ea7c35a88b2d249857009ae6e4ea14e986eed7eb48b91c9a9b6b",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/209 nested error propagation.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4600b2ea7df87805dabd5ffa409d00f02f9854e04ee3c05784fe44551a2241b7",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/210 catch arithmetic error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "fd07d5406c884382f4a7ecae9c3b2ea6d8bb3748be20bac3a5f2d53b14f2ed2f",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/211 throw from function.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "11f30f26dd33d7e779d1447334d52c3bb5bfc2f6b056e453ed2c3094f44b5521",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/212 uncaught throw error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "73588ce0fc2b44f9e4f4dbbb22efdd5f225ae795b6620b125738909f3175c426",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/213 throw wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "639163ead98a7ecb0397248f84cde3e51fae88bb0163c0ad499a731b9970fc8a",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/214 chain caught error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "c5a5bd80fcce6178e1206ca9060f9abfa45b6b0ec077814dd593c0fbd5cf2904",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/215 chain file error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "fc4865f221cd1293f4d9e06e98d9f5198dd3814c1ec3bbb1c8cab1ed009d5105",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/216 chain across function.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "17c0dd92012be0f66a1f7f2adb11ede8ff4dbfb19712fe44cd1e14762dc48adb",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/217 chain multiple levels.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a019cecff204dfa3580ae2525914423478a4ad9afe2892efdf9746bb010b58bc",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/218 plain throw empty cause.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "0e46ab86ea4083e50b10de28ddd25ccff395d382a3c1f162285ea19980eec98e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/219 throw cause wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a8123341b22215c12ea311c2473a5d4918d67fb9084a37e99d82839f2e3c6936",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/220 throw missing cause error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "82d7f03714e8e0ac735b09274eec76f78760c8bc74065ee944ced06d37d514f6",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/221 assertion success.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "24a6da550e7714a51b36f2c99e0d4d0bbc7acee7a44a18b6e1a75faece0df55a",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/222 assertion caught.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a042c3635ca97e4e1ee820439f87b206b6935c53c3d47c9ca599fdcc2ce71511",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/223 function stack trace.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "cacb99cf841276dfaf227e1399dd6373dac418a558ff0af3bb66bd88af4459af",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/224 main stack trace.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ac9db3cec335f19ad91f68d877c8cd477772107355dbbaedbd023398f5a2f33c",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/225 assertion failure error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "42cad7df439a588f53e1e8c5bdd41c91958c5805416b258aaa0d04c4a6eea24f",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/226 assertion wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "706ec1f6c2f453ea775466a169b94c405a6c957941b08d2c06e540ff1ea83ec8",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/227 assertion wrong arity error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "3de408e7c6530f1525083d8f885a83e398a466048adbca9a0fcbc894c2bffc39",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/228 panic fatal error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "6062469b47f5e03ae4e54b0c459cdf0ed00767b027891c06ff7b9c178598eac4",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/229 panic bypasses catch error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "7a2e0b92f0fe9806523d4d76e9ac9f8baecdca34cf6c0ea49a984b012320f12d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/230 catch ordinary error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "2c7101a76f418d36c5c0345f59d2f253e774a4c244b6b005eacc9942ce2e7f1d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/231 assertion remains recoverable.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a042c3635ca97e4e1ee820439f87b206b6935c53c3d47c9ca599fdcc2ce71511",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/232 panic wrong type error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f9aa0b2a08519ce8574eedc85aa93e5a0894f8d5da7875e86d5ffa1e430c2f2e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": true,
+      "chapter": 12,
+      "path": "examples/0.0.4/typed/12 error handling/233 panic wrong arity error.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "8c8a00f493a724e16c16b63677eee887d50315b4eb951b07c0f09d1346057d6e",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 13,
+      "path": "examples/0.0.4/typed/13 modules/234 basic import/main.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "dc956b1e6437e1f4150faac08d5f32e477a55dcf4cb27b87724baf80b6819b1d",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 13,
+      "path": "examples/0.0.4/typed/13 modules/235 alias import/main.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "374f5a6e86f8d5c39c4f39b6101b8df23fc099f0d87473775777c01a999632bc",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 13,
+      "path": "examples/0.0.4/typed/13 modules/236 nested module/main.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "546bc69a95938b728c034b495492d89154e801c0de7b68b8d427f9a166517fbe",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 13,
+      "path": "examples/0.0.4/typed/13 modules/237 multiple imports/main.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "e52011882df48e0be9fac3cdc1c323f6b6c62091420b83ddadebcc69fd914973",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 13,
+      "path": "examples/0.0.4/typed/13 modules/238 module internal call/main.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4a1b181f058c144ad0c49e4f53222539f13e89c9afab0b6d6942ff423bbfc81a",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 15,
+      "path": "examples/0.0.4/typed/15 memory safety/239 borrow source valid.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "67e774e4a2d0651315e355cd4f82bbdd002d07882f0c580025a28caab1703b51",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 18,
+      "path": "examples/0.0.4/typed/18 qbc runtime/240 qbc hello.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "a941b5e0600e3f8c80fdcf7896ffb3265e49d77ac77b9ce0012fcabc6ec92d4c",
+      "version": "0.0.4"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.5/inferred/01 primitives/ch1 forward and mutual functions.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "21e10c11f8b4e5fd39d7a33c11d4b15837d2be045715c24a7635caa0f37ec157",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.5/inferred/02 operators expressions/c4 chapter2 function parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "eedabb62f0290af7ef3109b2504074c3a82d32d98b798cae93a43e2e55a47ac8",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.5/inferred/03 conditions/c4 chapter3 function parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "42556a1dc8b76f1a144a293685d9d110862d9c8c1814274bfbe31c37c6acd9c9",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.5/inferred/04 loops/c4 ch4 callback loop parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "9c9861c2bfa528c95755dfe7f3245ffe70b3d1a2cc0f1bbe9e5874515814487a",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/c4 ch5 advanced function parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "caae7bf38025cd659594d5c1be9831234dfc0de4469cb1a7e7f668284a532f63",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/c4 ch5 function value copy parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "7a050653a03ca72db555edcaa752c5818d59deeef111a2fac4369a0a1730232e",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/c4 ch5 indirect callback statements.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "35b8eaa2eb54bb62390cdd00e76b8a143c8430c2fd2d7639c034bf68afe9027f",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/c4 ch5 narrow return parity.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "7b7115fdf016955f187c145fa62dce44927b70e0ba00ff9d14d608bdf89b2545",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/ch5 inferred arithmetic chain.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "9bbbdf52d645794d3d589cf79faee34a0c378c90b7dd78d7c57302285f04754b",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/ch5 inferred from literal.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "6af8708e7ab9de74182030fcb578a12b2901f357d3b440d8b1ec4db28ede6227",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/ch5 inferred from variable.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "0d2b21f7b80fafbb4de79d43ae9e5339ca5bdf2e02fdd4a66d2ed6444f866158",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/ch5 inferred function argument.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "f3d233e2b365ad7b1e0725be6f4135bc63760d65b978c9e7d082b1e970c6ccf2",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/inferred/05 types/ch5 inferred function result.vq",
+      "profile": "inferred",
+      "qir_status": "pending",
+      "sha256": "f7b9581aa7d201f3a81c106825ab7038cdfe56f20b719976426976bca0fc529e",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.5/mixed/01 primitives/ch1 forward and mutual functions.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "eb667a367d0bd3e5612d1d89bcce77eba01daac74862db9a0e1555b2347fe3b4",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.5/mixed/02 operators expressions/c4 chapter2 function parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "f43a5ae88e6dbbd2a055f92cbd6acb9c4711a802446f1c5d0da08fec76931dc6",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.5/mixed/03 conditions/c4 chapter3 function parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "d028abd58968fdec37e7b9c91a847e98ab56c0cd7ed455ac27a691fc2d9440e9",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.5/mixed/04 loops/c4 ch4 callback loop parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "36daf182c8e57651577c4c5ebdaaaf6cde92568024eea693be756bf3edb6d5c7",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/c4 ch5 advanced function parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "8bea1bc2bbdadc136eb06a7edb09885049cc000b3732d37bf697cf2fe3902c27",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/c4 ch5 function value copy parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "5249d8b951f2bf55fcb562f15316944ebc00fd51c4b207f68a38eb431a074ee0",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/c4 ch5 indirect callback statements.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "acb2c43a0790cccfaa3a06e0439a3ecda93aa04bb91c671f29b10c65a4b84e8b",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/c4 ch5 narrow return parity.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "90f360d69dbd23de4e13b726658d6bcedecc861123a630f1a6563d31037a07a9",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/ch5 mixed arithmetic.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "0bbf374454766d4c54be01ae1eabcbc35325a5a9d7a173be715d5735a893a785",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/ch5 mixed function pipeline.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "43b1c5f45e31a81f5c555f96c87e3d4ce2004172450316b4273aef112614f619",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/ch5 mixed function result.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "6dd031d4b02d48cabd0c900d4de14d95c4ca5f1b1047ff24ad1554be69e2e8a7",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/ch5 mixed inferred arithmetic.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "78f9cf617ea3158f8e6c57e0b925f5ed62ca48cb9a64fa09636bf1a7f3d63237",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/mixed/05 types/ch5 mixed widening.vq",
+      "profile": "mixed",
+      "qir_status": "pending",
+      "sha256": "c60a276091e246818f64b80d458289ef351efdb37d2af401dacdd901cf4b1bb4",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.5/typed/01 primitives/ch1 forward and mutual functions.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4b7f8d9807619dc15af5e40c3910c1fc1c100b3945a3f5c2209532c503f9332b",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.5/typed/01 primitives/ch1 function and local values.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "5fd224385d61a4bf01ea397d7628105b45b3eea5a9d50f3fe618fc70b779eb52",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 1,
+      "path": "examples/0.0.5/typed/01 primitives/ch1 nested scope baseline.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "eb1403b8533db88159aa859e0e3848d517ab7bd41343435017e66b206d9c0042",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 2,
+      "path": "examples/0.0.5/typed/02 operators expressions/c4 chapter2 function parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "f2935dff77d0b502b2d144201220f859d62cdbe325c7efee89f4c371c3475152",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 3,
+      "path": "examples/0.0.5/typed/03 conditions/c4 chapter3 function parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "afd18749068a5a1cca2bd770ec979df50b7bee38bf231f90c98c211b80ac8a18",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 4,
+      "path": "examples/0.0.5/typed/04 loops/c4 ch4 callback loop parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ffe24549c6ea8a0ee706454679e69fdfe8d981e6c59a5e44e2f58b0d9f17f7a7",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/c4 ch5 advanced function parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "11f862d257a81bb88fc468a308f9c41bd25f16820d9d32fe78a6452269942a1d",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/c4 ch5 function value copy parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "e5e8041fa64bfe556b5f6712fcf724f1d0f206c25485e7afda11e0fc926bc185",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/c4 ch5 indirect callback statements.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "ea1bdddb6bb60e9ecceee3c3478d043669f5c42009245ba2aa98c33720c8ce7e",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/c4 ch5 narrow return parity.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1148d0c5a2f6c2aa73094dc1e701ecda7750f1231085195057c56e4844e92c67",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/ch5 integer aliases.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "bcab52347460bbdf7e945bbe69c576d998fd2aafc0fe691997be1726c9365355",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/ch5 safe widening.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "4a0e74e468e63a38e68bbb7559ac7c690d2a68571c9c624692935242884b3fd3",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/ch5 signed boundaries.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "b37edb4c371160ef7b5c3d59352efca60c63e3b668acd44b7601181ce686d2d7",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/ch5 signed widening chain.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "1de8439a1455a653f149df3211a27b6d4b4f248ccbdf9a19bde4149c728eae9f",
+      "version": "0.0.5"
+    },
+    {
+      "candidate_interactive": false,
+      "candidate_negative": false,
+      "chapter": 5,
+      "path": "examples/0.0.5/typed/05 types/ch5 typed function result.vq",
+      "profile": "typed",
+      "qir_status": "pending",
+      "sha256": "54a5879fb4849a18569dc66336606e026ead4c03edcc73584aed7cf5d107aaed",
+      "version": "0.0.5"
+    }
+  ],
+  "qir_percent": 0.0,
+  "scope": "static inventory; no QIR-to-QRVM program parity proven",
+  "total_programs": 252,
+  "total_source_files": 321,
+  "verified_programs": 0
+}

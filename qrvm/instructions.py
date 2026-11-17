@@ -71,6 +71,8 @@ class OpCode(Enum):
     EXIT = auto()
 
     CALL = auto()
+    FUNCTION_REF = auto()
+    CALL_INDIRECT = auto()
     RETURN = auto()
 
     HALT = auto()

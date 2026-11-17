@@ -1,0 +1,11 @@
+extern "C" bool SDL_Init(u32 flags);
+extern "C" opaque SDL_CreateWindow(cstring title, i32 width, i32 height, u64 flags);
+extern "C" void SDL_DestroyWindow(opaque window);
+extern "C" void SDL_Quit();
+
+u32 init_flags = 32;
+bool ready = SDL_Init(init_flags);
+u64 window_flags = 0;
+opaque window = SDL_CreateWindow("Quar SDL3", 320, 240, window_flags);
+SDL_DestroyWindow(window);
+SDL_Quit();

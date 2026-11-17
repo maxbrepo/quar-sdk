@@ -1,0 +1,23 @@
+int increment(int x) { return x + 1; }
+int factorial(int x) {
+    if (x <= 1) { return 1; }
+    return x * factorial(x - 1);
+}
+int apply(function(int)->int cb, int x = 41) { return (cb)(x); }
+int forward(function(int)->int cb, int x) { return apply(cb, x); }
+bool check(function(int)->bool cb, int x) { return (cb)(x); }
+
+function callback = &increment;
+int direct = apply(callback);
+print(direct);
+callback = lambda(int x)->int { return x + 2; };
+int forwarded = forward(callback, 40);
+print(forwarded);
+function recursive = &factorial;
+int factorial_result = (recursive)(5);
+print(factorial_result);
+function predicate = lambda(int x)->bool { return x > 0; };
+bool positive = check(predicate, 1);
+print(positive);
+int named = apply(x = 41, cb = &increment);
+print(named);

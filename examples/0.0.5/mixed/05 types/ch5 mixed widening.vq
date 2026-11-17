@@ -1,0 +1,4 @@
+u8 small = 12;
+inferred_value = small;
+i16 wide = inferred_value;
+print(wide);

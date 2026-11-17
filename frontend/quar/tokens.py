@@ -35,6 +35,7 @@ class TokenType(Enum):
     RETURN = auto()
     ALIAS = auto()
     TYPE_TUPLE = auto()
+    EXTERN = auto()
     IMPORT = auto()
     AS = auto()
     WITH = auto()

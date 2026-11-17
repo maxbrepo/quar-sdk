@@ -1,0 +1,6 @@
+int double_value(int input) {
+    return input + input;
+}
+value = 12;
+result = double_value(value);
+print(result);

@@ -1,0 +1,7 @@
+int transform(int x) { return x * 2 + 3; }
+int combine(function(int)->int cb, int x) {
+    return (cb)(x) * 2 - (cb)(x - 1);
+}
+function cb = &transform;
+result = combine(cb, 4);
+print(result);

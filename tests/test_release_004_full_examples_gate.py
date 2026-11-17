@@ -20,8 +20,9 @@ class Release004FullExamplesGate(unittest.TestCase):
                 except Exception as error:
                     status, detail = "CRASH", repr(error)
                 outcomes[status] += 1
-                if status not in {"PASS", "EXPECTED ERROR"}:
+                if status not in {"PASS", "EXPECTED ERROR", "EXTERNAL DEPENDENCY"}:
                     failures.append(f"{source.relative_to(root)}: {status}: {detail}")
         self.assertFalse(failures, "\n".join(failures))
         self.assertGreater(outcomes["PASS"], 0)
         self.assertGreater(outcomes["EXPECTED ERROR"], 0)
+        self.assertGreater(outcomes["EXTERNAL DEPENDENCY"], 0)

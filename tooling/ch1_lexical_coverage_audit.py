@@ -19,7 +19,7 @@ from frontend.quar.module_loader import ModuleLoader
 from frontend.quar.semantic import SemanticAnalyzer
 from main import (
     EXPECTED_TEST_ERRORS, collect_batch_sources, execute_regression_source,
-    extract_test_number, regression_project_root,
+    extract_test_number, regression_project_root, regression_native_dependency,
 )
 from qrvm.compiler import QRVMCompiler
 
@@ -44,6 +44,10 @@ def audit(root: Path, *, compile_c: bool = False) -> list[AuditResult]:
     for path in collect_batch_sources(root):
         relative_path = str(path.relative_to(root))
         profile = source_profile(path)
+        dependency = regression_native_dependency(path)
+        if dependency is not None:
+            results.append(AuditResult(relative_path, profile, "external_dependency", dependency))
+            continue
         if extract_test_number(path) in EXPECTED_TEST_ERRORS:
             results.append(AuditResult(relative_path, profile, "expected_error"))
             continue

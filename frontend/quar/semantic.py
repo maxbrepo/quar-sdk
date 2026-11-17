@@ -1,4 +1,5 @@
 from .errors import SemanticError
+from .function_types import FunctionSignature
 from .scope_symbols import LexicalBindings, DuplicateBindingError
 from .numeric_types import (
     INTEGER_BITS,
@@ -22,10 +23,15 @@ from .ast_nodes import (
     ConstantDeclaration,
     Assignment,
     FunctionCall,
+    FunctionReference,
+    IndirectFunctionCall,
+    LambdaExpression,
     WithFileStatement,
     TryCatchStatement, ThrowStatement,
     NamedArgument,
     FunctionDefinition,
+    ExternalFunctionDeclaration,
+    ExternalCStructDeclaration,
     ReturnStatement,
     IfStatement,
     WhileStatement,
@@ -73,17 +79,33 @@ class SemanticAnalyzer:
                 "parameter_types": ["int", "int"],
             },
         }
+        self.function_bindings: dict[str, FunctionSignature] = {}
         self.current_return_type = None
         self.aliases = {}
         self.constants = set()
+        self.external_c_structs = {}
         self.loop_depth = 0
         self.tuple_types = {}
         self.lexical_bindings = LexicalBindings()
 
     def analyze(self, program):
+        # Register layouts before signatures, regardless of declaration order.
+        for statement in program:
+            if isinstance(statement, ExternalCStructDeclaration):
+                if statement.name in self.external_c_structs:
+                    raise SemanticError(f"Native C struct '{statement.name}' is already declared")
+                from qrvm.native_struct_layout import NativeStructLayout, NativeStructLayoutError
+                try:
+                    self.external_c_structs[statement.name] = NativeStructLayout(
+                        statement.name, tuple((f.name, f.field_type) for f in statement.fields)
+                    )
+                except NativeStructLayoutError as error:
+                    raise SemanticError(str(error)) from error
         for statement in program:
             if isinstance(statement, FunctionDefinition):
                 self.register_function(statement)
+            elif isinstance(statement, ExternalFunctionDeclaration):
+                self.register_external_function(statement)
 
         for statement in program:
             self.analyze_statement(statement)
@@ -91,6 +113,10 @@ class SemanticAnalyzer:
         return program
 
     def analyze_statement(self, statement):
+        if isinstance(statement, ExternalCStructDeclaration):
+            return
+        if isinstance(statement, ExternalFunctionDeclaration):
+            return  # External signature was registered before analyzing call sites
         if isinstance(statement, ThrowStatement):
             if self.resolve_type(self.analyze_expression(statement.message)) != "string":
                 raise SemanticError("throw requires a string message")
@@ -246,6 +272,9 @@ class SemanticAnalyzer:
             return
         if isinstance(statement, FunctionCall):
             self.analyze_function_call(statement)
+            return
+        if isinstance(statement, IndirectFunctionCall):
+            self.analyze_indirect_function_call(statement)
             return
         raise SemanticError(f"Unsupported statement: {type(statement).__name__}")
 
@@ -454,8 +483,10 @@ class SemanticAnalyzer:
     def analyze_scoped_block(self, statements):
         previous_variables = self.variables
         previous_arrays = self.arrays
+        previous_function_bindings = self.function_bindings
         self.variables = dict(self.variables)
         self.arrays = dict(self.arrays)
+        self.function_bindings = dict(self.function_bindings)
         try:
             with self.lexical_bindings.scoped():
                 for statement in statements:
@@ -463,6 +494,7 @@ class SemanticAnalyzer:
         finally:
             self.variables = previous_variables
             self.arrays = previous_arrays
+            self.function_bindings = previous_function_bindings
         # Analyze isolated lexical block
 
     def block_guarantees_return(self, statements):
@@ -481,10 +513,40 @@ class SemanticAnalyzer:
         return False
         # Check guaranteed function return
 
+    def register_external_function(self, declaration):
+        """Register an explicit, scalar-only C signature for normal call validation."""
+        if declaration.name in self.functions:
+            raise SemanticError(f"Function '{declaration.name}' is already declared")
+        if declaration.abi != "C" or declaration.return_type not in ("i32", "u32", "i64", "u64", "f32", "f64", "opaque", "cstring", "bool", "void") and declaration.return_type not in self.external_c_structs:
+            raise SemanticError("Unsupported external C signature")
+        if declaration.output_struct is not None:
+            if declaration.output_struct not in self.external_c_structs or declaration.return_type != "i32" or declaration.parameters:
+                raise SemanticError("Native out requires a declared C struct, i32 status and no source arguments")
+        if any(p.var_type not in ("i32", "u32", "i64", "u64", "f32", "f64", "bool", "opaque", "cstring") and p.var_type not in self.external_c_structs for p in declaration.parameters):
+            raise SemanticError("Unsupported external C parameter")
+        self.functions[declaration.name] = {
+            "arguments": len(declaration.parameters),
+            "required_arguments": len(declaration.parameters),
+            "return_type": "bytes" if declaration.output_struct else declaration.return_type,
+            "parameter_types": [p.var_type for p in declaration.parameters],
+            "parameter_names": [p.name for p in declaration.parameters],
+            "default_values": [None] * len(declaration.parameters),
+            "callback_signatures": [None] * len(declaration.parameters),
+            "external_c": True,
+        }
+
     def register_function(self, function):
         if function.name in self.functions:
             raise SemanticError(
                 f"Function '{function.name}' is already declared"
+            )
+
+        # Variadic syntax is parsed, but argument packing is not implemented yet.
+        # Reject it explicitly rather than silently compiling fixed-arity behavior.
+        if any(getattr(parameter, "is_variadic", False) for parameter in function.parameters):
+            raise SemanticError(
+                f"Function '{function.name}' uses variadic parameters, "
+                "which are not supported by the current runtime"
             )
 
         seen_default = False
@@ -515,6 +577,7 @@ class SemanticAnalyzer:
             "parameter_types": [parameter.var_type for parameter in function.parameters],
             "parameter_names": [parameter.name for parameter in function.parameters],
             "default_values": [parameter.default_value for parameter in function.parameters],
+            "callback_signatures": [getattr(parameter, "callback_signature", None) for parameter in function.parameters],
         }
         # Register function signature
 
@@ -522,11 +585,13 @@ class SemanticAnalyzer:
         global_variables = self.variables
         global_arrays = self.arrays
         global_objects = self.objects
+        global_function_bindings = self.function_bindings
         previous_return_type = self.current_return_type
 
         self.variables = {}
         self.arrays = {}
         self.objects = {}
+        self.function_bindings = {}
         self.current_return_type = function.return_type
 
         try:
@@ -539,6 +604,17 @@ class SemanticAnalyzer:
                             f"Parameter '{parameter.name}' is already declared"
                         ) from exc
                     self.variables[parameter.name] = parameter.var_type
+                    callback_signature = getattr(parameter, "callback_signature", None)
+                    if callback_signature is not None:
+                        if parameter.var_type != "function":
+                            raise SemanticError(
+                                f"Callback parameter '{parameter.name}' must have type 'function'"
+                            )
+                        if not isinstance(callback_signature, FunctionSignature):
+                            raise SemanticError(
+                                f"Invalid callback signature for '{parameter.name}'"
+                            )
+                        self.function_bindings[parameter.name] = callback_signature
 
                 for statement in function.body:
                     self.analyze_statement(statement)
@@ -546,6 +622,7 @@ class SemanticAnalyzer:
             self.variables = global_variables
             self.arrays = global_arrays
             self.objects = global_objects
+            self.function_bindings = global_function_bindings
             self.current_return_type = previous_return_type
 
         if (
@@ -754,7 +831,24 @@ class SemanticAnalyzer:
         value_type = self.analyze_expression(
             statement.value
         )
-        if not self.types_compatible(
+        # Match the contextual literal rules used by typed declarations.
+        # A literal must fit the declared return type; nonliteral narrowing
+        # remains forbidden, even when its runtime value might fit.
+        self.validate_integer_literal_range(
+            self.current_return_type,
+            statement.value,
+        )
+        target_type = canonical_numeric_type(
+            self.resolve_type(self.current_return_type)
+        )
+        contextual_literal = (
+            self.constant_integer_value(statement.value) is not None
+            and is_integer_type(target_type)
+        ) or (
+            isinstance(statement.value, Double)
+            and is_float_type(target_type)
+        )
+        if not contextual_literal and not self.types_compatible(
             self.current_return_type,
             value_type,
         ):
@@ -778,6 +872,13 @@ class SemanticAnalyzer:
             raise SemanticError(
                 "Array size must be greater than zero"
             )
+
+        if declaration.element_type is None:
+            if not declaration.initial_values:
+                raise SemanticError("Cannot infer element type from an empty array")
+            declaration.element_type = self.analyze_expression(declaration.initial_values[0])
+            if declaration.element_type in ("void", "function"):
+                raise SemanticError("Unsupported inferred array element type")
 
         capacity = (
             len(declaration.initial_values or [])
@@ -947,6 +1048,23 @@ class SemanticAnalyzer:
             )
 
         value_type = self.analyze_expression(declaration.value)
+        if declaration.var_type == "function":
+            if value_type != "function":
+                raise SemanticError("Function variable requires a function reference")
+            if isinstance(declaration.value, FunctionReference):
+                signature = self.reference_signature(declaration.value)
+            elif isinstance(declaration.value, Variable):
+                signature = self.function_bindings.get(declaration.value.name)
+            elif isinstance(declaration.value, LambdaExpression):
+                signature = self.analyze_lambda_expression(declaration.value)
+            else:
+                signature = None
+            if signature is None:
+                raise SemanticError("Function variable requires a known fixed signature")
+            self.lexical_bindings.declare(declaration.name)
+            self.variables[declaration.name] = "function"
+            self.function_bindings[declaration.name] = signature
+            return
         self.validate_integer_literal_range(
             declaration.var_type,
             declaration.value,
@@ -996,6 +1114,32 @@ class SemanticAnalyzer:
 
         value_type = self.analyze_expression(assignment.value)
 
+        # Track inferred function-valued bindings during semantic analysis.
+        # Runtime lowering and indirect calls are intentionally not enabled yet.
+        source_signature = None
+        if isinstance(assignment.value, FunctionReference):
+            source_signature = self.reference_signature(assignment.value)
+        elif isinstance(assignment.value, Variable):
+            source_signature = self.function_bindings.get(assignment.value.name)
+        elif isinstance(assignment.value, LambdaExpression):
+            source_signature = self.analyze_lambda_expression(assignment.value)
+        if source_signature is not None:
+            if assignment.name in self.variables:
+                if self.variables[assignment.name] != "function":
+                    raise SemanticError(f"Cannot assign 'function' to '{self.variables[assignment.name]}'")
+                previous_signature = self.function_bindings.get(assignment.name)
+                if previous_signature is None or not previous_signature.is_compatible_with(source_signature):
+                    raise SemanticError(f"Incompatible function signature for '{assignment.name}'")
+            else:
+                if self.lexical_bindings.is_declared_here(assignment.name):
+                    raise SemanticError(f"Variable '{assignment.name}' is already declared")
+                self.lexical_bindings.declare(assignment.name)
+                self.variables[assignment.name] = "function"
+            self.function_bindings[assignment.name] = source_signature
+            return
+        if assignment.name in self.function_bindings:
+            raise SemanticError(f"Cannot assign non-function value to '{assignment.name}'")
+
         if assignment.name not in self.variables:
             # An inferred first assignment introduces a binding in this scope.
             # Reassignments of visible names retain the original identity.
@@ -1027,7 +1171,103 @@ class SemanticAnalyzer:
                 f"Cannot assign '{value_type}' to '{variable_type}'"
             )
 
+    def function_signature(self, name: str) -> FunctionSignature:
+        """Return the declared callable signature; reject unresolved or untyped builtins."""
+        if name not in self.functions:
+            raise SemanticError(f"Unknown function reference '{name}'")
+        entry = self.functions[name]
+        parameter_types = entry.get("parameter_types")
+        if parameter_types is None:
+            raise SemanticError(f"Function '{name}' has no fixed callable signature")
+        return FunctionSignature(
+            tuple(self.resolve_type(item) for item in parameter_types),
+            self.resolve_type(entry["return_type"]),
+        )
+
+    def bind_function_reference(self, variable_name: str, reference: FunctionReference, expected: FunctionSignature | None = None) -> FunctionSignature:
+        """Validate and record a fixed-signature function binding for future runtime support.
+
+        This experimental API does not declare a Visual Quar variable or emit bytecode.
+        Return the resolved signature only after successful validation.
+        """
+        if variable_name in self.function_bindings or variable_name in self.variables:
+            raise SemanticError(f"Variable '{variable_name}' is already declared")
+        signature = self.reference_signature(reference)
+        if expected is not None and not expected.is_compatible_with(signature):
+            raise SemanticError(f"Incompatible function signature for '{variable_name}'")
+        self.function_bindings[variable_name] = signature
+        return signature
+
+    def bound_function_signature(self, variable_name: str) -> FunctionSignature:
+        """Return the signature of a visible experimental function binding.
+
+        Raise SemanticError if no such binding is visible in the current scope.
+        This does not create runtime callable variables.
+        """
+        if variable_name not in self.function_bindings:
+            raise SemanticError(f"Unknown function binding '{variable_name}'")
+        return self.function_bindings[variable_name]
+
+    def reference_signature(self, expression: FunctionReference) -> FunctionSignature:
+        """Resolve a function reference to its exact callable signature.
+
+        Return a FunctionSignature for a fixed-signature function; raise
+        SemanticError for unknown or dynamically typed builtins. This does
+        not enable runtime function values or indirect calls.
+        """
+        if not isinstance(expression, FunctionReference):
+            raise SemanticError("Expected a function reference expression")
+        return self.function_signature(expression.name)
+
+    def analyze_indirect_function_call(self, expression: IndirectFunctionCall) -> str:
+        """Check a fixed-signature indirect call and return its result type."""
+        callee = expression.callee
+        if isinstance(callee, FunctionReference):
+            signature = self.reference_signature(callee)
+        elif isinstance(callee, Variable) and callee.name in self.function_bindings:
+            signature = self.bound_function_signature(callee.name)
+        else:
+            raise SemanticError("Indirect call requires a known function reference")
+        if len(expression.arguments) != len(signature.parameter_types):
+            raise SemanticError(
+                f"Indirect call expects {len(signature.parameter_types)} arguments"
+            )
+        for index, (argument, expected) in enumerate(zip(expression.arguments, signature.parameter_types), 1):
+            actual = self.analyze_expression(argument)
+            if not self.types_compatible(expected, actual):
+                raise SemanticError(
+                    f"Indirect call argument {index} expects '{expected}', got '{actual}'"
+                )
+        return signature.return_type
+
+    def analyze_lambda_expression(self, expression: LambdaExpression) -> FunctionSignature:
+        """Validate a capture-free lambda and return its callable signature."""
+        for parameter in expression.parameters:
+            if parameter.default_value is not None:
+                raise SemanticError("Lambda default parameters are not yet supported")
+        # Function analysis isolates local variables and callable bindings from
+        # the enclosing expression, rejecting implicit captures by construction.
+        definition = FunctionDefinition(
+            expression.return_type, "<lambda>", expression.parameters, expression.body
+        )
+        self.analyze_function_definition(definition)
+        return FunctionSignature(
+            tuple(parameter.var_type for parameter in expression.parameters),
+            expression.return_type,
+        )
+
     def analyze_expression(self, expression):
+        if isinstance(expression, LambdaExpression):
+            self.analyze_lambda_expression(expression)
+            return "function"
+        if isinstance(expression, IndirectFunctionCall):
+            return self.analyze_indirect_function_call(expression)
+        if isinstance(expression, FunctionReference):
+            # References are recognized before runtime callable values exist.
+            # Fixed-signature validation is available separately for future calls.
+            if expression.name not in self.functions:
+                raise SemanticError(f"Unknown function reference '{expression.name}'")
+            return "function"
         if isinstance(expression, TupleLiteral):
             for value in expression.values: self.analyze_expression(value)
             return "tuple"
@@ -1582,9 +1822,28 @@ class SemanticAnalyzer:
                 values[index] = defaults[index]
 
         parameter_types = function["parameter_types"]
+        callback_signatures = function.get("callback_signatures") or [None] * len(parameter_types)
         for index, (value, parameter_type) in enumerate(zip(values, parameter_types)):
+            expected_callback = callback_signatures[index]
+            if expected_callback is not None:
+                if isinstance(value, FunctionReference):
+                    actual_signature = self.reference_signature(value)
+                elif isinstance(value, LambdaExpression):
+                    actual_signature = self.analyze_lambda_expression(value)
+                elif isinstance(value, Variable) and value.name in self.function_bindings:
+                    actual_signature = self.bound_function_signature(value.name)
+                else:
+                    raise SemanticError(
+                        f"Function '{call.name}' argument '{parameter_names[index]}' requires a known function reference"
+                    )
+                if not expected_callback.is_compatible_with(actual_signature):
+                    raise SemanticError(
+                        f"Function '{call.name}' argument '{parameter_names[index]}' has incompatible callback signature"
+                    )
             argument_type = self.analyze_expression(value)
-            if not self.types_compatible(parameter_type, argument_type):
+            native_unsigned_literal = (function.get("external_c") and parameter_type in ("u32", "u64")
+                                       and isinstance(value, Integer) and 0 <= value.value <= ((1 << (32 if parameter_type == "u32" else 64)) - 1))
+            if not (function.get("external_c") and parameter_type == "cstring" and argument_type == "string") and not native_unsigned_literal and not self.types_compatible(parameter_type, argument_type):
                 raise SemanticError(
                     f"Function '{call.name}' argument '{parameter_names[index]}' "
                     f"expects '{parameter_type}', received '{argument_type}'"
