@@ -1,6 +1,6 @@
 # Quar SDK
 
-**Current development version: 0.0.5-dev — private development snapshot, November 2026**
+**Current development version: 0.0.5-dev — development snapshot, 17 November 2026**
 
 Quar SDK is the modular development environment and experimental toolchain for the Quar language ecosystem.
 
